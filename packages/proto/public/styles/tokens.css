@@ -1,0 +1,21 @@
+:root {
+    --color-blueside-dark: #4171D6;
+    --color-blueside-light: #81ACFF;
+    --color-redside-dark: #D31A45;
+    --color-redside-light: #E84057;
+
+    --color-text: #A09B8C;
+    --color-text-important: #C89B3C;
+    --color-text-less-important: #C8AA6E;
+
+    --color-link: var(--color-text-important);
+    --color-link-inverted: rgb(255 208 0);
+
+    --color-background: #1E282D;
+    --color-background-header: #5B5A56;
+
+    --size-spacing-small: 0.25rem;
+    --size-spacing-medium: 0.5rem;
+    --size-spacing-large: 1rem;
+    --size-spacing-xlarge: 2rem;
+}
