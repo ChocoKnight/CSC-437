@@ -16,6 +16,32 @@ body {
     background-color: var(--color-background);
 }
 
+a {
+    color: var(--color-link-inverted);
+}
+
+h3, h4 {
+    color: var(--color-text-important);
+}
+
+.blue_side h3, .blue_side h4{
+    color: var(--color-blueside-dark);
+    border-style: solid;
+    border-bottom: 1;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+}
+
+.red_side h3, .red_side h4{
+    color: var(--color-redside-dark);
+    border-style: solid;
+    border-bottom: 1;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+}
+
 .champ_splash {
     display: block;
     margin-left: auto;
@@ -23,17 +49,8 @@ body {
     width: 75%;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-dt,
-summary {
-  color: var(--color-text-important);
+.team_game_summary {
+    border: 1em;
+    border-color: var(--color-text);
 }
 
-section {
-    
-}

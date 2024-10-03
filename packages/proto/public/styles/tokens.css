@@ -8,6 +8,8 @@
     --color-text-important: #C89B3C;
     --color-text-less-important: #C8AA6E;
 
+    --color-text-background: #ddd;
+
     --color-link: var(--color-text-important);
     --color-link-inverted: rgb(255 208 0);
 
