@@ -1,20 +1,23 @@
 :root {
     --color-blueside-dark: #4171D6;
     --color-blueside-light: #81ACFF;
+    --color-blueside-background: #28344E;
     --color-redside-dark: #D31A45;
     --color-redside-light: #E84057;
+    --color-redside-background: #59343B;
 
-    --color-text: #A09B8C;
+    --color-text: #B7B7C9;
     --color-text-important: #C89B3C;
     --color-text-less-important: #C8AA6E;
 
     --color-text-background: #ddd;
 
     --color-link: var(--color-text-important);
-    --color-link-inverted: rgb(255 208 0);
+    --color-link-inverted: #C8AA6E;
 
     --color-background: #1E282D;
-    --color-background-header: #5B5A56;
+    --color-background-header: #515163;
+    --color-background-stats: #424254;
 
     --size-spacing-small: 0.25rem;
     --size-spacing-medium: 0.5rem;

@@ -20,8 +20,12 @@ a {
     color: var(--color-link-inverted);
 }
 
-h3, h4 {
+h2, h3, h4 {
     color: var(--color-text-important);
+}
+
+.blue_side {
+    background-color: var(--color-blueside-background);
 }
 
 .blue_side h3, .blue_side h4{
@@ -33,6 +37,14 @@ h3, h4 {
     border-right: 0;
 }
 
+.blue_side dt{
+    color: var(--color-blueside-light);
+}
+
+.red_side {
+    background-color: var(--color-redside-background);
+}
+
 .red_side h3, .red_side h4{
     color: var(--color-redside-dark);
     border-style: solid;
@@ -40,6 +52,10 @@ h3, h4 {
     border-top: 0;
     border-left: 0;
     border-right: 0;
+}
+
+.red_side dt{
+    color: var(--color-redside-light);
 }
 
 .champ_splash {
@@ -54,3 +70,7 @@ h3, h4 {
     border-color: var(--color-text);
 }
 
+
+.stats {
+    background-color: var(--color-background-stats);
+}
