@@ -1,0 +1,76 @@
+header {
+    color: var(--color-text-important);
+    background-color: var(--color-background-header);
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: var(--size-spacing-medium);
+}
+
+header a {
+    color: var(--color-link);
+}
+
+body {
+    color: var(--color-text);
+    background-color: var(--color-background);
+}
+
+a {
+    color: var(--color-link-inverted);
+}
+
+h2, h3, h4 {
+    color: var(--color-text-important);
+}
+
+.blue_side {
+    background-color: var(--color-blueside-background);
+}
+
+.blue_side h3, .blue_side h4{
+    color: var(--color-blueside-dark);
+    border-style: solid;
+    border-bottom: 1;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+}
+
+.blue_side dt{
+    color: var(--color-blueside-light);
+}
+
+.red_side {
+    background-color: var(--color-redside-background);
+}
+
+.red_side h3, .red_side h4{
+    color: var(--color-redside-dark);
+    border-style: solid;
+    border-bottom: 1;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+}
+
+.red_side dt{
+    color: var(--color-redside-light);
+}
+
+.champ_splash {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+}
+
+.team_game_summary {
+    border: 1em;
+    border-color: var(--color-text);
+}
+
+
+.stats {
+    background-color: var(--color-background-stats);
+}
