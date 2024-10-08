@@ -76,6 +76,15 @@ dt {
     width: 75%;
 }
 
+.champ_icon {
+    display: inline-block;
+    width: 10%;
+}
+
+.summoner_spell {
+    width: 5%;
+}
+
 .team_game_summary {
     border: 1em;
     border-color: var(--color-text);
