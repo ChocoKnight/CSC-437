@@ -81,18 +81,35 @@ dt {
     width: 10%;
 }
 
+.rune {
+    width: 30%
+}
+
 .summoner_spell {
-    width: 5%;
+    width: 20%;
+}
+
+.game_overview {
+    background-color: var(--color-background-stats);
 }
 
 .team_game_summary {
     border: 1em;
     border-color: var(--color-text);
+    background-color: var(--color-background-stats);
 }
-
 
 .stats {
     background-color: var(--color-background-stats);
+}
+
+/* SVG Icons */
+svg.icon {
+    display: inline;
+    height: 2em;
+    width: 2em;
+    vertical-align: middle;
+    fill: currentColor;
 }
 
 /* Fonts */
