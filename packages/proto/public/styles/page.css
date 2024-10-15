@@ -78,7 +78,11 @@ dt {
 
 .champ_icon {
     display: inline-block;
-    width: 10%;
+    width: 20%;
+}
+
+.champion_list {
+    background-color: var(--color-background-stats);
 }
 
 .rune {
@@ -110,6 +114,10 @@ svg.icon {
     width: 2em;
     vertical-align: middle;
     fill: currentColor;
+}
+
+.grubs {
+    fill: var(--color-void)
 }
 
 /* Fonts */
