@@ -14,13 +14,22 @@ header a {
 body {
     color: var(--color-text);
     background-color: var(--color-background);
+    font-family: var(--font-family-body);
 }
 
 a {
     color: var(--color-link-inverted);
 }
 
-h2, h3, h4 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+dt {
+    font-family: var(--font-family-display);
+    line-height: var(--font-line-height-display);
     color: var(--color-text-important);
 }
 
@@ -28,7 +37,8 @@ h2, h3, h4 {
     background-color: var(--color-blueside-background);
 }
 
-.blue_side h3, .blue_side h4{
+.blue_side h3,
+.blue_side h4 {
     color: var(--color-blueside-dark);
     border-style: solid;
     border-bottom: 1;
@@ -37,7 +47,7 @@ h2, h3, h4 {
     border-right: 0;
 }
 
-.blue_side dt{
+.blue_side dt {
     color: var(--color-blueside-light);
 }
 
@@ -45,7 +55,8 @@ h2, h3, h4 {
     background-color: var(--color-redside-background);
 }
 
-.red_side h3, .red_side h4{
+.red_side h3,
+.red_side h4 {
     color: var(--color-redside-dark);
     border-style: solid;
     border-bottom: 1;
@@ -54,7 +65,7 @@ h2, h3, h4 {
     border-right: 0;
 }
 
-.red_side dt{
+.red_side dt {
     color: var(--color-redside-light);
 }
 
@@ -65,12 +76,80 @@ h2, h3, h4 {
     width: 75%;
 }
 
+.champ_icon {
+    display: inline-block;
+    width: 20%;
+}
+
+.champion_list {
+    background-color: var(--color-background-stats);
+}
+
+.rune {
+    width: 30%
+}
+
+.summoner_spell {
+    width: 20%;
+}
+
+.game_overview {
+    background-color: var(--color-background-stats);
+}
+
 .team_game_summary {
     border: 1em;
     border-color: var(--color-text);
+    background-color: var(--color-background-stats);
 }
-
 
 .stats {
     background-color: var(--color-background-stats);
+}
+
+/* SVG Icons */
+svg.icon {
+    display: inline;
+    height: 2em;
+    width: 2em;
+    vertical-align: middle;
+    fill: currentColor;
+}
+
+.grubs {
+    fill: var(--color-void)
+}
+
+/* Fonts */
+.play-regular {
+    font-family: "Play", sans-serif;
+    font-weight: var(--font-weight-normal);
+    font-style: normal;
+}
+
+.play-bold {
+    font-family: "Play", sans-serif;
+    font-weight: var(--font-weight-bold);
+    font-style: normal;
+}
+
+.inter-regular {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: var(--font-weight-normal);
+    font-style: normal;
+}
+
+.inter-light {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: var(--font-weight-light);
+    font-style: normal;
+}
+
+.inter-bold {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: var(--font-weight-bold);
+    font-style: normal;
 }
