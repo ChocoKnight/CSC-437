@@ -1,0 +1,47 @@
+.game_overview {
+    display: grid;
+    grid-template-columns:
+        subgrid;
+    grid-column:
+        start / span end;
+}
+
+.game_overview h2 {
+    grid-column:
+        auto / span 4;
+}
+
+.pick_ban {
+    display: grid;
+    grid-template-columns:
+        subgrid;
+    grid-column: 
+        2 / span 10;
+    padding: var(--size-spacing-medium);
+}
+
+.blue_side, .red_side {
+    grid-column:
+        auto / span 5;
+    
+}
+
+.team_game_summary {
+    display: grid;
+    grid-template-columns:
+        subgrid;
+    grid-column: 
+        2 /  span 10;
+}
+
+.timeline {
+    display: grid;
+    grid-template-columns:
+        subgrid;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns:
+        subgrid;
+}

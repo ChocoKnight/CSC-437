@@ -1,0 +1,86 @@
+.champions {
+  display: grid;
+  grid-column: 1 / span 8;
+  grid-template-columns:
+    subgrid
+    [start] [header] [subheader] [] [timings] [] [highlights] [] [end];
+  gap: var(--size-spacing-medium);
+  align-items: baseline;
+  margin: var(--size-spacing-small);
+
+  > dt {
+    grid-column: start;
+  }
+
+  > dd {
+    grid-column: header / end;
+  }
+}
+
+.itinerary > .destination {
+  display: contents;
+
+  header {
+    aspect-ratio: 16/9;
+    background-size: cover;
+    grid-column: header / highlights;
+
+    h3 {
+      color: currentColor;
+      text-align: right;
+      text-shadow: 1px 2px 1px rgb(0 0 0 / 50%);
+    }
+
+    a[href] {
+      color: currentColor;
+    }
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-spacing-medium);
+    grid-column: highlights / end;
+    list-style: none;
+    padding: 0;
+    line-height: var(--font-line-height-compact);
+  }
+}
+
+.itinerary > .transportation {
+  display: contents;
+
+  details {
+    display: contents;
+
+    summary {
+      grid-column: subheader / timings;
+    }
+  }
+
+  .timings {
+    grid-column: timings / end;
+    grid-template-columns: subgrid;
+  }
+
+  h3 {
+    grid-column: header / end;
+    font-weight: var(--font-weight-bold);
+
+    span:first-child::after {
+      content: " →";
+    }
+    .icon + span::before {
+      content: "→ ";
+    }
+    span.via {
+      font-style: italic;
+      &::before {
+        content: "(via ";
+      }
+      &::after {
+        content: ")";
+      }
+    }
+  }
+}
