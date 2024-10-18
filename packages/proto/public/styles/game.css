@@ -3,7 +3,7 @@
     grid-template-columns:
         subgrid;
     grid-column:
-        start / span end;
+        2 / span 10;
 }
 
 .game_overview h2 {
@@ -17,7 +17,7 @@
         subgrid;
     grid-column: 
         2 / span 10;
-    padding: var(--size-spacing-medium);
+    /* padding: var(--size-spacing-medium); */
 }
 
 .blue_side, .red_side {

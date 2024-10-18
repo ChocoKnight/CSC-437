@@ -27,6 +27,10 @@ dd {
     margin: 0;
 }
 
+section {
+    margin: var(--size-spacing-medium)
+}
+
 header {
     color: var(--color-text-important);
     background-color: var(--color-background-header);
@@ -123,12 +127,22 @@ img {
     background-color: var(--color-background-stats);
 }
 
+.champion_list dd{
+    background-color: var(--color-background-stats);
+    width: 50%
+}
+
 .rune {
     width: 30%
 }
 
 .summoner_spell {
     width: 20%;
+}
+
+.dragon {
+    width: 20%;
+    align-items: bottom;
 }
 
 .game_overview {
@@ -143,6 +157,7 @@ img {
 
 .stats {
     background-color: var(--color-background-stats);
+    padding: var(--size-spacing-medium);
 }
 
 /* SVG Icons */
