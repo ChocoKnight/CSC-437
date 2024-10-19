@@ -1,65 +1,120 @@
 <!DOCTYPE html>
 <html>
-<article>
 
-    <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Play:wght@400;700&display=swap"
-            rel="stylesheet">
-        <link rel="stylesheet" href="../styles/page.css" />
-        <link rel="stylesheet" href="../styles/tokens.css" />
-    </head>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Play:wght@400;700&display=swap"
+        rel="stylesheet">
 
-    <header>
-        <h1>
-            <a href="../index.html">League of Stats</a>
-        </h1>
-        <a href="../tournaments/worlds.html">&larr; Worlds 2024</a>
-        <h2>PSG Talon vs 100 Thieves</h2>
-        <h4>2 : 0</h4>
-    </header>
+    <link rel="stylesheet" href="../styles/reset.css" />
+    <link rel="stylesheet" href="../styles/page.css" />
+    <link rel="stylesheet" href="../styles/tokens.css" />
+    <link rel="stylesheet" href="../styles/game.css" />
+</head>
+
+<header>
+    <h1>
+        <a href="../index.html">League of Stats</a>
+    </h1>
+    <a href="../tournaments/worlds.html">&larr; Worlds 2024</a>
+</header>
+
+<main class="page">
 
     <body>
         <section class="game_overview">
-        <h3><a href="../games/psg_vs_100_game1.html">Game 1</a></h3>
-        <p>Game Duration - 26:18</p>
-        <p>PSG Talon - Blue Side</p>
-        <dl>
-            <dt>Bans</dt>
-                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg" class="champ_icon"></dd>
-                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Ashe_0.jpg" class="champ_icon"></dd>
-                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/JarvanIV_0.jpg" class="champ_icon"></dd>
-                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Lucian_0.jpg" class="champ_icon"></dd>
-                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Braum_0.jpg" class="champ_icon"></dd>
-                    <dt>Picks</dt>
-                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Gnar_0.jpg" class="champ_icon"></dd>
-                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Skarner_0.jpg" class="champ_icon"></dd>
-                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Orianna_0.jpg" class="champ_icon"></dd>
-                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Jhin_0.jpg" class="champ_icon"></dd>
-                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Alistar_0.jpg" class="champ_icon"></dd>
-        </dl>
-        <p>100 Thieves - Red Side</p>
-        <dl>
-            <dt>Bans</dt>
-                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Aurora_0.jpg" class="champ_icon"></dd>
-                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Vi_0.jpg" class="champ_icon"></dd>
-                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Yone_0.jpg" class="champ_icon"></dd>
-                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Rell_0.jpg" class="champ_icon"></dd>
-                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Nautilus_0.jpg" class="champ_icon"></dd>
-                    <dt>Picks</dt>
-                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Renekton_0.jpg" class="champ_icon"></dd>
-                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Sejuani_0.jpg" class="champ_icon"></dd>
-                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Hwei_0.jpg" class="champ_icon"></dd>
-                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Varus_0.jpg" class="champ_icon"></dd>
-                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Renata_0.jpg" class="champ_icon"></dd>
-        </dl>
+            <h2>PSG Talon vs 100 Thieves</h2>
+            <h4>2 : 0</h4>
         </section>
 
         <section class="game_overview">
-        <h3>Game 2</h3>
-        <p>Do this for any remaing games played</p>
+            <h3><a href="../games/psg_vs_100_game1.html">Game 1</a></h3>
+            <p>Game Duration - 26:18</p>
+        </section>
+
+        <section class="pick_ban">
+
+            <section class="blue_side">
+                <p>PSG Talon - Blue Side</p>
+                <dl>
+                    <dt>Bans</dt>
+                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                            class="champ_icon">
+                    </dd>
+                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Ashe_0.jpg"
+                            class="champ_icon">
+                    </dd>
+                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/JarvanIV_0.jpg"
+                            class="champ_icon">
+                    </dd>
+                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Lucian_0.jpg"
+                            class="champ_icon">
+                    </dd>
+                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Braum_0.jpg"
+                            class="champ_icon">
+                    </dd>
+                    <dt>Picks</dt>
+                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Gnar_0.jpg"
+                            class="champ_icon">
+                    </dd>
+                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Skarner_0.jpg"
+                            class="champ_icon">
+                    </dd>
+                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Orianna_0.jpg"
+                            class="champ_icon">
+                    </dd>
+                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Jhin_0.jpg"
+                            class="champ_icon">
+                    </dd>
+                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Alistar_0.jpg"
+                            class="champ_icon">
+                    </dd>
+                </dl>
+            </section>
+            <section class="red_side">
+                <p>100 Thieves - Red Side</p>
+                <dl>
+                    <dt>Bans</dt>
+                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Aurora_0.jpg"
+                            class="champ_icon">
+                    </dd>
+                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Vi_0.jpg"
+                            class="champ_icon">
+                    </dd>
+                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Yone_0.jpg"
+                            class="champ_icon">
+                    </dd>
+                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Rell_0.jpg"
+                            class="champ_icon">
+                    </dd>
+                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Nautilus_0.jpg"
+                            class="champ_icon">
+                    </dd>
+                    <dt>Picks</dt>
+                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Renekton_0.jpg"
+                            class="champ_icon">
+                    </dd>
+                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Sejuani_0.jpg"
+                            class="champ_icon">
+                    </dd>
+                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Hwei_0.jpg"
+                            class="champ_icon">
+                    </dd>
+                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Varus_0.jpg"
+                            class="champ_icon">
+                    </dd>
+                    <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Renata_0.jpg"
+                            class="champ_icon">
+                    </dd>
+                </dl>
+            </section>
+        </section>
+
+        <section class="game_overview">
+            <h3>Game 2</h3>
+            <p>Do this for any remaing games played</p>
         </section>
 
         <section class="team_game_summary">
@@ -68,21 +123,21 @@
                 <dt>
                     Kills
                     <svg class="icon">
-                        <use href="../icons/objectives.svg#icon-sword"/>
+                        <use href="../icons/objectives.svg#icon-sword" />
                     </svg>
                 </dt>
                 <dd>41</dd>
                 <dt>
                     Towers
                     <svg class="icon">
-                        <use href="../icons/objectives.svg#icon-tower"/>
+                        <use href="../icons/objectives.svg#icon-tower" />
                     </svg>
                 </dt>
                 <dd>20</dd>
                 <dt>
                     Dragons
                     <svg class="icon">
-                        <use href="../icons/objectives.svg#icon-dragon"/>
+                        <use href="../icons/objectives.svg#icon-dragon" />
                     </svg>
                 </dt>
                 <dd>6</dd>
@@ -108,6 +163,6 @@
             <p>Fill out sum stats for other players and team</p>
         </section>
     </body>
-</article>
+</main>
 
 </html>
