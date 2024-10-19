@@ -10,6 +10,6 @@ npm start
 ```
 
 ## Documentation
-
-- Our [Concept Map](inbox/LeagueOfStatistics.jpg)
-- The [Sample Data](inbox/example_data.pdf)
+Lab 1 Miro Concept Map and Sample Data
+- [Concept Map](inbox/LeagueOfStatistics.jpg) 
+- [Sample Data](inbox/example_data.pdf)
