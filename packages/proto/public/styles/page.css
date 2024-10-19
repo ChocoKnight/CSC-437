@@ -111,11 +111,11 @@ img {
     color: var(--color-redside-light);
 }
 
-.champ_splash {
+.champ_loading {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 75%;
+    width: 100%;
 }
 
 .champ_icon {

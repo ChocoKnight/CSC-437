@@ -1,10 +1,18 @@
-/* .stats {
+h2 {
+    display: grid;
+    grid-template-columns:
+        subgrid;
+    grid-column:
+        auto / span 12;
+}
+
+.champ_loading {
     display: grid;
     grid-template-columns:
         subgrid;
     grid-column:
         auto / span 4;
-} */
+}
 
 .stats {
     display: flex;
