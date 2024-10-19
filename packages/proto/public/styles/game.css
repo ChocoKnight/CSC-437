@@ -19,7 +19,6 @@
         subgrid;
     grid-column:
         2 / span 10;
-    /* padding: var(--size-spacing-medium); */
 
     display: flex;
 
@@ -34,22 +33,6 @@
     grid-column:
         auto / span 5;
 }
-
-/* .team_game_summary {
-    display: grid;
-    grid-template-columns:
-        subgrid;
-    grid-column:
-        2 / span 10;
-
-    display: flex;
-
-    &>* {
-        width: fit-content;
-        flex: 1;
-    }
-} */
-
 
 .timeline,
 .objectives {
@@ -68,9 +51,3 @@
         */
     }
 }
-
-/* .stats {
-    display: grid;
-    grid-template-columns:
-        subgrid;
-} */
