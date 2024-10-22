@@ -31,11 +31,11 @@
 
 <script type="module">
     import { define } from "@calpoly/mustang";
-    // import { PlayerGameSummaryElement } from "/scripts/player_game_summary.js";
+    import { PlayerGameSummaryElement } from "../scripts/player_game_summary.js";
     import { TeamGameSummaryElement } from "../scripts/team_game_summary.js";
 
     define({
-        // "player-game-summary": PlayerGameSummaryElement,
+        "player-game-summary": PlayerGameSummaryElement,
         "team-game-summary": TeamGameSummaryElement
     });
 </script>
@@ -136,7 +136,10 @@
                         <td>KDA</td>
                         <td>CS</td>
                     </tr>
-                    <tr>
+                    <player-game-summary>
+                        
+                    </player-game-summary>
+                    <!-- <tr>
                         <td>Azhi</td>
                         <td><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Gnar_0.jpg"
                                 class="champ_icon"></td>
@@ -162,7 +165,7 @@
                         </td>
                         <td>3/0/12</td>
                         <td>227</td>
-                    </tr>
+                    </tr> -->
                 </table>
                 <!-- <p>Fill out stats for each player in game</p> -->
             </section>
