@@ -4,14 +4,53 @@ import reset from "./styles/reset.css.js";
 export class TeamGameSummaryElement extends HTMLElement {
     static template = html`
     <template>
-        <span slot="team_name">PSG Talon</span>
-        <span slot="kills">Kills 20</span>
-        <span slot="towers">Towers 10</span>
-        <span slot="grubs">Grubs 2</span>
-        <span slot="heralds">Heralds 1</span>
-        <span slot="drakes">Drakes 2</span>
-        <span slot="barons">Barons 1</span>
-        <span slot="gold">Gold 54.1k</span>
+        <slot name="team-name">
+            <h3>Team Name</h3>
+        </slot>
+        <dl>
+            <dt>Kills</dt>
+            <dd>
+                <slot name="kills">
+                    <span>0</span>
+                </slot>
+            </dd>
+            <dt>Towers</dt>
+            <dd>
+                <slot name="towers">
+                    <span>0</span>
+                </slot>
+            </dd>
+            <dt>Grubs</dt>
+            <dd>
+                <slot name="grubs">
+                    <span>0</span>
+                </slot>
+            </dd>
+            <dt>Heralds</dt>
+            <dd>
+                <slot name="heralds">
+                    <span>0</span>
+                </slot>
+            </dd>
+            <dt>Drakes</dt>
+            <dd>
+                <slot name="drakes">
+                    <span>0</span>
+                </slot>
+            </dd>
+            <dt>Barons</dt>
+            <dd>
+                <slot name="barons">
+                    <span>0</span>
+                </slot>
+            </dd>
+            <dt>Gold</dt>
+            <dd>
+                <slot name="gold">
+                    <span>0</span>
+                </slot>
+            </dd>
+        </dl>
         <table>
             <thead>
                 <tr>
@@ -58,7 +97,25 @@ export class TeamGameSummaryElement extends HTMLElement {
     </template>
     `;
 
-    static styles = css``;
+    static styles = css`
+    :host {
+      display: contents;
+    }
+
+    .blue_side {
+    background-color: var(--color-blueside-background);
+    }
+
+    .blue_side h3,
+    .blue_side h4 {
+        color: var(--color-blueside-dark);
+        border-style: solid;
+        border-bottom: 1;
+        border-top: 0;
+        border-left: 0;
+        border-right: 0;
+    }
+      `;
 
     constructor() {
         super();
