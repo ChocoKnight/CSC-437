@@ -121,6 +121,7 @@ img {
 .champ_icon {
     display: inline-block;
     width: 80%;
+    border-radius: 50%
 }
 
 .champion_list {
@@ -132,12 +133,8 @@ img {
     width: 50%
 }
 
-.rune {
+.rune, .summoner_spell, .item {
     width: 50%
-}
-
-.summoner_spell {
-    width: 50%;
 }
 
 .dragon {
