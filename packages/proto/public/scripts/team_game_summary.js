@@ -65,4 +65,7 @@ export class TeamGameSummaryElement extends HTMLElement {
             .template(TeamGameSummaryElement.template)
             .styles(TeamGameSummaryElement.styles, reset.styles);
     }
+
+    static initializeOnce() {
+    }
 }
