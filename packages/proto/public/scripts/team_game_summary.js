@@ -2,7 +2,8 @@ import { css, html, shadow } from "@calpoly/mustang";
 import reset from "./styles/reset.css.js";
 
 export class TeamGameSummaryElement extends HTMLElement {
-    static template = html`<template>
+    static template = html`
+    <template>
         <span slot="team_name">PSG Talon</span>
         <span slot="kills">Kills 20</span>
         <span slot="towers">Towers 10</span>
@@ -54,7 +55,7 @@ export class TeamGameSummaryElement extends HTMLElement {
                     </tr>
                 </tbody>
             </table>
-      </template>
+    </template>
     `;
 
     static styles = css``;
@@ -66,6 +67,4 @@ export class TeamGameSummaryElement extends HTMLElement {
             .styles(TeamGameSummaryElement.styles, reset.styles);
     }
 
-    static initializeOnce() {
-    }
 }
