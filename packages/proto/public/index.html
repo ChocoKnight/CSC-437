@@ -14,13 +14,34 @@
   <link rel="stylesheet" href="styles/tokens.css" />
 </head>
 
-<header>
+<script type="importmap">
+  {
+      "imports": {
+        "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
+      }
+  }
+</script>
+
+<script type="module">
+  import { define } from "@calpoly/mustang";
+  import { HeaderElement } from "../scripts/header.js";
+
+  define({
+    "vision-header": HeaderElement,
+  });
+</script>
+
+<!-- <header>
   <h1>League of Statistics</h1>
   <p>Where to find statistics about competitive League of Legends</p>
   <p>Menu</p>
-</header>
+</header> -->
+<vision-header>
+
+</vision-header>
 
 <main class="page">
+
   <body>
     <dl>
       <dt><a href="tournaments/tournaments.html">Tournaments</a></dt>
@@ -30,6 +51,5 @@
     </dl>
   </body>
 </main>
-
 
 </html>

@@ -6,8 +6,7 @@
 
 .page {
     display: grid;
-    grid-template-columns:
-        [start] 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr[end];
+    grid-template-columns: repeat(12, 1fr);
     /* column-gap: 10px; */
 }
 

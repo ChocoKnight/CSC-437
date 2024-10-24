@@ -31,12 +31,12 @@
 
 <script type="module">
     import { define } from "@calpoly/mustang";
-    import { PlayerGameSummaryElement } from "../scripts/player_game_summary.js";
     import { TeamGameSummaryElement } from "../scripts/team_game_summary.js";
+    import { PlayerGameSummaryElement } from "../scripts/player_game_summary.js";
 
     define({
-        "player-game-summary": PlayerGameSummaryElement,
-        "team-game-summary": TeamGameSummaryElement
+        "team-game-summary": TeamGameSummaryElement,
+        "player-game-summary": PlayerGameSummaryElement
     });
 </script>
 
@@ -48,6 +48,10 @@
             <h3>Game 1</h3>
             <p>Game Duration - 26:18</p>
         </section>
+
+        <pick-ban>
+            
+        </pick-ban>
 
         <section class="pick_ban">
             <section class="blue_side">
@@ -104,12 +108,35 @@
                             class="champ_icon"></dd>
                 </dl>
             </section>
-        </section>
+        </section>        
 
         <section class="team_game_summary">
             <section class="blue_side">
                 <team-game-summary>
+                    <span slot="team_name">PSG Talon</span>
+                    <span slot="kills">20</span>
+                    <span slot="towers">10</span>
+                    <span slot="grubs">5</span>
+                    <span slot="heralds">0</span>
+                    <span slot="drakes">2</span>
+                    <span slot="barons">1</span>
+                    <span slot="gold">54.1k</span>
                     
+                    <!-- <player-game-summary slot="top">
+                        <span slot="player_name">Azhi</span>
+                    </player-game-summary>
+                    <player-game-summary slot="jungle">
+                        <span slot="player_name">JunglePlayer</span>
+                    </player-game-summary>
+                    <player-game-summary slot="mid">
+                        <span slot="player_name">MidPlayer</span>
+                    </player-game-summary>
+                    <player-game-summary slot="bot">
+                        <span slot="player_name">BotPlayer</span>
+                    </player-game-summary>
+                    <player-game-summary slot="support">
+                        <span slot="player_name">SupportPlayer</span>
+                    </player-game-summary> -->
                 </team-game-summary>
             </section>
             <section class="red_side">
@@ -137,7 +164,7 @@
                         <td>CS</td>
                     </tr>
                     <player-game-summary>
-                        
+                        <a href="" slot="player_name">Azhi</a>
                     </player-game-summary>
                     <!-- <tr>
                         <td>Azhi</td>

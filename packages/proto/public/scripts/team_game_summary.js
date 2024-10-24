@@ -4,7 +4,7 @@ import reset from "./styles/reset.css.js";
 export class TeamGameSummaryElement extends HTMLElement {
     static template = html`
     <template>
-        <slot name="team-name">
+        <slot name="team_name">
             <h3>Team Name</h3>
         </slot>
         <dl>
@@ -62,6 +62,20 @@ export class TeamGameSummaryElement extends HTMLElement {
                 </tr>
             </thead>
             <tbody>
+                <tr>
+                    <td><slot name="top_player_name">Top Name</slot></td>
+                    <td><slot name="top_runes">Top Runes</slot></td>
+                    <td><slot name="top_items">Top Items</slot></td>
+                    <td><slot name="top_kda">Top KDA</slot></td>
+                    <td><slot name="top_cs">Top CS</slot></td>
+                </tr>
+                <tr>
+                    <td><slot name="jungle_player_name"></slot></td>
+                    <td><slot name="jungle_runes"></slot></td>
+                    <td><slot name="jungle_items"></slot></td>
+                    <td><slot name="jungle_kda"></slot></td>
+                    <td><slot name="jungle_cs"></slot></td>
+                </tr>
             </tbody>
         </table>
     </template>
@@ -72,18 +86,15 @@ export class TeamGameSummaryElement extends HTMLElement {
       display: contents;
     }
 
-    .blue_side {
-    background-color: var(--color-blueside-background);
+    dl {
+        display: grid;
+        grid-template-columns: max-content auto auto auto auto auto;
+        align-items: center;
     }
 
-    .blue_side h3,
-    .blue_side h4 {
-        color: var(--color-blueside-dark);
-        border-style: solid;
-        border-bottom: 1;
-        border-top: 0;
-        border-left: 0;
-        border-right: 0;
+    dt {
+        grid-column: 1;
+        padding: var(--size-spacing-medium);
     }
       `;
 

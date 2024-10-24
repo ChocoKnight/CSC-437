@@ -2,30 +2,36 @@ import { css, html, shadow } from "@calpoly/mustang";
 
 export class PlayerGameSummaryElement extends HTMLElement {
     static template = html`<template>
-        <tr slot="player">
-            <td slot="player_name_champ">
-                <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Gnar_0.jpg" class="champ_icon">
-                <a href="">Azhi</a>
-            </td>
-            <td slot="runes_summoner_spells">
-                <img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Resolve/GraspOfTheUndying/GraspOfTheUndying.png" 
-                    class="rune">
-                <img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7201_Precision.png"
-                    class="rune">
-                <img src="https://ddragon.leagueoflegends.com/cdn/14.20.1/img/spell/SummonerFlash.png"
-                    class="summoner_spell">
-                <img src="https://ddragon.leagueoflegends.com/cdn/14.20.1/img/spell/SummonerTeleport.png"
-                    class="summoner_spell">
-            </td>
-            <td slot="items">
-                <slot name="item">
-                    <img src="https://ddragon.leagueoflegends.com/cdn/14.20.1/img/item/1057.png" class="item">
+        <tr>
+            <td>
+                <slot name="champion">
+                    <a href="">Champion Image</a>
                 </slot>
-                <img src="https://ddragon.leagueoflegends.com/cdn/14.20.1/img/item/1031.png" class="item">
-                <img src="https://ddragon.leagueoflegends.com/cdn/14.20.1/img/item/1055.png" class="item">
-                <img src="https://ddragon.leagueoflegends.com/cdn/14.20.1/img/item/3078.png" class="item">
-                <img src="https://ddragon.leagueoflegends.com/cdn/14.20.1/img/item/3053.png" class="item">
-                <img src="https://ddragon.leagueoflegends.com/cdn/14.20.1/img/item/3047.png" class="item">
+                <slot name="player_name">
+                    <a href="">Player Name</a>
+                </slot>
+            </td>
+            <td>
+                <slot name="primary_rune">
+                    <span>Rune</span>
+                </slot>
+                <slot name="secondary_rune">
+                    <span>Rune</span>
+                </slot>
+                <slot name="primary_summoner">
+                    <span>Summoner</span>
+                </slot>
+                <slot name="seconday_summoner">
+                    <span>Summoner</span>
+                </slot>
+            </td>
+            <td>
+                <slot name="item_1"></slot>
+                <slot name="item_2"></slot>
+                <slot name="item_3"></slot>
+                <slot name="item_4"></slot>
+                <slot name="item_5"></slot>
+                <slot name="item_6"></slot>
             </td>
             <td slot="KDA">
                 KDA
