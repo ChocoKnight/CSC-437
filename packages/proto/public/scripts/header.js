@@ -1,5 +1,6 @@
 import { css, define, html, shadow, Dropdown, Events } from "@calpoly/mustang";
 import reset from "./styles/reset.css.js";
+import header from "./styles/header.css.js";
 
 export class HeaderElement extends HTMLElement {
     static uses = define({
@@ -9,51 +10,86 @@ export class HeaderElement extends HTMLElement {
     static template = html`
     <template>
         <header>
-            <h1>Lens of Legends</h1>
-            <div class="nav_bar">
-                <a href="tournaments/tournaments.html">Tournaments</a>
-                <a href="teams/teams.html">Teams</a>
-                <a href="players/players.html">Players</a>
-                <a href="champions/champions.html">Champions</a>
+            <div>
+                <h1>
+                    <a href="../index.html">Lens of Legends</a>
+                </h1>
             </div>
-            <nav>
-                <p><slot> Unnamed Tour </slot></p>
-                <mu-dropdown>
-                <menu>
-                    <li>Hello, traveler</li>
+            <div class="nav_bar">
+                <ul>
                     <li>
-                    <label class="dark-mode-switch">
-                        <input type="checkbox" />
-                        Dark Mode
-                    </label>
+                        <a href="../tournaments/tournaments.html">Tournaments</a>
                     </li>
-                </menu>
-                </mu-dropdown>
-            </nav>
+                    <li>
+                        <a href="../teams/teams.html">Teams</a>
+                    </li>
+                    <li>
+                        <a href="../players/players.html">Players</a>
+                    </li>
+                    <li>
+                        <a href="../champions/champions.html">Champions</a>
+                    </li>
+                </ul>
+            </div>
         </header>
     </template>
     `;
 
+    // <nav>
+    //             <p><slot> Unnamed Tour </slot></p>
+    //             <mu-dropdown>
+    //             <menu>
+    //                 <li>Hello, traveler</li>
+    //                 <li>
+    //                 <label class="dark-mode-switch">
+    //                     <input type="checkbox" />
+    //                     Dark Mode
+    //                 </label>
+    //                 </li>
+    //             </menu>
+    //             </mu-dropdown>
+    //         </nav>
+
     static styles = css`
     :host {
-      display: grid;
-      grid-column: 1 / -1;
+        display: grid;
+        grid-column: 1 / -1;
     }
 
-    nav {
-      display: flex;
-      flex-direction: column;
-      flex-basis: max-content;
-      align-items: end;
-    }   
+    header {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: bottom;
+        justify-content: space-between;
+        padding: var(--size-spacing-medium);
+        background-color: var(--color-background-header);
+        color: var(--color-text-inverted);
+    }
 
+    .nav_bar ul {
+        flex-direction: row;
+        padding: 0;
+        margin: 0;
+    }
+
+    .nav_bar ul li {
+        margin: var(--size-spacing-medium);
+    }
+
+    // nav {
+    //     display: flex;
+    //     flex-direction: column;
+    //     flex-basis: max-content;
+    //     align-items: end;
+    // }
     `;
 
     constructor() {
         super();
         shadow(this)
             .template(HeaderElement.template)
-            .styles(HeaderElement.styles, reset.styles);
+            .styles(HeaderElement.styles, reset.styles, header.styles);
         const dm = this.shadowRoot.querySelector(
             ".dark-mode-switch"
         );
@@ -74,5 +110,4 @@ export class HeaderElement extends HTMLElement {
             toggleDarkMode(event.currentTarget, event.detail.checked)
         );
     }
-
 }

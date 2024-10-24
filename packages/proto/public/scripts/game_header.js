@@ -43,11 +43,10 @@ export class GameHeaderElement extends HTMLElement {
     .game_overview {
         display: grid;
         grid-template-columns: repeat(3, 1fr); 
-        // gap: 10px; 
+        gap: 10px; 
     }
 
-    div, 
-    .game_overview div {
+    div {
         display: flex;
         flex-direction: row;
         align-items: center;

@@ -36,7 +36,7 @@ header {
     flex-wrap: wrap;
     align-items: baseline;
     justify-content: space-between;
-    padding: var(--size-spacing-medium);
+    /* padding: var(--size-spacing-medium); */
     display: flex;
 }
 
@@ -44,9 +44,9 @@ header a {
     color: var(--color-link);
 }
 
-body> :not(header) {
+/* body > :not(header) {
     margin: var(--size-spacing-medium);
-}
+} */
 
 body {
     color: var(--color-text);
@@ -72,6 +72,13 @@ dt {
 
 img {
     width: 100%
+}
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
 }
 
 .blue_side {
@@ -127,12 +134,14 @@ img {
     background-color: var(--color-background-stats);
 }
 
-.champion_list dd{
+.champion_list dd {
     background-color: var(--color-background-stats);
     width: 50%
 }
 
-.rune, .summoner_spell, .item {
+.rune,
+.summoner_spell,
+.item {
     width: 50%
 }
 
