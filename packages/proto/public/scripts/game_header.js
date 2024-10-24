@@ -54,8 +54,6 @@ export class GameHeaderElement extends HTMLElement {
         justify-content: center;
         padding: 10px; 
     }
-
-    
     `;
 
     constructor() {
