@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../styles/reset.css" />
     <link rel="stylesheet" href="../styles/page.css" />
     <link rel="stylesheet" href="../styles/tokens.css" />
-    <link rel="stylesheet" href="../styles/game.css" />
+    <!-- <link rel="stylesheet" href="../styles/game.css" /> -->
 </head>
 
 <script type="importmap">
@@ -29,12 +29,18 @@
     import { GameHeaderElement } from "../scripts/game_header.js";
     import { TeamGameSummaryElement } from "../scripts/team_game_summary.js";
     import { PlayerGameSummaryElement } from "../scripts/player_game_summary.js";
+    import { GameTabPanelElement } from "../scripts/game_tab_panel.js"; 
+    import { PickBanElement } from "../scripts/pick_ban.js"; 
+    import { PickBanPhaseElement } from "../scripts/pick_ban_phase.js";
 
     define({
         "lol-header": HeaderElement,
         "game-header": GameHeaderElement,
         "team-game-summary": TeamGameSummaryElement,
-        "player-game-summary": PlayerGameSummaryElement
+        "player-game-summary": PlayerGameSummaryElement,
+        "game-tab-panel": GameTabPanelElement,
+        "pick-ban": PickBanElement,
+        "pick-ban-phase": PickBanPhaseElement
     });
 </script>
 
@@ -46,16 +52,32 @@
 
     <body>
         <game-header>
-
+            <a slot="team_one" href="">PSG Talon</a>
+            <a slot="team_two" href="">100 Thieves</a>
+            <a slot="tournament" href="">Worlds 2024</a>
+            <span slot="score" href="">2-0</span>
+            <span slot="date">September 9, 2024 - 04:00 PST</span>
         </game-header>
 
-        <section class="game_overview">
+        <game-tab-panel>
+            
+        </game-tab-panel>
+
+        <pick-ban>
+            <pick-ban-phase slot="ban1">
+                <!-- <img slot="champ1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                    class="champ_icon">
+                <img slot="champ2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                    class="champ_icon"> -->
+            </pick-ban-phase>
+        </pick-ban>
+
+        <!-- <section class="game_overview">
             <h3><a href="../games/psg_vs_100_game1.html">Game 1</a></h3>
             <p>Game Duration - 26:18</p>
         </section>
 
         <section class="pick_ban">
-
             <section class="blue_side">
                 <p>PSG Talon - Blue Side</p>
                 <dl>
@@ -181,7 +203,7 @@
                 </tr>
             </table>
             <p>Fill out sum stats for other players and team</p>
-        </section>
+        </section> -->
     </body>
 </main>
 

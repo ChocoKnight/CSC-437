@@ -8,9 +8,10 @@
     --color-link: var(--color-text);
     --color-link-inverted: #C8AA6E;
 
-    --color-background: #515163;
+    --color-background: #1E2328;
     --color-background-lighter: #3C3C41;
     --color-background-header: #1E282D;
+    --color-background-nav: #010A13;
     --color-background-stats: #424254;
 
     --color-blueside-dark: #4171D6;

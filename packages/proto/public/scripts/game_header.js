@@ -6,21 +6,21 @@ export class GameHeaderElement extends HTMLElement {
     static template = html`
     <template>
         <div class="game_overview">
-            <slot name="team_one">
-                <h2>
+            <h2>
+                <slot name="team_one">
                     <a href="">Team One</a>
-                </h2>
-            </slot>
-            <slot name="score">
-                <h2>
-                    <span>0:0</span>
-                </h2>
-            </slot>
-            <slot name="team_two">
-                <h2>
-                    <a href="">Team Two</a>
-                </h2>
-            </slot>
+                </slot>
+            </h2>
+            <h2>
+                <slot name="score">
+                    <span>0-0</a>
+                </slot>
+            </h2>
+            <h2>
+                <slot name="team_two">
+                    <a href="">Team One</a>
+                </slot>
+            </h2>
         </div>
         <div>
             <slot name="tournament">
@@ -43,16 +43,18 @@ export class GameHeaderElement extends HTMLElement {
 
     .game_overview {
         display: grid;
-        grid-template-columns: repeat(3, 1fr); 
-        gap: 10px; 
+        grid-template-columns: 1fr 0.25fr 1fr;
+        align-items: center; 
+        justify-items: center; 
     }
+         
 
     div {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        padding: 10px; 
+        padding: var(--size-spacing-medium); 
     }
     `;
 
@@ -62,5 +64,4 @@ export class GameHeaderElement extends HTMLElement {
             .template(GameHeaderElement.template)
             .styles(GameHeaderElement.styles, reset.styles, header.styles);
     }
-
 }

@@ -53,6 +53,8 @@ export class HeaderElement extends HTMLElement {
     static styles = css`
     :host {
         display: grid;
+        position: sticky;
+        top: 0;
         grid-column: 1 / -1;
     }
 
@@ -65,6 +67,16 @@ export class HeaderElement extends HTMLElement {
         padding: var(--size-spacing-medium);
         background-color: var(--color-background-header);
         color: var(--color-text-inverted);
+        width: auto;
+        padding: 0;
+    }
+
+    header h1, .nav_bar {
+        padding-left: var(--size-spacing-xlarge);
+    }
+
+    .nav_bar {
+        background-color: var(--color-background-nav);
     }
 
     .nav_bar ul {

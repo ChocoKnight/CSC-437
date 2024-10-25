@@ -42,7 +42,7 @@ const styles = css`
         font-style: italic;
     }
 
-    header a {
+    a {
         color: var(--color-link);
     }
 
