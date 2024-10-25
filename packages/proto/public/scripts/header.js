@@ -12,22 +12,22 @@ export class HeaderElement extends HTMLElement {
         <header>
             <div>
                 <h1>
-                    <a href="../index.html">Lens of Legends</a>
+                    <a href="/packages/proto/public/index.html">Lens of Legends</a>
                 </h1>
             </div>
             <div class="nav_bar">
                 <ul>
                     <li>
-                        <a href="../tournaments/tournaments.html">Tournaments</a>
+                        <a href="/packages/proto/public/tournaments/tournaments.html">Tournaments</a>
                     </li>
                     <li>
-                        <a href="../teams/teams.html">Teams</a>
+                        <a href="/packages/proto/public/teams/teams.html">Teams</a>
                     </li>
                     <li>
-                        <a href="../players/players.html">Players</a>
+                        <a href="/packages/proto/public/players/players.html">Players</a>
                     </li>
                     <li>
-                        <a href="../champions/champions.html">Champions</a>
+                        <a href="/packages/proto/public/champions/champions.html">Champions</a>
                     </li>
                 </ul>
             </div>
@@ -90,24 +90,25 @@ export class HeaderElement extends HTMLElement {
         shadow(this)
             .template(HeaderElement.template)
             .styles(HeaderElement.styles, reset.styles, header.styles);
-        const dm = this.shadowRoot.querySelector(
-            ".dark-mode-switch"
-        );
 
-        dm.addEventListener("click", (event) =>
-            Events.relay(event, "dark-mode", {
-                checked: event.target.checked
-            })
-        );
+        // const dm = this.shadowRoot.querySelector(
+        //     ".dark-mode-switch"
+        // );
+
+        // dm.addEventListener("click", (event) =>
+        //     Events.relay(event, "dark-mode", {
+        //         checked: event.target.checked
+        //     })
+        // );
     }
 
-    static initializeOnce() {
-        function toggleDarkMode(page, checked) {
-            page.classList.toggle("dark-mode", checked);
-        }
+    // static initializeOnce() {
+    //     function toggleDarkMode(page, checked) {
+    //         page.classList.toggle("dark-mode", checked);
+    //     }
 
-        document.body.addEventListener("dark-mode", (event) =>
-            toggleDarkMode(event.currentTarget, event.detail.checked)
-        );
-    }
+    //     document.body.addEventListener("dark-mode", (event) =>
+    //         toggleDarkMode(event.currentTarget, event.detail.checked)
+    //     );
+    // }
 }

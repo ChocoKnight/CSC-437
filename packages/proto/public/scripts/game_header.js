@@ -1,5 +1,6 @@
 import { css, define, html, shadow, Dropdown, Events } from "@calpoly/mustang";
 import reset from "./styles/reset.css.js";
+import header from "./styles/header.css.js";
 
 export class GameHeaderElement extends HTMLElement {
     static template = html`
@@ -59,7 +60,7 @@ export class GameHeaderElement extends HTMLElement {
         super();
         shadow(this)
             .template(GameHeaderElement.template)
-            .styles(GameHeaderElement.styles, reset.styles);
+            .styles(GameHeaderElement.styles, reset.styles, header.styles);
     }
 
 }

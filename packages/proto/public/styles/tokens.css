@@ -5,7 +5,7 @@
 
     --color-text-background: #ddd;
 
-    --color-link: var(--color-text-important);
+    --color-link: var(--color-text);
     --color-link-inverted: #C8AA6E;
 
     --color-background: #515163;
@@ -26,6 +26,12 @@
     --size-spacing-medium: 0.5rem;
     --size-spacing-large: 1rem;
     --size-spacing-xlarge: 2rem;
+
+    --size-type-body: 1rem;
+    --size-type-mlarge: 1.25rem;
+    --size-type-large: 1.5rem;
+    --size-type-xlarge: 2rem;
+    --size-type-xxlarge: 2.5rem;
 
     --font-family-body: Inter, sans-serif;
     --font-family-display: Play, serif;

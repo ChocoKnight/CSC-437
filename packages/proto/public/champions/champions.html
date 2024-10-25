@@ -13,13 +13,26 @@
     <link rel="stylesheet" href="../styles/page.css" />
 </head>
 
-<header>
-    <h1>
-        <a href="../index.html">League of Stats</a>
-    </h1>
+<script type="importmap">
+    {
+        "imports": {
+          "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
+        }
+    }
+  </script>
 
-    <h2>Champions</h2>
-</header>
+<script type="module">
+    import { define } from "@calpoly/mustang";
+    import { HeaderElement } from "/packages/proto/public/scripts/header.js";
+
+    define({
+        "lol-header": HeaderElement,
+    });
+</script>
+
+<lol-header>
+
+</lol-header>
 
 <body>
     <section class="search">
