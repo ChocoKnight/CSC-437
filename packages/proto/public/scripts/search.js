@@ -2,7 +2,7 @@ import { css, define, html, shadow, Dropdown, Events } from "@calpoly/mustang";
 import reset from "./styles/reset.css.js";
 import header from "./styles/header.css.js";
 
-export class GameTabPanelElement extends HTMLElement {
+export class SearchElement extends HTMLElement {
     static template = html`
     <template>
     </template>

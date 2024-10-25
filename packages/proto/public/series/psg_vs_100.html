@@ -59,9 +59,23 @@
             <span slot="date">September 9, 2024 - 04:00 PST</span>
         </game-header>
 
-        <game-tab-panel>
-            
-        </game-tab-panel>
+        <game-tab-panel id="tabPanel"></game-tab-panel>
+
+        <script>
+            // Function to add tabs dynamically
+            function addDynamicTabs() {
+                const tabPanel = document.getElementById('tabPanel');
+    
+                // Dynamically add tabs
+                tabPanel.addTab('Home', 'Welcome to the Home page!');
+                tabPanel.addTab('About', 'Learn more About us here.');
+                tabPanel.addTab('Services', 'These are our Services.');
+                tabPanel.addTab('Contact', 'Contact us for more information.');
+            }
+    
+            // Call the function to add tabs
+            addDynamicTabs();
+        </script>
 
         <pick-ban>
             <pick-ban-phase slot="ban1">

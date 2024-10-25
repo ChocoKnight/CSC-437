@@ -30,25 +30,16 @@ export class HeaderElement extends HTMLElement {
                         <a href="/packages/proto/public/champions/champions.html">Champions</a>
                     </li>
                 </ul>
+                <div class="search_container">
+                    <form action="/search" method="get">
+                        <input type="text" placeholder="Search..." name="search">
+                        <button type="submit">Search</button>
+                    </form>
+                </div>
             </div>
         </header>
     </template>
     `;
-
-    // <nav>
-    //             <p><slot> Unnamed Tour </slot></p>
-    //             <mu-dropdown>
-    //             <menu>
-    //                 <li>Hello, traveler</li>
-    //                 <li>
-    //                 <label class="dark-mode-switch">
-    //                     <input type="checkbox" />
-    //                     Dark Mode
-    //                 </label>
-    //                 </li>
-    //             </menu>
-    //             </mu-dropdown>
-    //         </nav>
 
     static styles = css`
     :host {
@@ -73,10 +64,17 @@ export class HeaderElement extends HTMLElement {
 
     header h1, .nav_bar {
         padding-left: var(--size-spacing-xlarge);
+        padding-right: var(--size-spacing-xlarge);
     }
 
     .nav_bar {
         background-color: var(--color-background-nav);
+    }
+
+    .search_container{
+        display: flex;
+        flex-direction: column;
+        align-items: end;
     }
 
     .nav_bar ul {
@@ -89,12 +87,19 @@ export class HeaderElement extends HTMLElement {
         margin: var(--size-spacing-medium);
     }
 
-    // nav {
-    //     display: flex;
-    //     flex-direction: column;
-    //     flex-basis: max-content;
-    //     align-items: end;
-    // }
+    .search_container {
+        display: flex;
+        align-items: right; /* Center the search input and button */
+    }
+
+    .search_container input[type="text"] {
+        padding: 5px; 
+    }
+
+    .search_container button {
+        padding: 5px 10px; /* Add padding to button */
+        margin-left: var(--size-spacing-small);
+    }
     `;
 
     constructor() {
@@ -102,25 +107,5 @@ export class HeaderElement extends HTMLElement {
         shadow(this)
             .template(HeaderElement.template)
             .styles(HeaderElement.styles, reset.styles, header.styles);
-
-        // const dm = this.shadowRoot.querySelector(
-        //     ".dark-mode-switch"
-        // );
-
-        // dm.addEventListener("click", (event) =>
-        //     Events.relay(event, "dark-mode", {
-        //         checked: event.target.checked
-        //     })
-        // );
     }
-
-    // static initializeOnce() {
-    //     function toggleDarkMode(page, checked) {
-    //         page.classList.toggle("dark-mode", checked);
-    //     }
-
-    //     document.body.addEventListener("dark-mode", (event) =>
-    //         toggleDarkMode(event.currentTarget, event.detail.checked)
-    //     );
-    // }
 }

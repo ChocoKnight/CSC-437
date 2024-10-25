@@ -24,9 +24,11 @@
 <script type="module">
     import { define } from "@calpoly/mustang";
     import { HeaderElement } from "/packages/proto/public/scripts/header.js";
+    import { QueryElement } from "/packages/proto/public/scripts/query.js";
 
     define({
         "lol-header": HeaderElement,
+        "lol-query": QueryElement
     });
 </script>
 
@@ -35,6 +37,14 @@
 </lol-header>
 
 <body>
+    <h3>
+        Champions
+    </h3>
+
+    <lol-query>
+        
+    </lol-query>
+
     <section class="search">
         <h3>Seach Criteria</h3>
         <dl>
