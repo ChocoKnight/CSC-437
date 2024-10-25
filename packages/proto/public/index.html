@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<title> Lens of Legends </title>
 
 <head>
   <meta charset="utf-8" />
@@ -14,22 +15,31 @@
   <link rel="stylesheet" href="styles/tokens.css" />
 </head>
 
-<header>
-  <h1>League of Statistics</h1>
-  <p>Where to find statistics about competitive League of Legends</p>
-  <p>Menu</p>
-</header>
+<script type="importmap">
+  {
+      "imports": {
+        "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
+      }
+  }
+</script>
+
+<script type="module">
+  import { define } from "@calpoly/mustang";
+  import { HeaderElement } from "/packages/proto/public/scripts/header.js";
+
+  define({
+      "lol-header": HeaderElement,
+  });
+</script>
+
+<lol-header>
+
+</lol-header>
 
 <main class="page">
+
   <body>
-    <dl>
-      <dt><a href="tournaments/tournaments.html">Tournaments</a></dt>
-      <dt><a href="teams/teams.html">Teams</a></dt>
-      <dt><a href="players/players.html">Players</a></dt>
-      <dt><a href="champions/champions.html">Champions</a></dt>
-    </dl>
   </body>
 </main>
-
 
 </html>

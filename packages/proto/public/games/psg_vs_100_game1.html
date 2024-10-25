@@ -21,15 +21,37 @@
     <a href="../tournaments/worlds.html">&larr; Worlds 2024</a>
 </header>
 
+<script type="importmap">
+    {
+        "imports": {
+          "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
+        }
+    }
+</script>
+
+<script type="module">
+    import { define } from "@calpoly/mustang";
+    import { TeamGameSummaryElement } from "../scripts/team_game_summary.js";
+    import { PlayerGameSummaryElement } from "../scripts/player_game_summary.js";
+
+    define({
+        "team-game-summary": TeamGameSummaryElement,
+        "player-game-summary": PlayerGameSummaryElement
+    });
+</script>
+
 <main class="page">
 
     <body>
         <section class="game_overview">
             <h2><a href="../series/psg_vs_100.html">PSG Talon vs 100 Thieves</a></h2>
-            <!-- <h3><a href="../games/psg_vs_100_game1.html">Game 1</a></h3> -->
             <h3>Game 1</h3>
             <p>Game Duration - 26:18</p>
         </section>
+
+        <pick-ban>
+            
+        </pick-ban>
 
         <section class="pick_ban">
             <section class="blue_side">
@@ -86,54 +108,36 @@
                             class="champ_icon"></dd>
                 </dl>
             </section>
-        </section>
+        </section>        
 
         <section class="team_game_summary">
             <section class="blue_side">
-                <h3>PSG Talon</h3>
-                <dl>
-                    <dt>Kills</dt>
-                    <dd>20</dd>
-                    <dt>Towers</dt>
-                    <dd>10</dd>
-                    <dt>Dragons</dt>
-                    <dd>2</dd>
-                    <dt>Barons</dt>
-                    <dd>1</dd>
-                    <dt>Gold</dt>
-                    <dd>54.1k</dd>
-                </dl>
-                <table>
-                    <tr>
-                        <td>Player</td>
-                        <td>Champion</td>
-                        <td>Runes</td>
-                        <td>Summoners</td>
-                        <td>Items</td>
-                        <td>KDA</td>
-                        <td>CS</td>
-                    </tr>
-                    <tr>
-                        <td>Azhi</td>
-                        <td><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Gnar_0.jpg"
-                                class="champ_icon"></td>
-                        <td>
-                            <img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Resolve/GraspOfTheUndying/GraspOfTheUndying.png"
-                                class="rune">
-                            <img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7201_Precision.png"
-                                class="rune">
-                        </td>
-                        <td>
-                            <img src="https://ddragon.leagueoflegends.com/cdn/14.20.1/img/spell/SummonerFlash.png"
-                                class="summoner_spell">
-                            <img src="https://ddragon.leagueoflegends.com/cdn/14.20.1/img/spell/SummonerTeleport.png"
-                                class="summoner_spell">
-                        </td>
-                        <td>Six item slots and one slot for ward</td>
-                        <td>3/0/12</td>
-                        <td>227</td>
-                    </tr>
-                </table>
+                <team-game-summary>
+                    <span slot="team_name">PSG Talon</span>
+                    <span slot="kills">20</span>
+                    <span slot="towers">10</span>
+                    <span slot="grubs">5</span>
+                    <span slot="heralds">0</span>
+                    <span slot="drakes">2</span>
+                    <span slot="barons">1</span>
+                    <span slot="gold">54.1k</span>
+                    
+                    <!-- <player-game-summary slot="top">
+                        <span slot="player_name">Azhi</span>
+                    </player-game-summary>
+                    <player-game-summary slot="jungle">
+                        <span slot="player_name">JunglePlayer</span>
+                    </player-game-summary>
+                    <player-game-summary slot="mid">
+                        <span slot="player_name">MidPlayer</span>
+                    </player-game-summary>
+                    <player-game-summary slot="bot">
+                        <span slot="player_name">BotPlayer</span>
+                    </player-game-summary>
+                    <player-game-summary slot="support">
+                        <span slot="player_name">SupportPlayer</span>
+                    </player-game-summary> -->
+                </team-game-summary>
             </section>
             <section class="red_side">
                 <h3>PSG Talon</h3>
@@ -159,7 +163,10 @@
                         <td>KDA</td>
                         <td>CS</td>
                     </tr>
-                    <tr>
+                    <player-game-summary>
+                        <a href="" slot="player_name">Azhi</a>
+                    </player-game-summary>
+                    <!-- <tr>
                         <td>Azhi</td>
                         <td><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Gnar_0.jpg"
                                 class="champ_icon"></td>
@@ -175,10 +182,17 @@
                             <img src="https://ddragon.leagueoflegends.com/cdn/14.20.1/img/spell/SummonerTeleport.png"
                                 class="summoner_spell">
                         </td>
-                        <td>Six item slots and one slot for ward</td>
+                        <td>
+                            <img src="https://ddragon.leagueoflegends.com/cdn/14.20.1/img/item/1057.png" class="item">
+                            <img src="https://ddragon.leagueoflegends.com/cdn/14.20.1/img/item/1031.png" class="item">
+                            <img src="https://ddragon.leagueoflegends.com/cdn/14.20.1/img/item/1055.png" class="item">
+                            <img src="https://ddragon.leagueoflegends.com/cdn/14.20.1/img/item/3078.png" class="item">
+                            <img src="https://ddragon.leagueoflegends.com/cdn/14.20.1/img/item/3053.png" class="item">
+                            <img src="https://ddragon.leagueoflegends.com/cdn/14.20.1/img/item/3047.png" class="item">
+                        </td>
                         <td>3/0/12</td>
                         <td>227</td>
-                    </tr>
+                    </tr> -->
                 </table>
                 <!-- <p>Fill out stats for each player in game</p> -->
             </section>
@@ -187,7 +201,6 @@
         <section class="stats">
             <section class="timeline">
                 <h3>Gold Graph and Timeline</h3>
-                <!-- <img src="..\images\psg_100_1_gold_graph.png">  -->
             </section>
 
             <section class="objectives">

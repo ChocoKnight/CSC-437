@@ -6,8 +6,7 @@
 
 .page {
     display: grid;
-    grid-template-columns:
-        [start] 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr[end];
+    grid-template-columns: repeat(12, 1fr);
     /* column-gap: 10px; */
 }
 
@@ -37,7 +36,7 @@ header {
     flex-wrap: wrap;
     align-items: baseline;
     justify-content: space-between;
-    padding: var(--size-spacing-medium);
+    /* padding: var(--size-spacing-medium); */
     display: flex;
 }
 
@@ -45,9 +44,9 @@ header a {
     color: var(--color-link);
 }
 
-body> :not(header) {
+/* body > :not(header) {
     margin: var(--size-spacing-medium);
-}
+} */
 
 body {
     color: var(--color-text);
@@ -73,6 +72,13 @@ dt {
 
 img {
     width: 100%
+}
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
 }
 
 .blue_side {
@@ -121,23 +127,22 @@ img {
 .champ_icon {
     display: inline-block;
     width: 80%;
+    border-radius: 50%
 }
 
 .champion_list {
     background-color: var(--color-background-stats);
 }
 
-.champion_list dd{
+.champion_list dd {
     background-color: var(--color-background-stats);
     width: 50%
 }
 
-.rune {
+.rune,
+.summoner_spell,
+.item {
     width: 50%
-}
-
-.summoner_spell {
-    width: 50%;
 }
 
 .dragon {

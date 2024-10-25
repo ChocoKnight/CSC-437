@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<title> Game Summary </title>
 
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,31 +12,86 @@
     <link rel="stylesheet" href="../styles/reset.css" />
     <link rel="stylesheet" href="../styles/page.css" />
     <link rel="stylesheet" href="../styles/tokens.css" />
-    <link rel="stylesheet" href="../styles/game.css" />
+    <!-- <link rel="stylesheet" href="../styles/game.css" /> -->
 </head>
 
-<header>
-    <h1>
-        <a href="../index.html">League of Stats</a>
-    </h1>
-    <a href="../tournaments/worlds.html">&larr; Worlds 2024</a>
-</header>
+<script type="importmap">
+    {
+        "imports": {
+          "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
+        }
+    }
+</script>
+
+<script type="module">
+    import { define } from "@calpoly/mustang";
+    import { HeaderElement } from "../scripts/header.js";
+    import { GameHeaderElement } from "../scripts/game_header.js";
+    import { TeamGameSummaryElement } from "../scripts/team_game_summary.js";
+    import { PlayerGameSummaryElement } from "../scripts/player_game_summary.js";
+    import { GameTabPanelElement } from "../scripts/game_tab_panel.js"; 
+    import { PickBanElement } from "../scripts/pick_ban.js"; 
+    import { PickBanPhaseElement } from "../scripts/pick_ban_phase.js";
+
+    define({
+        "lol-header": HeaderElement,
+        "game-header": GameHeaderElement,
+        "team-game-summary": TeamGameSummaryElement,
+        "player-game-summary": PlayerGameSummaryElement,
+        "game-tab-panel": GameTabPanelElement,
+        "pick-ban": PickBanElement,
+        "pick-ban-phase": PickBanPhaseElement
+    });
+</script>
+
+<lol-header>
+
+</lol-header>
 
 <main class="page">
 
     <body>
-        <section class="game_overview">
-            <h2>PSG Talon vs 100 Thieves</h2>
-            <h4>2 : 0</h4>
-        </section>
+        <game-header>
+            <a slot="team_one" href="">PSG Talon</a>
+            <a slot="team_two" href="">100 Thieves</a>
+            <a slot="tournament" href="">Worlds 2024</a>
+            <span slot="score" href="">2-0</span>
+            <span slot="date">September 9, 2024 - 04:00 PST</span>
+        </game-header>
 
-        <section class="game_overview">
+        <game-tab-panel id="tabPanel"></game-tab-panel>
+
+        <script>
+            // Function to add tabs dynamically
+            function addDynamicTabs() {
+                const tabPanel = document.getElementById('tabPanel');
+    
+                // Dynamically add tabs
+                tabPanel.addTab('Home', 'Welcome to the Home page!');
+                tabPanel.addTab('About', 'Learn more About us here.');
+                tabPanel.addTab('Services', 'These are our Services.');
+                tabPanel.addTab('Contact', 'Contact us for more information.');
+            }
+    
+            // Call the function to add tabs
+            addDynamicTabs();
+        </script>
+
+        <pick-ban>
+            <pick-ban-phase slot="ban1">
+                <!-- <img slot="champ1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                    class="champ_icon">
+                <img slot="champ2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                    class="champ_icon"> -->
+            </pick-ban-phase>
+        </pick-ban>
+
+        <!-- <section class="game_overview">
             <h3><a href="../games/psg_vs_100_game1.html">Game 1</a></h3>
             <p>Game Duration - 26:18</p>
         </section>
 
         <section class="pick_ban">
-
             <section class="blue_side">
                 <p>PSG Talon - Blue Side</p>
                 <dl>
@@ -161,7 +217,7 @@
                 </tr>
             </table>
             <p>Fill out sum stats for other players and team</p>
-        </section>
+        </section> -->
     </body>
 </main>
 

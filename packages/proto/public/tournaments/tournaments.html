@@ -1,64 +1,75 @@
 <!DOCTYPE html>
 <html>
-<article>
 
-    <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Play:wght@400;700&display=swap"
-            rel="stylesheet">
-        <link rel="stylesheet" href="../styles/reset.css" />
-        <link rel="stylesheet" href="../styles/page.css" />
-        <link rel="stylesheet" href="../styles/tokens.css" />
-    </head>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Play:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles/reset.css" />
+    <link rel="stylesheet" href="../styles/page.css" />
+    <link rel="stylesheet" href="../styles/tokens.css" />
+</head>
 
-    <header>
-        <h1>
-            <a href="../index.html">League of Stats</a>
-        </h1>
+<script type="importmap">
+    {
+        "imports": {
+          "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
+        }
+    }
+  </script>
 
-        <h2>Tournaments</h2>
-    </header>
+<script type="module">
+    import { define } from "@calpoly/mustang";
+    import { HeaderElement } from "/packages/proto/public/scripts/header.js";
 
-    <body>
-        <section class="search">
-            <h3>Seach Criteria</h3>
-            <dl>
-                <dt>Season</dt>
-                <dd>S13</dd>
-                <dd>S14</dd>
-            </dl>
-        </section>
+    define({
+        "lol-header": HeaderElement,
+    });
+</script>
 
-        <section class="tournaments">
-            <table>
-                <tr>
-                    <td>Name</td>
-                    <td>Region</td>
-                    <td>Number of Games</td>
-                    <td>Start Date</td>
-                    <td>End Date</td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="worlds.html">Worlds 2024</a>
-                    </td>
-                    <td>WR</td>
-                    <td>24</td>
-                    <td>2024-09-25</td>
-                    <td>2024-09-29</td>
-                </tr>
-                <tr>
-                    <td>LCK Summer 2024</td>
-                    <td>KR</td>
-                    <td>209</td>
-                    <td>2024-06-12</td>
-                    <td>2024-08-18</td>
-                </tr>
-            </table>
-        </section>
-    </body>
-</article>
+<lol-header>
+
+</lol-header>
+
+<body>
+    <section class="search">
+        <h3>Seach Criteria</h3>
+        <dl>
+            <dt>Season</dt>
+            <dd>S13</dd>
+            <dd>S14</dd>
+        </dl>
+    </section>
+
+    <section class="tournaments">
+        <table>
+            <tr>
+                <td>Name</td>
+                <td>Region</td>
+                <td>Number of Games</td>
+                <td>Start Date</td>
+                <td>End Date</td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="worlds.html">Worlds 2024</a>
+                </td>
+                <td>WR</td>
+                <td>24</td>
+                <td>2024-09-25</td>
+                <td>2024-09-29</td>
+            </tr>
+            <tr>
+                <td>LCK Summer 2024</td>
+                <td>KR</td>
+                <td>209</td>
+                <td>2024-06-12</td>
+                <td>2024-08-18</td>
+            </tr>
+        </table>
+    </section>
+</body>
 
 </html>

@@ -1,58 +1,70 @@
 <!DOCTYPE html>
 <html>
-<article>
 
-    <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Play:wght@400;700&display=swap"
-            rel="stylesheet">
-        <link rel="stylesheet" href="../styles/reset.css" />
-        <link rel="stylesheet" href="../styles/page.css" />
-        <link rel="stylesheet" href="../styles/tokens.css" />
-    </head>
-    <header>
-        <h1>
-            <a href="../index.html">League of Stats</a>
-        </h1>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Play:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles/reset.css" />
+    <link rel="stylesheet" href="../styles/page.css" />
+    <link rel="stylesheet" href="../styles/tokens.css" />
+</head>
 
-        <h2>Teams</h2>
-    </header>
+<script type="importmap">
+        {
+            "imports": {
+              "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
+            }
+        }
+      </script>
 
-    <body>
-        <section class="search">
-            <h3>Seach Criteria</h3>
-            <dl>
-                <dt>Season</dt>
-                <dd>S13</dd>
-                <dd>S14</dd>
-                <dt>Tournament</dt>
-                <dd>LCK Summer Split</dd>
-                <dd>Worlds 2024</dd>
-            </dl>
-        </section>
+<script type="module">
+    import { define } from "@calpoly/mustang";
+    import { HeaderElement } from "/packages/proto/public/scripts/header.js";
 
-        <section class="teams">
-            <table>
-                <tr>
-                    <td>Name</td>
-                    <td>Season</td>
-                    <td>Region</td>
-                    <td>Games</td>
-                    <td>Win Rate</td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="t1.html">T1</a>
-                    </td>
-                    <td>S14</td>
-                    <td>LCK</td>
+    define({
+        "lol-header": HeaderElement,
+    });
+</script>
 
-                </tr>
-            </table>
-        </section>
-    </body>
-</article>
+<lol-header>
+
+</lol-header>
+
+<body>
+    <section class="search">
+        <h3>Seach Criteria</h3>
+        <dl>
+            <dt>Season</dt>
+            <dd>S13</dd>
+            <dd>S14</dd>
+            <dt>Tournament</dt>
+            <dd>LCK Summer Split</dd>
+            <dd>Worlds 2024</dd>
+        </dl>
+    </section>
+
+    <section class="teams">
+        <table>
+            <tr>
+                <td>Name</td>
+                <td>Season</td>
+                <td>Region</td>
+                <td>Games</td>
+                <td>Win Rate</td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="t1.html">T1</a>
+                </td>
+                <td>S14</td>
+                <td>LCK</td>
+
+            </tr>
+        </table>
+    </section>
+</body>
 
 </html>
