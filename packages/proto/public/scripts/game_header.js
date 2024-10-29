@@ -46,8 +46,7 @@ export class GameHeaderElement extends HTMLElement {
         grid-template-columns: 1fr 0.25fr 1fr;
         align-items: center; 
         justify-items: center; 
-    }
-         
+    }      
 
     div {
         display: flex;

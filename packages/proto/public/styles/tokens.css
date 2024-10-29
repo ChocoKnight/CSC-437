@@ -50,4 +50,6 @@
 body.light-mode {
     --color-background: var(--color-background-lighter);
     --color-background-header: var(--color-background-lighter);
+    --color-text: #1E282D;
+    --color-link: var(--color-text);
 }
