@@ -36,6 +36,10 @@ export class HeaderElement extends HTMLElement {
                         <button type="submit">Search</button>
                     </form>
                 </div>
+                <label class="light-mode-switch" autocomplete="off">
+                    <input type="checkbox"/>
+                    Light Mode
+                </label>
             </div>
         </header>
     </template>
@@ -107,5 +111,25 @@ export class HeaderElement extends HTMLElement {
         shadow(this)
             .template(HeaderElement.template)
             .styles(HeaderElement.styles, reset.styles, header.styles);
+
+        const light_mode = this.shadowRoot.querySelector(
+            ".light-mode-switch"
+        );
+
+        light_mode.addEventListener("change", (event) =>
+            Events.relay(event, "light-mode", {
+                checked: event.target.checked
+            })
+        );
+    }
+
+    static initializeOnce() {
+        function toggleLightMode(page, checked) {
+            page.classList.toggle("light-mode", checked);
+        }
+
+        document.body.addEventListener("light-mode", (event) =>
+            toggleLightMode(event.currentTarget, event.detail.checked)
+        );
     }
 }

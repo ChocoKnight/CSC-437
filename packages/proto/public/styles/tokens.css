@@ -3,13 +3,15 @@
     --color-text-important: #C89B3C;
     --color-text-less-important: #C8AA6E;
 
+    --color-text-dark: #1E282D;
+
     --color-text-background: #ddd;
 
     --color-link: var(--color-text);
     --color-link-inverted: #C8AA6E;
 
     --color-background: #1E2328;
-    --color-background-lighter: #3C3C41;
+    --color-background-lighter: #F9F6EE;
     --color-background-header: #1E282D;
     --color-background-nav: #010A13;
     --color-background-stats: #424254;
@@ -43,4 +45,11 @@
     --font-weight-normal: 400;
     --font-weight-light: 200;
     --font-weight-bold: 700;
+}
+
+body.light-mode {
+    --color-background: var(--color-background-lighter);
+    --color-background-header: var(--color-background-lighter);
+    --color-text: #1E282D;
+    --color-link: var(--color-text);
 }

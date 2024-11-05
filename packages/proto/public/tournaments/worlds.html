@@ -1,33 +1,45 @@
 <!DOCTYPE html>
 <html>
-<article>
 
-    <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Play:wght@400;700&display=swap"
-            rel="stylesheet">
-        <link rel="stylesheet" href="../styles/reset.css" />
-        <link rel="stylesheet" href="../styles/page.css" />
-        <link rel="stylesheet" href="../styles/tokens.css" />
-    </head>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Play:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles/reset.css" />
+    <link rel="stylesheet" href="../styles/page.css" />
+    <link rel="stylesheet" href="../styles/tokens.css" />
+</head>
 
-    <header>
-        <h1>
-            <a href="../index.html">League of Stats</a>
-        </h1>
-        <a href="tournaments.html">&larr; Tournaments</a>
-        <h2>Worlds 2024</h2>
-    </header>
+<script type="importmap">
+        {
+            "imports": {
+              "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
+            }
+        }
+      </script>
 
-    <body>
-        <p>Nav bar to have info like match list, picks and bans, and current standings</p>
-        <dl>
-            <dt>Match List</dt>
-            <dd><a href="../series/psg_vs_100.html">PSG Talon vs 100 Thieves</a></dd>
-        </dl>
+<script type="module">
+    import { define } from "@calpoly/mustang";
+    import { HeaderElement } from "/packages/proto/public/scripts/header.js";
 
+    define({
+        "lol-header": HeaderElement,
+    });
+</script>
+
+<lol-header>
+
+</lol-header>
+
+<body>
+    <button class="tablink" onclick="openPage('Stats', this, 'red')" id="defaultOpen">Stats</button>
+    <button class="tablink" onclick="openPage('Match List', this, 'green')">Match List</button>
+    <button class="tablink" onclick="openPage('Standings', this, 'green')">Standings</button>
+    <button class="tablink" onclick="openPage('Champion Stats', this, 'green')">Champion Stats</button>
+
+    <div id="Stats" class="tabcontent">
         <section class="stats">
             <h3>Stats</h3>
             <dl>
@@ -50,7 +62,34 @@
         </section>
 
         <p>Other Cool Stats like dragon priority or KDA and CSM ranking</p>
-    </body>
-</article>
+    </div>
+
+    <div id="Match List" class="tabcontent">
+        <ul>
+            <li>
+                <a href="../series/psg_vs_100.html">PSG Talon vs 100 Thieves</a>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        function openPage(pageName, elmnt, color) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].style.backgroundColor = "";
+            }
+            document.getElementById(pageName).style.display = "block";
+            elmnt.style.backgroundColor = color;
+        }
+
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen").click();
+    </script>
+</body>
 
 </html>
