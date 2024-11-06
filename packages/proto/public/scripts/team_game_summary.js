@@ -30,12 +30,15 @@ export class TeamGameSummaryElement extends HTMLElement {
         </div>
         
         <div>
+            <h2>
+                Pick and Bans
+            </h2>
             <slot name="pick_ban"></slot>
         </div>
         
         <div>
             <h2>Objectives</h2>
-            
+
             <section class="objective">
                 <slot name="blue_kills">
                     <span>0</span>
@@ -106,21 +109,20 @@ export class TeamGameSummaryElement extends HTMLElement {
                 </slot>
             </section>
         </div>
-        
 
-        
-
-        
+        <div>
+            <h2>Player Performance</h2>
+        </div>
     </template>
     `;
 
     static styles = css`
     :host {
+        box-sizing: border-box;
         display: grid;
         grid-column: 1 / -1;
-        padding: var(--size-spacing-xlarge);
-        // padding-left: var(--size-spacing-xlarge);
-        // padding-right: var(--size-spacing-xlarge);
+        // padding: var(--size-spacing-medium);
+        // border: solid;
     }
 
     .game_overview {
@@ -144,8 +146,13 @@ export class TeamGameSummaryElement extends HTMLElement {
         justify-items: center; 
     }
 
+    h2 {
+        padding-bottom: var(--size-spacing-large);
+    }
+
     div {
-        padding-top: var(--size-spacing-xlarge);
+        // padding-bottom: var(--size-spacing-xlarge);
+        text-align: center;
     }
 
     dl {

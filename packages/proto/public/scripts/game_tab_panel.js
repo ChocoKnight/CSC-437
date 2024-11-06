@@ -7,45 +7,33 @@ export class GameTabPanelElement extends HTMLElement {
     <template>
         <div class="game_tabs">
             <ul>
-                <li class="tab1">
+                <li class="tab">
                     <a href="#">Summary</a>
                 </li>
-                <li class="tab2">
+                <li class="tab">
                     <a href="#">Game 1</a>
                 </li>
-                <li class="tab3">
+                <li class="tab">
                     <a href="#">Game 2</a>
                 </li>
-                <li class="tab4">
+                <li class="tab">
                     <a href="#">Game 3</a>
                 </li>
-                <li class="tab5">
+                <li class="tab">
                     <a href="#">Game 4</a>
                 </li>
-                <li class="tab6">
+                <li class="tab">
                     <a href="#">Game 5</a>
                 </li>
             </ul>
         </div>
         <div class="tab_content">
-            <slot name="summary">
-                
-            </slot>
-            <slot name="game1">
-                
-            </slot>
-            <slot name="game2">
-                
-            </slot>
-            <slot name="game3">
-                
-            </slot>
-            <slot name="game4">
-                
-            </slot>
-            <slot name="game5">
-                
-            </slot>
+            <slot name="summary"></slot>
+            <slot name="game1"></slot>
+            <slot name="game2"></slot>
+            <slot name="game3"></slot>
+            <slot name="game4"></slot>
+            <slot name="game5"></slot>
         </div>
     </template>
     `;
@@ -54,8 +42,6 @@ export class GameTabPanelElement extends HTMLElement {
     :host {
         display: grid;
         grid-column: 1 / -1;
-        padding-left: var(--size-spacing-xlarge);
-        padding-right: var(--size-spacing-xlarge);
     }
 
     .game_tabs ul {
