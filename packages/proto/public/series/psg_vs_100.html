@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<title> Game Summary </title>
+<title> Lens of Legends - Game Summary </title>
 
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -60,8 +60,12 @@
             <span slot="date">September 9, 2024 - 04:00 PST</span>
         </game-header>
 
-        <game-tab-panel id="tabPanel">
+        <game-tab-panel>
             <team-game-summary slot="game1"> 
+                <span slot="team_one_side">Blue Side</span>
+                <span slot="score">W - L</span>
+                <span slot="team_two_side">Red Side</span>
+
                 <pick-ban slot="pick_ban">
                     <img slot="bban1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
                         class="champ_icon">
@@ -104,6 +108,21 @@
                     <img slot="rpick5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
                         class="champ_icon">
                 </pick-ban>
+
+                <span slot="blue_kills">0</span>
+                <span slot="blue_towers">0</span>
+                <span slot="blue_grubs">0</span>
+                <span slot="blue_heralds">0</span>
+                <span slot="blue_barons">0</span>
+                <span slot="blue_drakes">0</span>
+                <span slot="blue_gold">0</span>
+                <span slot="red_kills">0</span>
+                <span slot="red_towers">0</span>
+                <span slot="red_grubs">0</span>
+                <span slot="red_heralds">0</span>
+                <span slot="red_barons">0</span>
+                <span slot="red_drakes">0</span>
+                <span slot="red_gold">0</span>
             </team-game-summary>
 
             <team-game-summary slot="game2"> 

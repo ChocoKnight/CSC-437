@@ -44,7 +44,7 @@ export class TeamGameSummaryElement extends HTMLElement {
                     <span>0</span>
                 </slot>
                 <h4>Kills</h4>
-                <slot name="blue_kills">
+                <slot name="red_kills">
                     <span>0</span>
                 </slot>
             </section>
