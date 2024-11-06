@@ -64,7 +64,7 @@ export class SeriesPage {
             <game-header>
                 <a slot="team_one" href="">${teamOne}</a>
                 <a slot="team_two" href="">${teamTwo}</a>
-                <a slot="tournament" href="../tournaments/${tournamentName}.html">${tournamentName}</a>
+                <a slot="tournament" href="../tournaments/${tournamentName.replace(/\s+/g, '').toLowerCase()}.html">${tournamentName}</a>
                 <span slot="score" href="">0-0</span>
                 <span slot="date">${this.formatDate(date)}</span>
             </game-header>
@@ -106,7 +106,7 @@ export class SeriesPage {
             var teamTwoSide: string = "Blue Side";
         }
 
-        if (blueWin) {
+        if ((blueWin && teamOneSide === "Blue Side") || (!blueWin && teamOneSide === "Red Side")) {
             var score: string = "W - L"
         } else {
             var score: string = "L - W"
