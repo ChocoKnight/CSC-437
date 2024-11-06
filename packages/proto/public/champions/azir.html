@@ -14,14 +14,31 @@
     <link rel="stylesheet" href="../styles/champion.css" />
 </head>
 
-<header>
-    <h1>
-        <a href="../index.html">League of Stats</a>
-    </h1>
-    <a href="champions.html">&larr; Champions</a>
-</header>
+<script type="importmap">
+    {
+        "imports": {
+          "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
+        }
+    }
+  </script>
+
+<script type="module">
+    import { define } from "@calpoly/mustang";
+    import { HeaderElement } from "/scripts/header.js";
+
+    define({
+        "lol-header": HeaderElement,
+    });
+
+    HeaderElement.initializeOnce();
+</script>
+
+<lol-header>
+
+</lol-header>
 
 <main class="page">
+
     <body>
         <h2>Azir</h2>
         <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Azir_0.jpg" alt="Azir Base Splash Art"
@@ -127,14 +144,15 @@
             <dl>
                 <!-- <dt>Flash</dt> -->
                 <dt>
-                    <img src="https://ddragon.leagueoflegends.com/cdn/14.20.1/img/spell/SummonerFlash.png" class="summoner_spell">
-                </dd>
+                    <img src="https://ddragon.leagueoflegends.com/cdn/14.20.1/img/spell/SummonerFlash.png"
+                        class="summoner_spell">
+                    </dd>
                 <dd>100%</dd>
                 <!-- <dt>Teleport</dt> -->
                 <dt>
                     <img src="https://ddragon.leagueoflegends.com/cdn/14.20.1/img/spell/SummonerTeleport.png"
                         class="summoner_spell">
-                </dd>
+                    </dd>
                 <dd>100%</dd>
             </dl>
         </section>

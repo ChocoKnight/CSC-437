@@ -1,112 +1,126 @@
 <!DOCTYPE html>
 <html>
-<article>
 
-    <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Play:wght@400;700&display=swap"
-            rel="stylesheet">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Play:wght@400;700&display=swap"
+        rel="stylesheet">
 
-        <link rel="stylesheet" href="../styles/reset.css" />
-        <link rel="stylesheet" href="../styles/page.css" />
-        <link rel="stylesheet" href="../styles/tokens.css" />
-    </head>
+    <link rel="stylesheet" href="../styles/reset.css" />
+    <link rel="stylesheet" href="../styles/page.css" />
+    <link rel="stylesheet" href="../styles/tokens.css" />
+</head>
 
-    <header>
-        <h1>
-            <a href="../index.html">League of Stats</a>
-        </h1>
-        <a href="players.html">&larr; Teams</a>
-    </header>
+<script type="importmap">
+    {
+        "imports": {
+            "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
+        }
+    }
+</script>
 
-    <body>
-        <h2>Faker - T1</h2>
+<script type="module">
+    import { define } from "@calpoly/mustang";
+    import { HeaderElement } from "/scripts/header.js";
 
-        <section class="stats">
-            <h3>Stats</h3>
-            <dl>
-                <dt>Wins</dt>
-                <dd>100</dd>
-                <dt>Losses</dt>
-                <dd>59</dd>
-                <dt>KDA</dt>
-                <dd>3.8</dd>
-                <dt>CSM</dt>
-                <dd>9.2</dd>
-                <dt>GPM</dt>
-                <dd>428</dd>
-                <dt>DPM</dt>
-                <dd>637.3</dd>
-                <dt>VSPM</dt>
-                <dd>1.23</dd>
-                <dt>Gold %</dt>
-                <dd>22.4</dd>
-                <dt>KP</dt>
-                <dd>63.40%</dd>
-            </dl>
-        </section>
+    define({
+        "lol-header": HeaderElement,
+    });
 
-        <section class="stats">
-            <h3>Personal Bests</h3>
-            <dl>
-                <dt>KDA</dt>
-                <dd>5/0/11</dd>
-                <dd>Corki</dd>
-                <dd>KT Rolster vs T1</dd>
-                <dt>DPM</dt>
-                <dd>1272</dd>
-                <dd>Corki</dd>
-                <dd>Dplus Kia vs T1</dd>
-                <dt>CSM</dt>
-                <dd>11.2</dd>
-                <dd>Taliyah</dd>
-                <dd>T1 vs KT Rolster</dd>
-            </dl>
-        </section>
+    HeaderElement.initializeOnce();
+</script>
 
-        <section class="champion_list">
-            <h3>Best Champions</h3>
-            <dl>
-                <dt>Azir</dt>
-                <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Azir_0.jpg" class="champ_icon">
-                </dd>
-                <dt>Oriana</dt>
-                <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Orianna_0.jpg"
-                        class="champ_icon"></dd>
-                <dt>Taliyah</dt>
-                <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Taliyah_0.jpg"
-                        class="champ_icon"></dd>
-            </dl>
-        </section>
+<lol-header>
 
-        <section class="stats">
-            <h3>Early Game Stats</h3>
-            <dl>
-                <dt>CS Difference @ 15</dt>
-                <dd>1</dd>
-                <dt>Gold Difference @ 15</dt>
-                <dd>36</dd>
-                <dt>XP Difference @ 15</dt>
-                <dd>10</dd>
-                <dt>First Blood Participation</dt>
-                <dd>17.60%</dd>
-                <dt>First Blood Victim</dt>
-                <dd>5.70%</dd>
-            </dl>
-        </section>
+</lol-header>
 
-        <section class="stats">
-            <h3>Aggression</h3>
-            <dl>
-                <dt>Damage Share</dt>
-                <dd>26.10%</dd>
-                <dt>Kills + Assists / Minute</dt>
-                <dd>0.28</dd>
-            </dl>
-        </section>
-    </body>
-</article>
+<body>
+    <h2>Faker - T1</h2>
+
+    <section class="stats">
+        <h3>Stats</h3>
+        <dl>
+            <dt>Wins</dt>
+            <dd>100</dd>
+            <dt>Losses</dt>
+            <dd>59</dd>
+            <dt>KDA</dt>
+            <dd>3.8</dd>
+            <dt>CSM</dt>
+            <dd>9.2</dd>
+            <dt>GPM</dt>
+            <dd>428</dd>
+            <dt>DPM</dt>
+            <dd>637.3</dd>
+            <dt>VSPM</dt>
+            <dd>1.23</dd>
+            <dt>Gold %</dt>
+            <dd>22.4</dd>
+            <dt>KP</dt>
+            <dd>63.40%</dd>
+        </dl>
+    </section>
+
+    <section class="stats">
+        <h3>Personal Bests</h3>
+        <dl>
+            <dt>KDA</dt>
+            <dd>5/0/11</dd>
+            <dd>Corki</dd>
+            <dd>KT Rolster vs T1</dd>
+            <dt>DPM</dt>
+            <dd>1272</dd>
+            <dd>Corki</dd>
+            <dd>Dplus Kia vs T1</dd>
+            <dt>CSM</dt>
+            <dd>11.2</dd>
+            <dd>Taliyah</dd>
+            <dd>T1 vs KT Rolster</dd>
+        </dl>
+    </section>
+
+    <section class="champion_list">
+        <h3>Best Champions</h3>
+        <dl>
+            <dt>Azir</dt>
+            <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Azir_0.jpg" class="champ_icon">
+            </dd>
+            <dt>Oriana</dt>
+            <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Orianna_0.jpg" class="champ_icon">
+            </dd>
+            <dt>Taliyah</dt>
+            <dd><img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Taliyah_0.jpg" class="champ_icon">
+            </dd>
+        </dl>
+    </section>
+
+    <section class="stats">
+        <h3>Early Game Stats</h3>
+        <dl>
+            <dt>CS Difference @ 15</dt>
+            <dd>1</dd>
+            <dt>Gold Difference @ 15</dt>
+            <dd>36</dd>
+            <dt>XP Difference @ 15</dt>
+            <dd>10</dd>
+            <dt>First Blood Participation</dt>
+            <dd>17.60%</dd>
+            <dt>First Blood Victim</dt>
+            <dd>5.70%</dd>
+        </dl>
+    </section>
+
+    <section class="stats">
+        <h3>Aggression</h3>
+        <dl>
+            <dt>Damage Share</dt>
+            <dd>26.10%</dd>
+            <dt>Kills + Assists / Minute</dt>
+            <dd>0.28</dd>
+        </dl>
+    </section>
+</body>
 
 </html>
