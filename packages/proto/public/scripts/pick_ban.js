@@ -6,49 +6,29 @@ export class PickBanElement extends HTMLElement {
     static template = html`
     <template>
         <div class="pick_ban">
-            <div class="ban1">
-                <div class="blue">
-                    <slot name="bban1"></slot>
-                    <slot name="bban2"></slot>
-                    <slot name="bban3"></slot>
-                </div>
-                <div class="red">
-                    <slot name="rban1"></slot>
-                    <slot name="rban2"></slot>
-                    <slot name="rban3"></slot>
-                </div>
+            <div class="blue">
+                <slot name="bban1"></slot>
+                <slot name="bban2"></slot>
+                <slot name="bban3"></slot>
+                <slot name="bpick1"></slot>
+                <slot name="bpick2"></slot>
+                <slot name="bpick3"></slot>
+                <slot name="bban4"></slot>
+                <slot name="bban5"></slot>
+                <slot name="bpick4"></slot>
+                <slot name="bpick5"></slot>
             </div>
-            <div class="pick1">
-                <div class="blue">
-                    <slot name="bpick1"></slot>
-                    <slot name="bpick2"></slot>
-                    <slot name="bpick3"></slot>
-                </div>
-                <div class="red">
-                    <slot name="rpick1"></slot>
-                    <slot name="rpick2"></slot>
-                    <slot name="rpick3"></slot>
-                </div>
-            </div>
-            <div class="ban2">
-                <div class="blue">
-                    <slot name="bban4"></slot>
-                    <slot name="bban5"></slot>
-                </div>
-                <div class="red">
-                    <slot name="rban4"></slot>
-                    <slot name="rban5"></slot>
-                </div>
-            </div>
-            <div class="pick2">
-                <div class="blue">
-                    <slot name="bpick4"></slot>
-                    <slot name="bpick5"></slot>
-                </div>
-                <div class="red">
-                    <slot name="rpick4"></slot>
-                    <slot name="rpick5"></slot>
-                </div>
+            <div class="red">
+                <slot name="rban1"></slot>
+                <slot name="rban2"></slot>
+                <slot name="rban3"></slot>
+                <slot name="rpick1"></slot>
+                <slot name="rpick2"></slot>
+                <slot name="rpick3"></slot>
+                <slot name="rban4"></slot>
+                <slot name="rban5"></slot>
+                <slot name="rpick4"></slot>
+                <slot name="rpick5"></slot>
             </div>
         </div>
     </template>
@@ -58,6 +38,7 @@ export class PickBanElement extends HTMLElement {
     :host {
         display: grid;
         grid-column: 1 / -1;
+        text-align: center;
         padding-left: var(--size-spacing-xlarge);
         padding-right: var(--size-spacing-xlarge);
     }
@@ -70,24 +51,26 @@ export class PickBanElement extends HTMLElement {
 
     .pick_ban {
         display: grid;
-        grid-template-columns: 3fr 3fr 3fr 3fr;
+        grid-column: 1 / -1;
+        // grid-template-columns: 1fr 1fr;
     }
     
     .blue {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
         background: var(--color-blueside-background)
     }
         
     .red {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
         background: var(--color-redside-background)
     }
 
-    .ban_phase_1, .pick_phase_1 {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+    .ban, .pick {
+        display: flex;
+        flex-direction: row;
+        gap: var(--size-spacing-large);
     }
     `;
 

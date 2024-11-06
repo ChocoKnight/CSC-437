@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<title> Game Summary </title>
+<title> Lens of Legends - Game Summary </title>
 
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,7 +31,6 @@
     import { PlayerGameSummaryElement } from "../scripts/player_game_summary.js";
     import { GameTabPanelElement } from "../scripts/game_tab_panel.js";
     import { PickBanElement } from "../scripts/pick_ban.js";
-    import { PickBanPhaseElement } from "../scripts/pick_ban_phase.js";
 
     define({
         "lol-header": HeaderElement,
@@ -40,10 +39,10 @@
         "player-game-summary": PlayerGameSummaryElement,
         "game-tab-panel": GameTabPanelElement,
         "pick-ban": PickBanElement,
-        "pick-ban-phase": PickBanPhaseElement
     });
 
     HeaderElement.initializeOnce();
+    GameTabPanelElement.initializeOnce();
 </script>
 
 <lol-header>
@@ -56,55 +55,256 @@
         <game-header>
             <a slot="team_one" href="">PSG Talon</a>
             <a slot="team_two" href="">100 Thieves</a>
-            <a slot="tournament" href="../tournaments/worlds.html">Worlds 2024</a>
+            <a slot="tournament" href="../tournaments/worlds2024.html">Worlds 2024</a>
             <span slot="score" href="">2-0</span>
             <span slot="date">September 9, 2024 - 04:00 PST</span>
         </game-header>
 
-        <game-tab-panel id="tabPanel"></game-tab-panel>
+        <game-tab-panel>
+            <team-game-summary slot="game1"> 
+                <span slot="team_one_side">Blue Side</span>
+                <span slot="score">W - L</span>
+                <span slot="team_two_side">Red Side</span>
 
-        <pick-ban>
-            <img slot="bban1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
-                class="champ_icon">
-            <img slot="bban2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
-                class="champ_icon">
-            <img slot="bban3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
-                class="champ_icon">
-            <img slot="bpick1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
-                class="champ_icon">
-            <img slot="bpick2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
-                class="champ_icon">
-            <img slot="bpick3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
-                class="champ_icon">
-            <img slot="bban4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
-                class="champ_icon">
-            <img slot="bban5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
-                class="champ_icon">
-            <img slot="bpick4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
-                class="champ_icon">
-            <img slot="bpick5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
-                class="champ_icon">
-            <img slot="rban1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
-                class="champ_icon">
-            <img slot="rban2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
-                class="champ_icon">
-            <img slot="rban3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
-                class="champ_icon">
-            <img slot="rpick1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
-                class="champ_icon">
-            <img slot="rpick2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
-                class="champ_icon">
-            <img slot="rpick3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
-                class="champ_icon">
-            <img slot="rban4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
-                class="champ_icon">
-            <img slot="rban5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
-                class="champ_icon">
-            <img slot="rpick4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
-                class="champ_icon">
-            <img slot="rpick5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
-                class="champ_icon">
-        </pick-ban>
+                <pick-ban slot="pick_ban">
+                    <img slot="bban1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bban2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bban3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bpick1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bpick2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bpick3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bban4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bban5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bpick4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bpick5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rban1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rban2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rban3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rpick1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rpick2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rpick3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rban4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rban5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rpick4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rpick5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                </pick-ban>
+
+                <span slot="blue_kills">0</span>
+                <span slot="blue_towers">0</span>
+                <span slot="blue_grubs">0</span>
+                <span slot="blue_heralds">0</span>
+                <span slot="blue_barons">0</span>
+                <span slot="blue_drakes">0</span>
+                <span slot="blue_gold">0</span>
+                <span slot="red_kills">0</span>
+                <span slot="red_towers">0</span>
+                <span slot="red_grubs">0</span>
+                <span slot="red_heralds">0</span>
+                <span slot="red_barons">0</span>
+                <span slot="red_drakes">0</span>
+                <span slot="red_gold">0</span>
+            </team-game-summary>
+
+            <team-game-summary slot="game2"> 
+                <pick-ban slot="pick_ban">
+                    <img slot="bban1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bban2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bban3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bpick1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bpick2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bpick3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bban4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bban5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bpick4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bpick5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rban1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rban2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rban3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rpick1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rpick2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rpick3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rban4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rban5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rpick4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rpick5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                </pick-ban>
+            </team-game-summary>
+
+            <team-game-summary slot="game3"> 
+                <pick-ban slot="pick_ban">
+                    <img slot="bban1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bban2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bban3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bpick1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bpick2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bpick3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bban4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bban5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bpick4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bpick5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rban1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rban2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rban3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rpick1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rpick2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rpick3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rban4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rban5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rpick4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rpick5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                </pick-ban>
+            </team-game-summary>
+
+            <team-game-summary slot="game4"> 
+                <pick-ban slot="pick_ban">
+                    <img slot="bban1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bban2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bban3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bpick1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bpick2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bpick3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bban4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bban5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bpick4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bpick5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rban1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rban2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rban3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rpick1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rpick2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rpick3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rban4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rban5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rpick4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rpick5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                </pick-ban>
+            </team-game-summary>
+
+            <team-game-summary slot="game5"> 
+                <pick-ban slot="pick_ban">
+                    <img slot="bban1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bban2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bban3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bpick1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bpick2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bpick3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bban4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bban5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bpick4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="bpick5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rban1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rban2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rban3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rpick1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rpick2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rpick3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rban4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rban5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rpick4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                    <img slot="rpick5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/Viego_0.jpg"
+                        class="champ_icon">
+                </pick-ban>
+            </team-game-summary>
+        </game-tab-panel>
 
         <!-- <section class="game_overview">
             <h3><a href="../games/psg_vs_100_game1.html">Game 1</a></h3>

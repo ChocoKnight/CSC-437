@@ -13,12 +13,29 @@
     <link rel="stylesheet" href="../styles/team.css" />
 </head>
 
-<header>
-    <h1>
-        <a href="../index.html">League of Stats</a>
-    </h1>
-    <a href="teams.html">&larr; Teams</a>
-</header>
+<script type="importmap">
+    {
+        "imports": {
+          "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
+        }
+    }
+  </script>
+
+<script type="module">
+    import { define } from "@calpoly/mustang";
+    import { HeaderElement } from "/scripts/header.js";
+
+    define({
+        "lol-header": HeaderElement,
+    });
+
+    HeaderElement.initializeOnce();
+</script>
+
+<lol-header>
+
+</lol-header>
+
 
 <section class="team">
     <h2>T1</h2>
