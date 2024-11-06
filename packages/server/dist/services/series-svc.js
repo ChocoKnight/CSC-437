@@ -18,7 +18,7 @@ var __copyProps = (to, from, except, desc) => {
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 var series_svc_exports = {};
 __export(series_svc_exports, {
-  getDestination: () => getDestination
+  getSeries: () => getSeries
 });
 module.exports = __toCommonJS(series_svc_exports);
 const series = {
@@ -31,6 +31,28 @@ const series = {
       {
         blueTeam: "T1",
         redTeam: "BLG",
+        pickBans: {
+          blueBanOne: "Jax",
+          blueBanTwo: "Aurora",
+          blueBanThree: "Vi",
+          blueBanFour: "Kaisa",
+          blueBanFive: "Kalista",
+          bluePickOne: "Varus",
+          bluePickTwo: "Yone",
+          bluePickThree: "Ashe",
+          bluePickFour: "Skarner",
+          bluePickFive: "Gnar",
+          redBanOne: "Sejuani",
+          redBanTwo: "Sylas",
+          redBanThree: "Ziggs",
+          redBanFour: "Renata",
+          redBanFive: "Jhin",
+          redPickOne: "Rakan",
+          redPickTwo: "Rumble",
+          redPickThree: "Caitlyn",
+          redPickFour: "Braum",
+          redPickFive: "Rell"
+        },
         blueWin: false,
         blueFirstBlood: false,
         blueFirstTower: false,
@@ -66,6 +88,28 @@ const series = {
       {
         blueTeam: "T1",
         redTeam: "BLG",
+        pickBans: {
+          blueBanOne: "Jax",
+          blueBanTwo: "Aurora",
+          blueBanThree: "Vi",
+          blueBanFour: "Kai'sa",
+          blueBanFive: "Kalista",
+          bluePickOne: "Varus",
+          bluePickTwo: "Yone",
+          bluePickThree: "Ashe",
+          bluePickFour: "Skarner",
+          bluePickFive: "Gnar",
+          redBanOne: "Sejuani",
+          redBanTwo: "Sylas",
+          redBanThree: "Ziggs",
+          redBanFour: "Renata",
+          redBanFive: "Jhin",
+          redPickOne: "Rakan",
+          redPickTwo: "Rumble",
+          redPickThree: "Caitlyn",
+          redPickFour: "Barum",
+          redPickFive: "Rell"
+        },
         blueWin: true,
         blueFirstBlood: false,
         blueFirstTower: true,
@@ -101,6 +145,28 @@ const series = {
       {
         blueTeam: "BLG",
         redTeam: "T1",
+        pickBans: {
+          blueBanOne: "Jax",
+          blueBanTwo: "Aurora",
+          blueBanThree: "Vi",
+          blueBanFour: "Kai'sa",
+          blueBanFive: "Kalista",
+          bluePickOne: "Varus",
+          bluePickTwo: "Yone",
+          bluePickThree: "Ashe",
+          bluePickFour: "Skarner",
+          bluePickFive: "Gnar",
+          redBanOne: "Sejuani",
+          redBanTwo: "Sylas",
+          redBanThree: "Ziggs",
+          redBanFour: "Renata",
+          redBanFive: "Jhin",
+          redPickOne: "Rakan",
+          redPickTwo: "Rumble",
+          redPickThree: "Caitlyn",
+          redPickFour: "Barum",
+          redPickFive: "Rell"
+        },
         blueWin: true,
         blueFirstBlood: true,
         blueFirstTower: true,
@@ -136,6 +202,28 @@ const series = {
       {
         blueTeam: "T1",
         redTeam: "BLG",
+        pickBans: {
+          blueBanOne: "Jax",
+          blueBanTwo: "Aurora",
+          blueBanThree: "Vi",
+          blueBanFour: "Kai'sa",
+          blueBanFive: "Kalista",
+          bluePickOne: "Varus",
+          bluePickTwo: "Yone",
+          bluePickThree: "Ashe",
+          bluePickFour: "Skarner",
+          bluePickFive: "Gnar",
+          redBanOne: "Sejuani",
+          redBanTwo: "Sylas",
+          redBanThree: "Ziggs",
+          redBanFour: "Renata",
+          redBanFive: "Jhin",
+          redPickOne: "Rakan",
+          redPickTwo: "Rumble",
+          redPickThree: "Caitlyn",
+          redPickFour: "Barum",
+          redPickFive: "Rell"
+        },
         blueWin: true,
         blueFirstBlood: false,
         blueFirstTower: true,
@@ -171,6 +259,28 @@ const series = {
       {
         blueTeam: "BLG",
         redTeam: "T1",
+        pickBans: {
+          blueBanOne: "Jax",
+          blueBanTwo: "Aurora",
+          blueBanThree: "Vi",
+          blueBanFour: "Kai'sa",
+          blueBanFive: "Kalista",
+          bluePickOne: "Varus",
+          bluePickTwo: "Yone",
+          bluePickThree: "Ashe",
+          bluePickFour: "Skarner",
+          bluePickFive: "Gnar",
+          redBanOne: "Sejuani",
+          redBanTwo: "Sylas",
+          redBanThree: "Ziggs",
+          redBanFour: "Renata",
+          redBanFive: "Jhin",
+          redPickOne: "Rakan",
+          redPickTwo: "Rumble",
+          redPickThree: "Caitlyn",
+          redPickFour: "Barum",
+          redPickFive: "Rell"
+        },
         blueWin: false,
         blueFirstBlood: true,
         blueFirstTower: false,
@@ -206,10 +316,10 @@ const series = {
     ]
   }
 };
-function getDestination(_) {
+function getSeries(_) {
   return series["blg_vs_t1"];
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  getDestination
+  getSeries
 });

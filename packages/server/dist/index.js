@@ -22,6 +22,8 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var import_express = __toESM(require("express"));
+var import_series = require("./pages/series");
+var import_series_svc = require("./services/series-svc");
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
 const staticDir = process.env.STATIC || "public";
@@ -29,6 +31,15 @@ app.use(import_express.default.static(staticDir));
 app.get("/hello", (req, res) => {
   res.send("Hello, World");
 });
+app.get(
+  "/series/:seriesId",
+  (req, res) => {
+    const { seriesId } = req.params;
+    const data = (0, import_series_svc.getSeries)(seriesId);
+    const page = new import_series.SeriesPage(data);
+    res.set("Content-Type", "text/html").send(page.render());
+  }
+);
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });

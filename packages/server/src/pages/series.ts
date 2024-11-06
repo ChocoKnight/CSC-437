@@ -1,6 +1,6 @@
 import { css, html } from "@calpoly/mustang/server";
 import { Series, Game, PickBans } from "../models";
-// import renderPage from "./renderPage"; // generic page renderer
+import renderPage from "./renderPage"; // generic page renderer
 
 export class SeriesPage {
     data: Series;
@@ -10,24 +10,49 @@ export class SeriesPage {
     }
 
     render() {
-        // return renderPage({
-        //     body: this.renderBody(),
-        //     // add more parts here later
-        // });
+        return renderPage({
+            body: this.renderBody(),
+            stylesheets: [],
+            styles: [
+            ],
+            scripts: [
+                `import { define } from "@calpoly/mustang";
+                import { HeaderElement } from "/scripts/header.js";
+                import { GameHeaderElement } from "/scripts/game_header.js";
+                import { TeamGameSummaryElement } from "/scripts/team_game_summary.js";
+                import { PlayerGameSummaryElement } from "/scripts/player_game_summary.js";
+                import { GameTabPanelElement } from "/scripts/game_tab_panel.js";
+                import { PickBanElement } from "/scripts/pick_ban.js";
+
+                define({
+                    "lol-header": HeaderElement,
+                    "game-header": GameHeaderElement,
+                    "team-game-summary": TeamGameSummaryElement,
+                    "player-game-summary": PlayerGameSummaryElement,
+                    "game-tab-panel": GameTabPanelElement,
+                    "pick-ban": PickBanElement,
+                });
+                
+                HeaderElement.initializeOnce();
+                GameTabPanelElement.initializeOnce();
+                `
+            ]
+        });
     }
 
     formatDate = (date: Date | undefined) => {
         const dt = date || new Date();
+        const y = dt.getUTCFullYear();
         const m = SeriesPage.months[dt.getUTCMonth()];
         const d = dt.getUTCDate();
 
-        return `${d} ${m}`;
+        return `${m} ${d}, ${y}`;
     };
 
     renderBody() {
         const { tournamentName, date, teamOne, teamTwo, games = [] } = this.data;
 
-        var game_num : number = 1;
+        var game_num: number = 1;
         const gameList = games.map((game) =>
             this.renderGame(game, teamOne, teamTwo, game_num),
             game_num += 1
@@ -66,7 +91,7 @@ export class SeriesPage {
     ];
 
     renderGame(game: Game, teamOne: string, teamTwo: string, game_number: number) {
-        const { 
+        const {
             blueTeam, redTeam, pickBans, blueWin, blueFirstBlood, blueFirstTower, blueHerald, blueGrubs, redGrubs,
             blueTowers, blueTopPlates, blueMidPlates, blueBotPlates, blueBarons, blueCloudDrakes, blueOceanDrakes, blueMountainDrakes, blueInfernalDrakes, blueHextechDrakes, blueChemtechDrakes, blueElderDrakes,
             redTowers, redTopPlates, redMidPlates, redBotPlates, redBarons, redCloudDrakes, redOceanDrakes, redMountainDrakes, redInfernalDrakes, redHextechDrakes, redChemtechDrakes, redElderDrakes,
@@ -74,17 +99,17 @@ export class SeriesPage {
         } = game;
 
         if (teamOne === blueTeam) {
-            var teamOneSide : string = "Blue Side";
-            var teamTwoSide : string = "Red Side";
+            var teamOneSide: string = "Blue Side";
+            var teamTwoSide: string = "Red Side";
         } else {
-            var teamOneSide : string = "Red Side";
-            var teamTwoSide : string = "Blue Side";
+            var teamOneSide: string = "Red Side";
+            var teamTwoSide: string = "Blue Side";
         }
 
         if (blueWin) {
-            var score : string = "W - L"
+            var score: string = "W - L"
         } else {
-            var score : string = "L - W"
+            var score: string = "L - W"
         }
 
         return html`
@@ -113,11 +138,11 @@ export class SeriesPage {
         `;
     }
 
-    renderPickBan(pickban: PickBans){
-        const { 
-            blueBanOne, blueBanTwo, blueBanThree, blueBanFour, blueBanFive, 
+    renderPickBan(pickban: PickBans) {
+        const {
+            blueBanOne, blueBanTwo, blueBanThree, blueBanFour, blueBanFive,
             bluePickOne, bluePickTwo, bluePickThree, bluePickFour, bluePickFive,
-            redBanOne, redBanTwo, redBanThree, redBanFour, redBanFive, 
+            redBanOne, redBanTwo, redBanThree, redBanFour, redBanFive,
             redPickOne, redPickTwo, redPickThree, redPickFour, redPickFive,
         } = pickban;
 
@@ -153,7 +178,7 @@ export class SeriesPage {
                 class="champ_icon">
             <img slot="rpick2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickTwo}_0.jpg"
                 class="champ_icon">
-            <img slot="rpick3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickThree}.jpg"
+            <img slot="rpick3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickThree}_0.jpg"
                 class="champ_icon">
             <img slot="rban4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redBanFour}_0.jpg"
                 class="champ_icon">

@@ -1,7 +1,9 @@
 "use strict";
+var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __export = (target, all) => {
   for (var name in all)
@@ -15,6 +17,14 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 var series_exports = {};
 __export(series_exports, {
@@ -22,23 +32,54 @@ __export(series_exports, {
 });
 module.exports = __toCommonJS(series_exports);
 var import_server = require("@calpoly/mustang/server");
+var import_renderPage = __toESM(require("./renderPage"));
 class SeriesPage {
   data;
   constructor(data) {
     this.data = data;
   }
   render() {
+    return (0, import_renderPage.default)({
+      body: this.renderBody(),
+      stylesheets: [],
+      styles: [],
+      scripts: [
+        `import { define } from "@calpoly/mustang";
+                import { HeaderElement } from "/scripts/header.js";
+                import { GameHeaderElement } from "/scripts/game_header.js";
+                import { TeamGameSummaryElement } from "/scripts/team_game_summary.js";
+                import { PlayerGameSummaryElement } from "/scripts/player_game_summary.js";
+                import { GameTabPanelElement } from "/scripts/game_tab_panel.js";
+                import { PickBanElement } from "/scripts/pick_ban.js";
+
+                define({
+                    "lol-header": HeaderElement,
+                    "game-header": GameHeaderElement,
+                    "team-game-summary": TeamGameSummaryElement,
+                    "player-game-summary": PlayerGameSummaryElement,
+                    "game-tab-panel": GameTabPanelElement,
+                    "pick-ban": PickBanElement,
+                });
+                
+                HeaderElement.initializeOnce();
+                GameTabPanelElement.initializeOnce();
+                `
+      ]
+    });
   }
   formatDate = (date) => {
     const dt = date || /* @__PURE__ */ new Date();
+    const y = dt.getUTCFullYear();
     const m = SeriesPage.months[dt.getUTCMonth()];
     const d = dt.getUTCDate();
-    return `${d} ${m}`;
+    return `${m} ${d}, ${y}`;
   };
   renderBody() {
     const { tournamentName, date, teamOne, teamTwo, games = [] } = this.data;
-    const accommodationList = games.map(
-      (acc) => this.renderGame(acc)
+    var game_num = 1;
+    const gameList = games.map(
+      (game) => this.renderGame(game, teamOne, teamTwo, game_num),
+      game_num += 1
     );
     return import_server.html`
         <lol-header></lol-header>
@@ -51,6 +92,7 @@ class SeriesPage {
                 <span slot="date">${this.formatDate(date)}</span>
             </game-header>
             <game-tab-panel>
+                ${gameList}
             </game-tab-panel>
         </main>
         `;
@@ -69,7 +111,7 @@ class SeriesPage {
     "November",
     "December"
   ];
-  renderGame(game, teamOne, teamTwo) {
+  renderGame(game, teamOne, teamTwo, game_number) {
     const {
       blueTeam,
       redTeam,
@@ -79,6 +121,7 @@ class SeriesPage {
       blueFirstTower,
       blueHerald,
       blueGrubs,
+      redGrubs,
       blueTowers,
       blueTopPlates,
       blueMidPlates,
@@ -112,8 +155,33 @@ class SeriesPage {
       var teamOneSide = "Red Side";
       var teamTwoSide = "Blue Side";
     }
+    if (blueWin) {
+      var score = "W - L";
+    } else {
+      var score = "L - W";
+    }
     return import_server.html`
-        <team-game-summary>
+        <team-game-summary slot="game${game_number}">
+            <span slot="team_one_side">${teamOneSide}</span>
+            <span slot="score">${score}</span>
+            <span slot="team_two_side">${teamTwoSide}</span>
+
+            ${this.renderPickBan(pickBans)}
+
+            <span slot="blue_kills">0</span>
+            <span slot="blue_towers">${blueTowers}</span>
+            <span slot="blue_heralds">${blueGrubs}</span>
+            <span slot="blue_heralds">0</span>
+            <span slot="blue_barons">${blueBarons}</span>
+            <span slot="blue_drakes">${blueCloudDrakes + blueOceanDrakes + blueMountainDrakes + blueInfernalDrakes + blueHextechDrakes + blueChemtechDrakes + blueElderDrakes}</span>
+            <span slot="blue_gold">0</span>
+            <span slot="red_kills">0</span>
+            <span slot="red_towers">${redTowers}</span>
+            <span slot="red_heralds">${redGrubs}</span>
+            <span slot="red_heralds">0</span>
+            <span slot="red_barons">${redBarons}</span>
+            <span slot="red_drakes">${redCloudDrakes + redOceanDrakes + redMountainDrakes + redInfernalDrakes + redHextechDrakes + redChemtechDrakes + redElderDrakes}</span>
+            <span slot="red_gold">0</span>
         </team-game-summary>
         `;
   }
@@ -172,7 +240,7 @@ class SeriesPage {
                 class="champ_icon">
             <img slot="rpick2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickTwo}_0.jpg"
                 class="champ_icon">
-            <img slot="rpick3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickThree}.jpg"
+            <img slot="rpick3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickThree}_0.jpg"
                 class="champ_icon">
             <img slot="rban4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redBanFour}_0.jpg"
                 class="champ_icon">
