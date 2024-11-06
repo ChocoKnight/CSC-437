@@ -12,22 +12,22 @@ export class HeaderElement extends HTMLElement {
         <header>
             <div>
                 <h1>
-                    <a href="/packages/proto/public/index.html">Lens of Legends</a>
+                    <a href="/">Lens of Legends</a>
                 </h1>
             </div>
             <div class="nav_bar">
                 <ul>
                     <li>
-                        <a href="/packages/proto/public/tournaments/tournaments.html">Tournaments</a>
+                        <a href="/tournaments/tournaments.html">Tournaments</a>
                     </li>
                     <li>
-                        <a href="/packages/proto/public/teams/teams.html">Teams</a>
+                        <a href="/teams/teams.html">Teams</a>
                     </li>
                     <li>
-                        <a href="/packages/proto/public/players/players.html">Players</a>
+                        <a href="/players/players.html">Players</a>
                     </li>
                     <li>
-                        <a href="/packages/proto/public/champions/champions.html">Champions</a>
+                        <a href="/champions/champions.html">Champions</a>
                     </li>
                 </ul>
                 <div class="search_container">
