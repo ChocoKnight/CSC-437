@@ -28,6 +28,24 @@ export class GameTabPanelElement extends HTMLElement {
             </ul>
         </div>
         <div class="tab_content">
+            <slot name="summary">
+                
+            </slot>
+            <slot name="game1">
+                
+            </slot>
+            <slot name="game2">
+                
+            </slot>
+            <slot name="game3">
+                
+            </slot>
+            <slot name="game4">
+                
+            </slot>
+            <slot name="game5">
+                
+            </slot>
         </div>
     </template>
     `;
@@ -38,6 +56,16 @@ export class GameTabPanelElement extends HTMLElement {
         grid-column: 1 / -1;
         padding-left: var(--size-spacing-xlarge);
         padding-right: var(--size-spacing-xlarge);
+    }
+
+    .game_tabs ul {
+        flex-direction: row;
+        padding: 0;
+        margin: 0;
+    }
+
+    .game_tabs ul li {
+        padding: var(--size-spacing-xlarge);
     }
     `;
 

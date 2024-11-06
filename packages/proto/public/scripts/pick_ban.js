@@ -5,6 +5,9 @@ import header from "./styles/header.css.js";
 export class PickBanElement extends HTMLElement {
     static template = html`
     <template>
+        <h2>
+            Pick and Bans
+        </h2>
         <div class="pick_ban">
             <div class="ban1">
                 <div class="blue">
@@ -58,6 +61,8 @@ export class PickBanElement extends HTMLElement {
     :host {
         display: grid;
         grid-column: 1 / -1;
+        align-items: center; 
+        justify-items: center;
         padding-left: var(--size-spacing-xlarge);
         padding-right: var(--size-spacing-xlarge);
     }
