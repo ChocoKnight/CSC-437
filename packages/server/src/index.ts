@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { SeriesPage } from "./pages/series";
-// import { getSeries } from "./services/series-svc"
+import { getSeries } from "./services/series-svc"
 import Series from "./services/series-svc"
 import { connect } from "./services/mongo";
 
@@ -20,14 +20,14 @@ app.get(
   "/series/:seriesId",
   (req: Request, res: Response) => {
     const { seriesId } = req.params;
-    // const data = getSeries(seriesId);
-    // const page = new SeriesPage(data);
-    // res.set("Content-Type", "text/html").send(page.render());
+    const data = getSeries(seriesId);
+    const page = new SeriesPage(data);
+    res.set("Content-Type", "text/html").send(page.render());
 
-    Series.get(seriesId).then((data) => {
-      res.set("Content-Type", "text/html")
-        .send(new SeriesPage(data).render());
-    });
+    // Series.get(seriesId).then((data) => {
+    //   res.set("Content-Type", "text/html")
+    //     .send(new SeriesPage(data).render());
+    // });
   }
 );
 

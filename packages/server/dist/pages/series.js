@@ -67,13 +67,6 @@ class SeriesPage {
       ]
     });
   }
-  formatDate = (date) => {
-    const dt = date || /* @__PURE__ */ new Date();
-    const y = dt.getUTCFullYear();
-    const m = SeriesPage.months[dt.getUTCMonth()];
-    const d = dt.getUTCDate();
-    return `${m} ${d}, ${y}`;
-  };
   renderBody() {
     const { tournamentName, date, teamOne, teamTwo, games = [] } = this.data;
     var game_num = 1;
@@ -97,55 +90,17 @@ class SeriesPage {
         </main>
         `;
   }
-  static months = [
-    "January",
-    "Febuary",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-  ];
   renderGame(game, teamOne, teamTwo, game_number) {
     const {
       blueTeam,
       redTeam,
-      pickBans,
+      bluePickBans,
+      redPickBans,
       blueWin,
       blueFirstBlood,
       blueFirstTower,
-      blueHerald,
-      blueGrubs,
-      redGrubs,
-      blueTowers,
-      blueTopPlates,
-      blueMidPlates,
-      blueBotPlates,
-      blueBarons,
-      blueCloudDrakes,
-      blueOceanDrakes,
-      blueMountainDrakes,
-      blueInfernalDrakes,
-      blueHextechDrakes,
-      blueChemtechDrakes,
-      blueElderDrakes,
-      redTowers,
-      redTopPlates,
-      redMidPlates,
-      redBotPlates,
-      redBarons,
-      redCloudDrakes,
-      redOceanDrakes,
-      redMountainDrakes,
-      redInfernalDrakes,
-      redHextechDrakes,
-      redChemtechDrakes,
-      redElderDrakes,
+      blueObjectives,
+      redObjectives,
       duration
     } = game;
     if (teamOne === blueTeam) {
@@ -166,93 +121,119 @@ class SeriesPage {
             <span slot="score">${score}</span>
             <span slot="team_two_side">${teamTwoSide}</span>
 
-            ${this.renderPickBan(pickBans)}
+            ${this.renderPickBan(bluePickBans, redPickBans)}
 
             <span slot="blue_kills">0</span>
-            <span slot="blue_towers">${blueTowers}</span>
-            <span slot="blue_grubs">${blueGrubs}</span>
+            <span slot="blue_towers">${blueObjectives.towers}</span>
+            <span slot="blue_grubs">${blueObjectives.grubs}</span>
             <span slot="blue_heralds">0</span>
-            <span slot="blue_barons">${blueBarons}</span>
-            <span slot="blue_drakes">${blueCloudDrakes + blueOceanDrakes + blueMountainDrakes + blueInfernalDrakes + blueHextechDrakes + blueChemtechDrakes + blueElderDrakes}</span>
+            <span slot="blue_barons">${blueObjectives.barons}</span>
+            <span slot="blue_drakes">${this.countDrakes(blueObjectives)}</span>
             <span slot="blue_gold">0</span>
             <span slot="red_kills">0</span>
-            <span slot="red_towers">${redTowers}</span>
-            <span slot="red_grubs">${redGrubs}</span>
+            <span slot="red_towers">${redObjectives.towers}</span>
+            <span slot="red_grubs">${redObjectives.grubs}</span>
             <span slot="red_heralds">0</span>
-            <span slot="red_barons">${redBarons}</span>
-            <span slot="red_drakes">${redCloudDrakes + redOceanDrakes + redMountainDrakes + redInfernalDrakes + redHextechDrakes + redChemtechDrakes + redElderDrakes}</span>
+            <span slot="red_barons">${blueObjectives.barons}</span>
+            <span slot="red_drakes">${this.countDrakes(redObjectives)}</span>
             <span slot="red_gold">0</span>
         </team-game-summary>
         `;
   }
-  renderPickBan(pickban) {
-    const {
-      blueBanOne,
-      blueBanTwo,
-      blueBanThree,
-      blueBanFour,
-      blueBanFive,
-      bluePickOne,
-      bluePickTwo,
-      bluePickThree,
-      bluePickFour,
-      bluePickFive,
-      redBanOne,
-      redBanTwo,
-      redBanThree,
-      redBanFour,
-      redBanFive,
-      redPickOne,
-      redPickTwo,
-      redPickThree,
-      redPickFour,
-      redPickFive
-    } = pickban;
+  renderPickBan(bluePickBan, redPickBan) {
     return import_server.html`
         <pick-ban slot="pick_ban">
-            <img slot="bban1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${blueBanOne}_0.jpg"
+            <img slot="bban1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBan.banOne}_0.jpg"
                 class="champ_icon">
-            <img slot="bban2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${blueBanTwo}_0.jpg"
+            <img slot="bban2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBan.banTwo}_0.jpg"
                 class="champ_icon">
-            <img slot="bban3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${blueBanThree}_0.jpg"
+            <img slot="bban3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBan.banThree}_0.jpg"
                 class="champ_icon">
-            <img slot="bpick1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickOne}_0.jpg"
+            <img slot="bpick1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBan.pickOne}_0.jpg"
                 class="champ_icon">
-            <img slot="bpick2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickTwo}_0.jpg"
+            <img slot="bpick2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBan.pickTwo}_0.jpg"
                 class="champ_icon">
-            <img slot="bpick3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickThree}_0.jpg"
+            <img slot="bpick3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBan.pickThree}_0.jpg"
                 class="champ_icon">
-            <img slot="bban4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${blueBanFour}_0.jpg"
+            <img slot="bban4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBan.banFour}_0.jpg"
                 class="champ_icon">
-            <img slot="bban5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${blueBanFive}_0.jpg"
+            <img slot="bban5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBan.banFive}_0.jpg"
                 class="champ_icon">
-            <img slot="bpick4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickFour}_0.jpg"
+            <img slot="bpick4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBan.pickFour}_0.jpg"
                 class="champ_icon">
-            <img slot="bpick5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickFive}_0.jpg"
+            <img slot="bpick5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBan.pickFive}_0.jpg"
                 class="champ_icon">
-            <img slot="rban1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redBanOne}_0.jpg"
+            <img slot="rban1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBan.banOne}_0.jpg"
                 class="champ_icon">
-            <img slot="rban2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redBanTwo}_0.jpg"
+            <img slot="rban2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBan.banTwo}_0.jpg"
                 class="champ_icon">
-            <img slot="rban3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redBanThree}_0.jpg"
+            <img slot="rban3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBan.banThree}_0.jpg"
                 class="champ_icon">
-            <img slot="rpick1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickOne}_0.jpg"
+            <img slot="rpick1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBan.pickOne}_0.jpg"
                 class="champ_icon">
-            <img slot="rpick2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickTwo}_0.jpg"
+            <img slot="rpick2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBan.pickTwo}_0.jpg"
                 class="champ_icon">
-            <img slot="rpick3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickThree}_0.jpg"
+            <img slot="rpick3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBan.pickThree}_0.jpg"
                 class="champ_icon">
-            <img slot="rban4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redBanFour}_0.jpg"
+            <img slot="rban4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBan.banFour}_0.jpg"
                 class="champ_icon">
-            <img slot="rban5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redBanFive}_0.jpg"
+            <img slot="rban5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBan.banFive}_0.jpg"
                 class="champ_icon">
-            <img slot="rpick4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickFour}_0.jpg"
+            <img slot="rpick4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBan.pickFour}_0.jpg"
                 class="champ_icon">
-            <img slot="rpick5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickFive}_0.jpg"
+            <img slot="rpick5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBan.pickFive}_0.jpg"
                 class="champ_icon">
         </pick-ban>
         `;
   }
+  static months = [
+    "January",
+    "Febuary",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+  formatDate = (date) => {
+    const dt = date || /* @__PURE__ */ new Date();
+    const y = dt.getUTCFullYear();
+    const m = SeriesPage.months[dt.getUTCMonth()];
+    const d = dt.getUTCDate();
+    return `${m} ${d}, ${y}`;
+  };
+  static drakeIcons = {
+    cloudDrake: "Cloud Drake",
+    ocenDrake: "Ocean Drake",
+    mountainDrake: "Mountain Drake",
+    infernalDrake: "Infernal Drake",
+    hextechDrake: "Hextech Drake",
+    chemtechDrake: "Chemtech Drake",
+    elderDrake: "Elder Drake"
+  };
+  static validDrakes = /* @__PURE__ */ new Set(["Cloud Drake", "Ocean Drake", "Mountain Drake", "Infernal Drake", "Hextech Drake", "Chemtech Drake"]);
+  countDrakes = (objectives) => {
+    var count = 0;
+    if (SeriesPage.validDrakes.has(objectives.firstDrake)) {
+      count += 1;
+    }
+    if (SeriesPage.validDrakes.has(objectives.secondDrake)) {
+      count += 1;
+    }
+    if (SeriesPage.validDrakes.has(objectives.thirdDrake)) {
+      count += 1;
+    }
+    if (SeriesPage.validDrakes.has(objectives.fourthDrake)) {
+      count += 1;
+    }
+    count += objectives.elderDrakes;
+    return `${count}`;
+  };
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
