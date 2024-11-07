@@ -15,10 +15,10 @@ export interface Objectives {
     grubs: number;
     herald: number;
     barons: number;
-    firstDrake: String,
-    secondDrake: String,
-    thirdDrake: String,
-    fourthDrake: String,
+    firstDrake: String;
+    secondDrake: String;
+    thirdDrake: String;
+    fourthDrake: String;
     elderDrakes: number;
 }
 

@@ -90,6 +90,7 @@ export class SeriesPage {
             <span slot="team_one_side">${teamOneSide}</span>
             <span slot="score">${score}</span>
             <span slot="team_two_side">${teamTwoSide}</span>
+            <span slot="duration">${this.formatDuration(game.duration)}</span>
 
             ${this.renderPickBan(bluePickBans, redPickBans)}
 
@@ -158,6 +159,13 @@ export class SeriesPage {
         `;
     }
 
+    formatDuration = (duration : number) => {
+        const minutesString = String(Math.floor(duration / 60)).padStart(2, '0');
+        const secondsString = String(duration % 60).padStart(2, '0');
+
+        return `${minutesString}:${secondsString}`;
+    }
+
     static months = [
         "January",
         "Febuary",
@@ -192,7 +200,7 @@ export class SeriesPage {
         elderDrake : "Elder Drake",
     }
 
-    static validDrakes = new Set<String>(["Cloud Drake", "Ocean Drake", "Mountain Drake", "Infernal Drake", "Hextech Drake", "Chemtech Drake"]);
+    static validDrakes = new Set<String>(["Cloud", "Ocean", "Mountain", "Infernal", "Hextech", "Chemtech", "Elder"]);
 
     countDrakes = (objectives: Objectives) => {
         var count : number = 0;

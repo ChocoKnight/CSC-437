@@ -120,6 +120,7 @@ class SeriesPage {
             <span slot="team_one_side">${teamOneSide}</span>
             <span slot="score">${score}</span>
             <span slot="team_two_side">${teamTwoSide}</span>
+            <span slot="duration">${this.formatDuration(game.duration)}</span>
 
             ${this.renderPickBan(bluePickBans, redPickBans)}
 
@@ -186,6 +187,11 @@ class SeriesPage {
         </pick-ban>
         `;
   }
+  formatDuration = (duration) => {
+    const minutesString = String(Math.floor(duration / 60)).padStart(2, "0");
+    const secondsString = String(duration % 60).padStart(2, "0");
+    return `${minutesString}:${secondsString}`;
+  };
   static months = [
     "January",
     "Febuary",
@@ -216,7 +222,7 @@ class SeriesPage {
     chemtechDrake: "Chemtech Drake",
     elderDrake: "Elder Drake"
   };
-  static validDrakes = /* @__PURE__ */ new Set(["Cloud Drake", "Ocean Drake", "Mountain Drake", "Infernal Drake", "Hextech Drake", "Chemtech Drake"]);
+  static validDrakes = /* @__PURE__ */ new Set(["Cloud", "Ocean", "Mountain", "Infernal", "Hextech", "Chemtech", "Elder"]);
   countDrakes = (objectives) => {
     var count = 0;
     if (SeriesPage.validDrakes.has(objectives.firstDrake)) {
