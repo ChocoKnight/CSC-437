@@ -1,16 +1,22 @@
-import { Series } from "../models";
+import { Schema, model } from "mongoose";
+import { Series, Game, PickBans } from "../models";
 
 const series = {
     blg_vs_t1: {
+        seriesId: "blgvst1",
         tournamentName: "Worlds 2024",
         date: new Date("2024-11-02"),
         teamOne: "BLG",
         teamTwo: "T1",
         games: [
             {
+                gameId: "blgvst1_1",
+                seriesId: "blgvst1",
                 blueTeam: "T1",
                 redTeam: "BLG",
                 pickBans: {
+                    pickBanId: "blgvst1_pb_1",
+                    gameId: "blgvst1_1",
                     blueBanOne: "Jax",
                     blueBanTwo: "Aurora",
                     blueBanThree: "Vi",
@@ -35,7 +41,8 @@ const series = {
                 blueWin: false,
                 blueFirstBlood: false,
                 blueFirstTower: false,
-                blueHerald: false,
+                blueHerald: 0,
+                redHerald: 1,
                 blueTowers: 5,
                 blueTopPlates: 1,
                 blueMidPlates: 3,
@@ -65,9 +72,13 @@ const series = {
                 duration: 1629,
             },
             {
+                gameId: "blgvst1_2",
+                seriesId: "blgvst1",
                 blueTeam: "T1",
                 redTeam: "BLG",
                 pickBans: {
+                    pickBanId: "blgvst1_pb_2",
+                    gameId: "blgvst1_2",
                     blueBanOne: "Jax",
                     blueBanTwo: "Aurora",
                     blueBanThree: "Vi",
@@ -92,7 +103,8 @@ const series = {
                 blueWin: true,
                 blueFirstBlood: false,
                 blueFirstTower: true,
-                blueHerald: true,
+                blueHerald: 1,
+                redHerald: 0,
                 blueTowers: 9,
                 blueTopPlates: 5,
                 blueMidPlates: 3,
@@ -122,9 +134,13 @@ const series = {
                 duration: 1645,
             },
             {
+                gameId: "blgvst1_3",
+                seriesId: "blgvst1",
                 blueTeam: "BLG",
                 redTeam: "T1",
                 pickBans: {
+                    pickBanId: "blgvst1_pb_3",
+                    gameId: "blgvst1_3",
                     blueBanOne: "Jax",
                     blueBanTwo: "Aurora",
                     blueBanThree: "Vi",
@@ -149,7 +165,8 @@ const series = {
                 blueWin: true,
                 blueFirstBlood: true,
                 blueFirstTower: true,
-                blueHerald: true,
+                blueHerald: 1,
+                redHerald: 0,
                 blueTowers: 11,
                 blueTopPlates: 5,
                 blueMidPlates: 1,
@@ -179,9 +196,13 @@ const series = {
                 duration: 1655,
             },
             {
+                gameId: "blgvst1_4",
+                seriesId: "blgvst1",
                 blueTeam: "T1",
                 redTeam: "BLG",
                 pickBans: {
+                    pickBanId: "blgvst1_pb_4",
+                    gameId: "blgvst1_4",
                     blueBanOne: "Jax",
                     blueBanTwo: "Aurora",
                     blueBanThree: "Vi",
@@ -206,7 +227,8 @@ const series = {
                 blueWin: true,
                 blueFirstBlood: false,
                 blueFirstTower: true,
-                blueHerald: true,
+                blueHerald: 1,
+                redHerald: 0,
                 blueTowers: 9,
                 blueTopPlates: 2,
                 blueMidPlates: 1,
@@ -236,9 +258,13 @@ const series = {
                 duration: 1902,
             },
             {
+                gameId: "blgvst1_5",
+                seriesId: "blgvst1",
                 blueTeam: "BLG",
                 redTeam: "T1",
                 pickBans: {
+                    pickBanId: "blgvst1_pb_5",
+                    gameId: "blgvst1_5",
                     blueBanOne: "Jax",
                     blueBanTwo: "Aurora",
                     blueBanThree: "Vi",
@@ -263,7 +289,8 @@ const series = {
                 blueWin: false,
                 blueFirstBlood: true,
                 blueFirstTower: false,
-                blueHerald: false,
+                blueHerald: 0,
+                redHerald: 1,
                 blueTowers: 3,
                 blueTopPlates: 2,
                 blueMidPlates: 1,
@@ -295,6 +322,86 @@ const series = {
         ]
     }
 }
+
+const PickBanSchema = new Schema<PickBans>(
+    {
+        pickBanId: { type: String, required: true, trim: true },
+        gameId: { type: String, required: true, trim: true },
+        blueBanOne: { type: String, required: true, trim: true },
+        blueBanTwo: { type: String, required: true, trim: true },
+        blueBanThree: { type: String, required: true, trim: true },
+        blueBanFour: { type: String, required: true, trim: true },
+        blueBanFive: { type: String, required: true, trim: true },
+        bluePickOne: { type: String, required: true, trim: true },
+        bluePickTwo: { type: String, required: true, trim: true },
+        bluePickThree: { type: String, required: true, trim: true },
+        bluePickFour: { type: String, required: true, trim: true },
+        bluePickFive: { type: String, required: true, trim: true },
+        redBanOne: { type: String, required: true, trim: true },
+        redBanTwo: { type: String, required: true, trim: true },
+        redBanThree: { type: String, required: true, trim: true },
+        redBanFour: { type: String, required: true, trim: true },
+        redBanFive: { type: String, required: true, trim: true },
+        redPickOne: { type: String, required: true, trim: true },
+        redPickTwo: { type: String, required: true, trim: true },
+        redPickThree: { type: String, required: true, trim: true },
+        redPickFour: { type: String, required: true, trim: true },
+        redPickFive: { type: String, required: true, trim: true },
+    },
+    { collection: "pickbans" }
+);
+
+const GameSchema = new Schema<Game>(
+    {
+        gameId: { type: String, required: true, trim: true },
+        seriesId: { type: String, required: true, trim: true },
+        blueTeam: { type: String, required: true, trim: true },
+        redTeam: { type: String, required: true, trim: true },
+        pickBans: { type: PickBanSchema, required: true },
+        blueWin: { type: Boolean, required: true, },
+        blueFirstBlood: { type: Boolean, required: true, },
+        blueFirstTower: { type: Boolean, required: true, },
+        blueTopPlates: {type: Number, required: true},
+        blueMidPlates: {type: Number, required: true},
+        blueBotPlates: {type: Number, required: true},
+        blueGrubs: {type: Number, required: true},
+        blueHerald: {type: Number, required: true},
+        blueBarons: {type: Number, required: true},
+        blueCloudDrakes: {type: Number, required: true},
+        blueOceanDrakes: {type: Number, required: true},
+        blueMountainDrakes: {type: Number, required: true},
+        blueInfernalDrakes: {type: Number, required: true},
+        blueHextechDrakes: {type: Number, required: true},
+        blueChemtechDrakes: {type: Number, required: true},
+        blueElderDrakes: {type: Number, required: true},
+        redTopPlates: {type: Number, required: true},
+        redMidPlates: {type: Number, required: true},
+        redBotPlates: {type: Number, required: true},
+        redGrubs: {type: Number, required: true},
+        redHerald: {type: Number, required: true},
+        redBarons: {type: Number, required: true},
+        redCloudDrakes: {type: Number, required: true},
+        redOceanDrakes: {type: Number, required: true},
+        redMountainDrakes: {type: Number, required: true},
+        redInfernalDrakes: {type: Number, required: true},
+        redHextechDrakes: {type: Number, required: true},
+        redChemtechDrakes: {type: Number, required: true},
+        redElderDrakes: {type: Number, required: true},
+    },
+    { collection: "games" }
+);
+
+const SeriesSchema = new Schema<Series>(
+    {
+        seriesId: { type: String, required: true, trim: true },
+        tournamentName: { type: String, required: true, trim: true },
+        date: { type: Date, required: true, trim: true },
+        teamOne: { type: String, required: true, trim: true },
+        teamTwo: { type: String, required: true, trim: true },
+        games: { type: new Array<Game>, required: true },
+    },
+    { collection: "series" }
+);
 
 export function getSeries(_: string) {
     return series["blg_vs_t1"];

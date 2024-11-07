@@ -170,14 +170,14 @@ class SeriesPage {
 
             <span slot="blue_kills">0</span>
             <span slot="blue_towers">${blueTowers}</span>
-            <span slot="blue_heralds">${blueGrubs}</span>
+            <span slot="blue_grubs">${blueGrubs}</span>
             <span slot="blue_heralds">0</span>
             <span slot="blue_barons">${blueBarons}</span>
             <span slot="blue_drakes">${blueCloudDrakes + blueOceanDrakes + blueMountainDrakes + blueInfernalDrakes + blueHextechDrakes + blueChemtechDrakes + blueElderDrakes}</span>
             <span slot="blue_gold">0</span>
             <span slot="red_kills">0</span>
             <span slot="red_towers">${redTowers}</span>
-            <span slot="red_heralds">${redGrubs}</span>
+            <span slot="red_grubs">${redGrubs}</span>
             <span slot="red_heralds">0</span>
             <span slot="red_barons">${redBarons}</span>
             <span slot="red_drakes">${redCloudDrakes + redOceanDrakes + redMountainDrakes + redInfernalDrakes + redHextechDrakes + redChemtechDrakes + redElderDrakes}</span>

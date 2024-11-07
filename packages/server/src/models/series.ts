@@ -1,4 +1,5 @@
 export interface Series {
+    seriesId: string;
     tournamentName: string;
     date: Date;
     teamOne: string;
@@ -7,18 +8,20 @@ export interface Series {
 }
 
 export interface Game {
+    gameId: string;
+    seriesId: string;
     blueTeam: string;
     redTeam: string;
     pickBans: PickBans
     blueWin: boolean;
     blueFirstBlood: boolean;
     blueFirstTower: boolean;
-    blueHerald: boolean;
     blueTowers: number;
     blueTopPlates: number;
     blueMidPlates: number;
     blueBotPlates: number;
     blueGrubs: number;
+    blueHerald: number;
     blueBarons: number;
     blueCloudDrakes: number;
     blueOceanDrakes: number;
@@ -32,6 +35,7 @@ export interface Game {
     redMidPlates: number;
     redBotPlates: number;
     redGrubs: number;
+    redHerald: number;
     redBarons: number;
     redCloudDrakes: number;
     redOceanDrakes: number;
@@ -44,6 +48,8 @@ export interface Game {
 }
 
 export interface PickBans {
+    pickBanId: string;
+    gameId: string;
     blueBanOne: string;
     blueBanTwo: string;
     blueBanThree: string;

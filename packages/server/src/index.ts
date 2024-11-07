@@ -2,6 +2,9 @@ import express, { Request, Response } from "express";
 import { Series } from "./models";
 import { SeriesPage } from "./pages/series";
 import { getSeries } from "./services/series-svc"
+import { connect } from "./services/mongo";
+
+connect("LoL");
 
 const app = express();
 const port = process.env.PORT || 3000;
