@@ -18,6 +18,7 @@ var __copyProps = (to, from, except, desc) => {
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 var series_svc_exports = {};
 __export(series_svc_exports, {
+  default: () => series_svc_default,
   getSeries: () => getSeries
 });
 module.exports = __toCommonJS(series_svc_exports);
@@ -376,7 +377,30 @@ const GameSchema = new import_mongoose.Schema(
     seriesId: { type: String, required: true, trim: true },
     blueTeam: { type: String, required: true, trim: true },
     redTeam: { type: String, required: true, trim: true },
-    pickBans: { type: PickBanSchema, required: true },
+    pickBans: {
+      pickBanId: { type: String, required: true, trim: true },
+      gameId: { type: String, required: true, trim: true },
+      blueBanOne: { type: String, required: true, trim: true },
+      blueBanTwo: { type: String, required: true, trim: true },
+      blueBanThree: { type: String, required: true, trim: true },
+      blueBanFour: { type: String, required: true, trim: true },
+      blueBanFive: { type: String, required: true, trim: true },
+      bluePickOne: { type: String, required: true, trim: true },
+      bluePickTwo: { type: String, required: true, trim: true },
+      bluePickThree: { type: String, required: true, trim: true },
+      bluePickFour: { type: String, required: true, trim: true },
+      bluePickFive: { type: String, required: true, trim: true },
+      redBanOne: { type: String, required: true, trim: true },
+      redBanTwo: { type: String, required: true, trim: true },
+      redBanThree: { type: String, required: true, trim: true },
+      redBanFour: { type: String, required: true, trim: true },
+      redBanFive: { type: String, required: true, trim: true },
+      redPickOne: { type: String, required: true, trim: true },
+      redPickTwo: { type: String, required: true, trim: true },
+      redPickThree: { type: String, required: true, trim: true },
+      redPickFour: { type: String, required: true, trim: true },
+      redPickFive: { type: String, required: true, trim: true }
+    },
     blueWin: { type: Boolean, required: true },
     blueFirstBlood: { type: Boolean, required: true },
     blueFirstTower: { type: Boolean, required: true },
@@ -420,6 +444,16 @@ const SeriesSchema = new import_mongoose.Schema(
   },
   { collection: "series" }
 );
+const SeriesModel = (0, import_mongoose.model)("Series", SeriesSchema);
+function index() {
+  return SeriesModel.find();
+}
+function get(seriesid) {
+  return SeriesModel.find({ seriesid }).then((list) => list[0]).catch((err) => {
+    throw `${seriesid} Not Found`;
+  });
+}
+var series_svc_default = { index, get };
 function getSeries(_) {
   return series["blg_vs_t1"];
 }
