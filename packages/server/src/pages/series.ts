@@ -159,6 +159,10 @@ export class SeriesPage {
         `;
     }
 
+    static altChampNames = {
+        "Wukong": "MonkeyKing"
+    }
+
     formatDuration = (duration : number) => {
         const minutesString = String(Math.floor(duration / 60)).padStart(2, '0');
         const secondsString = String(duration % 60).padStart(2, '0');

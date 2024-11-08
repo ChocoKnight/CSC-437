@@ -187,6 +187,9 @@ class SeriesPage {
         </pick-ban>
         `;
   }
+  static altChampNames = {
+    "Wukong": "MonkeyKing"
+  };
   formatDuration = (duration) => {
     const minutesString = String(Math.floor(duration / 60)).padStart(2, "0");
     const secondsString = String(duration % 60).padStart(2, "0");

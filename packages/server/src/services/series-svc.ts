@@ -1,17 +1,17 @@
 import { Schema, model } from "mongoose";
 import { Series, Game } from "../models";
-
+ 
 const series = {
     blg_vs_t1: {
-        seriesId: "blgvst1",
+        seriesId: "blgvst1_finals",
         tournamentName: "Worlds 2024",
         date: new Date("2024-11-02"),
         teamOne: "BLG",
         teamTwo: "T1",
         games: [
             {
-                gameId: "blgvst1_1",
-                seriesId: "blgvst1",
+                gameId: "blgvst1_finals_1",
+                seriesId: "blgvst1_finals",
                 blueTeam: "T1",
                 redTeam: "BLG",
                 bluePickBans: {
@@ -72,8 +72,8 @@ const series = {
                 duration: 1629,
             },
             {
-                gameId: "blgvst1_2",
-                seriesId: "blgvst1",
+                gameId: "blgvst1_finals_2",
+                seriesId: "blgvst1_finals",
                 blueTeam: "T1",
                 redTeam: "BLG",
                 bluePickBans: {
@@ -81,7 +81,7 @@ const series = {
                     banTwo: "Aurora",
                     banThree: "Vi",
                     banFour: "Kaisa",
-                    banFive: "Kalista",
+                    banFive: "Wukong",
                     pickOne: "Varus",
                     pickTwo: "Yone",
                     pickThree: "Ashe",
@@ -134,8 +134,8 @@ const series = {
                 duration: 1645,
             },
             {
-                gameId: "blgvst1_3",
-                seriesId: "blgvst1",
+                gameId: "blgvst1_finals_3",
+                seriesId: "blgvst1_finals",
                 blueTeam: "BLG",
                 redTeam: "T1",
                 bluePickBans: {
@@ -196,8 +196,8 @@ const series = {
                 duration: 1655,
             },
             {
-                gameId: "blgvst1_4",
-                seriesId: "blgvst1",
+                gameId: "blgvst1_finals_4",
+                seriesId: "blgvst1_finals",
                 blueTeam: "T1",
                 redTeam: "BLG",
                 bluePickBans: {
@@ -258,8 +258,8 @@ const series = {
                 duration: 1902,
             },
             {
-                gameId: "blgvst1_5",
-                seriesId: "blgvst1",
+                gameId: "blgvst1_finals_5",
+                seriesId: "blgvst1_finals",
                 blueTeam: "BLG",
                 redTeam: "T1",
                 bluePickBans: {

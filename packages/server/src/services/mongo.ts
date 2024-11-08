@@ -13,7 +13,7 @@ function getMongoURI(dbname: string) {
             "Connecting to MongoDB at",
             `mongodb+srv://${MONGO_USER}:<password>@${MONGO_CLUSTER}/${dbname}`
         );
-        connection_string = `mongodb+srv://${MONGO_USER}:${MONGO_PWD}@${MONGO_CLUSTER}/${dbname}?retryWrites=true&w=majority&appName=LoL`;
+        connection_string = `mongodb+srv://${MONGO_USER}:${MONGO_PWD}@${MONGO_CLUSTER}/?retryWrites=true&w=majority&appName=LoL`;
     } else {
         console.log("Connecting to MongoDB at ", connection_string);
     }
@@ -23,5 +23,6 @@ function getMongoURI(dbname: string) {
 export function connect(dbname: string) {
     mongoose
         .connect(getMongoURI(dbname))
+        .then(() => console.log(`Successfully connected to MongoDB database: ${dbname}`))
         .catch((error) => console.log(error));
 }
