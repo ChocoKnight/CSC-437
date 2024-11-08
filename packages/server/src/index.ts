@@ -1,7 +1,10 @@
 import express, { Request, Response } from "express";
-import { Series } from "./models";
 import { SeriesPage } from "./pages/series";
 import { getSeries } from "./services/series-svc"
+import Series from "./services/series-svc"
+import { connect } from "./services/mongo";
+
+connect("LoL");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -19,8 +22,12 @@ app.get(
     const { seriesId } = req.params;
     const data = getSeries(seriesId);
     const page = new SeriesPage(data);
-
     res.set("Content-Type", "text/html").send(page.render());
+
+    // Series.get(seriesId).then((data) => {
+    //   res.set("Content-Type", "text/html")
+    //     .send(new SeriesPage(data).render());
+    // });
   }
 );
 
