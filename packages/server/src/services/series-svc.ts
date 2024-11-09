@@ -369,6 +369,8 @@ const GameSchema = new Schema<Game>(
     }
 );
 
+const GameModel = model<Game>("Game", GameSchema);
+
 const SeriesSchema = new Schema<Series>(
     {
         seriesId: { type: String, required: true, trim: true },
@@ -376,7 +378,12 @@ const SeriesSchema = new Schema<Series>(
         date: { type: Date, required: true },
         teamOne: { type: String, required: true, trim: true },
         teamTwo: { type: String, required: true, trim: true },
-        games: { type: [Object], required: true }
+        games: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Game', // Reference to the Game model
+            },
+        ]
     },
     { collection: 'series' }
 );
@@ -387,14 +394,28 @@ function index(): Promise<Series[]> {
     return SeriesModel.find();
 }
 
+// SeriesModel.findOne({ seriesId: "blg_vs_t1_finals" })
+//     .populate('games')
+//     .then((result) => {
+//         console.log("Manual Query Result:", result);
+//     })
+//     .catch(console.error);
+
+// GameModel.find({ seriesId: "blg_vs_t1_finals" })
+//     .then((result) => {
+//         console.log("Found Games:", result); // Prints the games with the given seriesId
+//     })
+//     .catch(console.error);
+
 function get(seriesId: String): Promise<Series> {
     return SeriesModel.find({ seriesId })
-        // .populate('game')
+        .populate('games')
         .then((list) => {
             console.log("Query result:", list);
             return list[0];
         })
         .catch((err) => {
+            console.log(err)
             throw `${seriesId} Not Found`;
         });
 }

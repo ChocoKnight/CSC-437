@@ -386,6 +386,7 @@ const GameSchema = new import_mongoose2.Schema(
     duration: { type: Number, required: true }
   }
 );
+const GameModel = (0, import_mongoose2.model)("Game", GameSchema);
 const SeriesSchema = new import_mongoose2.Schema(
   {
     seriesId: { type: String, required: true, trim: true },
@@ -393,7 +394,13 @@ const SeriesSchema = new import_mongoose2.Schema(
     date: { type: Date, required: true },
     teamOne: { type: String, required: true, trim: true },
     teamTwo: { type: String, required: true, trim: true },
-    games: { type: [Object], required: true }
+    games: [
+      {
+        type: import_mongoose2.Schema.Types.ObjectId,
+        ref: "Game"
+        // Reference to the Game model
+      }
+    ]
   },
   { collection: "series" }
 );
@@ -402,10 +409,11 @@ function index() {
   return SeriesModel.find();
 }
 function get(seriesId) {
-  return SeriesModel.find({ seriesId }).then((list) => {
+  return SeriesModel.find({ seriesId }).populate("games").then((list) => {
     console.log("Query result:", list);
     return list[0];
   }).catch((err) => {
+    console.log(err);
     throw `${seriesId} Not Found`;
   });
 }
