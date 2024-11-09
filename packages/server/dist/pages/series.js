@@ -68,7 +68,7 @@ class SeriesPage {
     });
   }
   renderBody() {
-    const { tournamentName, date, teamOne, teamTwo, games = [] } = this.data;
+    const { tournamentName, date, teamOne, teamTwo, games } = this.data;
     var game_num = 1;
     const gameList = games.map(
       (game) => this.renderGame(game, teamOne, teamTwo, game_num),
@@ -84,7 +84,7 @@ class SeriesPage {
                 <span slot="score" href="">0-0</span>
                 <span slot="date">${this.formatDate(date)}</span>
             </game-header>
-            <game-tab-panel>
+            <game-tab-panel> 
                 ${gameList}
             </game-tab-panel>
         </main>
@@ -120,69 +120,66 @@ class SeriesPage {
             <span slot="team_one_side">${teamOneSide}</span>
             <span slot="score">${score}</span>
             <span slot="team_two_side">${teamTwoSide}</span>
-            <span slot="duration">${this.formatDuration(game.duration)}</span>
 
-            ${this.renderPickBan(bluePickBans, redPickBans)}
-
-            <span slot="blue_kills">0</span>
-            <span slot="blue_towers">${blueObjectives.towers}</span>
-            <span slot="blue_grubs">${blueObjectives.grubs}</span>
-            <span slot="blue_heralds">0</span>
-            <span slot="blue_barons">${blueObjectives.barons}</span>
-            <span slot="blue_drakes">${this.countDrakes(blueObjectives)}</span>
-            <span slot="blue_gold">0</span>
-            <span slot="red_kills">0</span>
-            <span slot="red_towers">${redObjectives.towers}</span>
-            <span slot="red_grubs">${redObjectives.grubs}</span>
-            <span slot="red_heralds">0</span>
-            <span slot="red_barons">${blueObjectives.barons}</span>
-            <span slot="red_drakes">${this.countDrakes(redObjectives)}</span>
-            <span slot="red_gold">0</span>
+            <span slot="duration">${this.formatDuration(duration)}</span>
+            
         </team-game-summary>
         `;
   }
-  renderPickBan(bluePickBan, redPickBan) {
-    return import_server.html`
+  renderPickBan(bluePickBans, redPickBans) {
+    const {
+      banOne,
+      banTwo,
+      banThree,
+      banFour,
+      banFive,
+      pickOne,
+      pickTwo,
+      pickThree,
+      pickFour,
+      pickFive
+    } = bluePickBans;
+    return import_server.html` 
         <pick-ban slot="pick_ban">
-            <img slot="bban1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBan.banOne}_0.jpg"
+            <img slot="bban1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${banOne}_0.jpg"
                 class="champ_icon">
-            <img slot="bban2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBan.banTwo}_0.jpg"
+            <img slot="bban2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${banTwo}_0.jpg"
                 class="champ_icon">
-            <img slot="bban3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBan.banThree}_0.jpg"
+            <img slot="bban3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${banThree}_0.jpg"
                 class="champ_icon">
-            <img slot="bpick1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBan.pickOne}_0.jpg"
+            <img slot="bpick1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${pickOne}_0.jpg"
                 class="champ_icon">
-            <img slot="bpick2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBan.pickTwo}_0.jpg"
+            <img slot="bpick2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${pickTwo}_0.jpg"
                 class="champ_icon">
-            <img slot="bpick3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBan.pickThree}_0.jpg"
+            <img slot="bpick3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${pickThree}_0.jpg"
                 class="champ_icon">
-            <img slot="bban4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBan.banFour}_0.jpg"
+            <img slot="bban4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${banFour}_0.jpg"
                 class="champ_icon">
-            <img slot="bban5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBan.banFive}_0.jpg"
+            <img slot="bban5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${banFive}_0.jpg"
                 class="champ_icon">
-            <img slot="bpick4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBan.pickFour}_0.jpg"
+            <img slot="bpick4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${pickFour}_0.jpg"
                 class="champ_icon">
-            <img slot="bpick5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBan.pickFive}_0.jpg"
+            <img slot="bpick5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${pickFive}_0.jpg"
                 class="champ_icon">
-            <img slot="rban1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBan.banOne}_0.jpg"
+            <img slot="rban1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBans.banOne}_0.jpg"
                 class="champ_icon">
-            <img slot="rban2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBan.banTwo}_0.jpg"
+            <img slot="rban2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBans.banTwo}_0.jpg"
                 class="champ_icon">
-            <img slot="rban3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBan.banThree}_0.jpg"
+            <img slot="rban3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBans.banThree}_0.jpg"
                 class="champ_icon">
-            <img slot="rpick1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBan.pickOne}_0.jpg"
+            <img slot="rpick1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBans.pickOne}_0.jpg"
                 class="champ_icon">
-            <img slot="rpick2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBan.pickTwo}_0.jpg"
+            <img slot="rpick2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBans.pickTwo}_0.jpg"
                 class="champ_icon">
-            <img slot="rpick3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBan.pickThree}_0.jpg"
+            <img slot="rpick3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBans.pickThree}_0.jpg"
                 class="champ_icon">
-            <img slot="rban4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBan.banFour}_0.jpg"
+            <img slot="rban4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBans.banFour}_0.jpg"
                 class="champ_icon">
-            <img slot="rban5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBan.banFive}_0.jpg"
+            <img slot="rban5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBans.banFive}_0.jpg"
                 class="champ_icon">
-            <img slot="rpick4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBan.pickFour}_0.jpg"
+            <img slot="rpick4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBans.pickFour}_0.jpg"
                 class="champ_icon">
-            <img slot="rpick5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBan.pickFive}_0.jpg"
+            <img slot="rpick5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBans.pickFive}_0.jpg"
                 class="champ_icon">
         </pick-ban>
         `;
