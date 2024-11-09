@@ -386,7 +386,7 @@ const GameSchema = new import_mongoose2.Schema(
     duration: { type: Number, required: true }
   }
 );
-const GameModel = (0, import_mongoose2.model)("Game", GameSchema);
+const GameModel = (0, import_mongoose2.model)("Game", GameSchema, "game");
 const SeriesSchema = new import_mongoose2.Schema(
   {
     seriesId: { type: String, required: true, trim: true },
@@ -410,7 +410,6 @@ function index() {
 }
 function get(seriesId) {
   return SeriesModel.find({ seriesId }).populate("games").then((list) => {
-    console.log("Query result:", list);
     return list[0];
   }).catch((err) => {
     console.log(err);

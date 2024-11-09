@@ -369,7 +369,7 @@ const GameSchema = new Schema<Game>(
     }
 );
 
-const GameModel = model<Game>("Game", GameSchema);
+const GameModel = model<Game>("Game", GameSchema, "game");
 
 const SeriesSchema = new Schema<Series>(
     {
@@ -395,11 +395,14 @@ function index(): Promise<Series[]> {
 }
 
 // SeriesModel.findOne({ seriesId: "blg_vs_t1_finals" })
-//     .populate('games')
 //     .then((result) => {
 //         console.log("Manual Query Result:", result);
 //     })
 //     .catch(console.error);
+
+// GameModel.find({ _id: { $in: ["672d93f06857e8c5fc799c55", "672d95d46857e8c5fc799c56", "672d95df6857e8c5fc799c57", "672d95e96857e8c5fc799c58", "672d95fb6857e8c5fc799c59"] } })
+//     .then(games => console.log(games))
+//     .catch(err => console.log(err));
 
 // GameModel.find({ seriesId: "blg_vs_t1_finals" })
 //     .then((result) => {
@@ -411,7 +414,7 @@ function get(seriesId: String): Promise<Series> {
     return SeriesModel.find({ seriesId })
         .populate('games')
         .then((list) => {
-            console.log("Query result:", list);
+            // console.log("Query result:", list);
             return list[0];
         })
         .catch((err) => {

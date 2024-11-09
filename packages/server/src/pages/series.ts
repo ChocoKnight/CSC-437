@@ -52,15 +52,21 @@ export class SeriesPage {
             game_num += 1
         );
 
+        // console.log(gameList)
+
+        const { seriesId } = this.data;
+        const api = `/api/series/${seriesId}`;
+
+        // <a slot="teamOne" href="">${teamOne}</a>
+        // <a slot="teamTwo" href="">${teamTwo}</a>
+        // <a slot="tournamentName" href="../tournaments/${tournamentName.replace(/\s+/g, '').toLowerCase()}.html">${tournamentName}</a>
+        // <span slot="score" href="">0-0</span>
+        // <span slot="date">${this.formatDate(date)}</span>      
+
         return html`
         <lol-header></lol-header>
         <main class="page">
-            <game-header>
-                <a slot="team_one" href="">${teamOne}</a>
-                <a slot="team_two" href="">${teamTwo}</a>
-                <a slot="tournament" href="../tournaments/${tournamentName.replace(/\s+/g, '').toLowerCase()}.html">${tournamentName}</a>
-                <span slot="score" href="">0-0</span>
-                <span slot="date">${this.formatDate(date)}</span>
+            <game-header src="${api}">
             </game-header>
             <game-tab-panel> 
                 ${gameList}
@@ -73,6 +79,8 @@ export class SeriesPage {
         const {
             blueTeam, redTeam, bluePickBans, redPickBans, blueWin, blueFirstBlood, blueFirstTower, blueObjectives, redObjectives, duration
         } = game; 
+
+        // console.log(game)
 
         if (teamOne === blueTeam) {
             var teamOneSide: string = "Blue Side";
@@ -88,23 +96,6 @@ export class SeriesPage {
             var score: string = "L - W"
         }
 
-        // ${this.renderPickBan(bluePickBans, redPickBans)}
-
-            // <span slot="blue_kills">0</span>
-            // <span slot="blue_towers">${blueObjectives.towers}</span>
-            // <span slot="blue_grubs">${blueObjectives.grubs}</span>
-            // <span slot="blue_heralds">0</span>
-            // <span slot="blue_barons">${blueObjectives.barons}</span>
-            // <span slot="blue_drakes">${this.countDrakes(blueObjectives)}</span>
-            // <span slot="blue_gold">0</span>
-            // <span slot="red_kills">0</span>
-            // <span slot="red_towers">${redObjectives.towers}</span>
-            // <span slot="red_grubs">${redObjectives.grubs}</span>
-            // <span slot="red_heralds">0</span>
-            // <span slot="red_barons">${blueObjectives.barons}</span>
-            // <span slot="red_drakes">${this.countDrakes(redObjectives)}</span>
-            // <span slot="red_gold">0</span>
-
         return html`
         <team-game-summary slot="game${game_number}">
             <span slot="team_one_side">${teamOneSide}</span>
@@ -112,7 +103,23 @@ export class SeriesPage {
             <span slot="team_two_side">${teamTwoSide}</span>
 
             <span slot="duration">${this.formatDuration(duration)}</span>
-            
+
+            <div slot="pick_ban">${this.renderPickBan(bluePickBans, redPickBans)}</div>
+
+            <span slot="blue_kills">0</span>
+            <span slot="blue_towers">${blueObjectives.towers}</span>
+            <span slot="blue_grubs">${blueObjectives.grubs}</span>
+            <span slot="blue_heralds">0</span>
+            <span slot="blue_barons">${blueObjectives.barons}</span>
+            <span slot="blue_drakes">${this.countDrakes(blueObjectives)}</span>
+            <span slot="blue_gold">0</span>
+            <span slot="red_kills">0</span>
+            <span slot="red_towers">${redObjectives.towers}</span>
+            <span slot="red_grubs">${redObjectives.grubs}</span>
+            <span slot="red_heralds">0</span>
+            <span slot="red_barons">${blueObjectives.barons}</span>
+            <span slot="red_drakes">${this.countDrakes(redObjectives)}</span>
+            <span slot="red_gold">0</span>
         </team-game-summary>
         `;
     }
@@ -122,27 +129,30 @@ export class SeriesPage {
             banOne, banTwo, banThree, banFour, banFive, pickOne, pickTwo, pickThree, pickFour, pickFive 
         } = bluePickBans;
 
+        const { seriesId } = this.data;
+        const api = `/api/series/${seriesId}`;
+
         return html` 
         <pick-ban slot="pick_ban">
-            <img slot="bban1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${banOne}_0.jpg"
+            <img slot="banOne" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${banOne}_0.jpg"
                 class="champ_icon">
-            <img slot="bban2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${banTwo}_0.jpg"
+            <img slot="banTwo" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${banTwo}_0.jpg"
                 class="champ_icon">
-            <img slot="bban3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${banThree}_0.jpg"
+            <img slot="banThree" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${banThree}_0.jpg"
                 class="champ_icon">
-            <img slot="bpick1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${pickOne}_0.jpg"
+            <img slot="pickOne" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${pickOne}_0.jpg"
                 class="champ_icon">
-            <img slot="bpick2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${pickTwo}_0.jpg"
+            <img slot="pickTwo" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${pickTwo}_0.jpg"
                 class="champ_icon">
-            <img slot="bpick3" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${pickThree}_0.jpg"
+            <img slot="pickThree" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${pickThree}_0.jpg"
                 class="champ_icon">
-            <img slot="bban4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${banFour}_0.jpg"
+            <img slot="banFour" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${banFour}_0.jpg"
                 class="champ_icon">
-            <img slot="bban5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${banFive}_0.jpg"
+            <img slot="banFive" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${banFive}_0.jpg"
                 class="champ_icon">
-            <img slot="bpick4" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${pickFour}_0.jpg"
+            <img slot="pickFour" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${pickFour}_0.jpg"
                 class="champ_icon">
-            <img slot="bpick5" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${pickFive}_0.jpg"
+            <img slot="pickFive" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${pickFive}_0.jpg"
                 class="champ_icon">
             <img slot="rban1" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBans.banOne}_0.jpg"
                 class="champ_icon">
