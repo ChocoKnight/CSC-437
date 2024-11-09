@@ -23,13 +23,16 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 ));
 var import_express = __toESM(require("express"));
 var import_series = require("./pages/series");
-var import_series_svc = require("./services/series-svc");
+var import_series_svc = __toESM(require("./services/series-svc"));
+var import_series2 = __toESM(require("./routes/series"));
 var import_mongo = require("./services/mongo");
-(0, import_mongo.connect)("LoL");
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
+(0, import_mongo.connect)("LoL");
 const staticDir = process.env.STATIC || "public";
 app.use(import_express.default.static(staticDir));
+app.use(import_express.default.json());
+app.use("/api/series", import_series2.default);
 app.get("/hello", (req, res) => {
   res.send("Hello, World");
 });
@@ -37,9 +40,9 @@ app.get(
   "/series/:seriesId",
   (req, res) => {
     const { seriesId } = req.params;
-    const data = (0, import_series_svc.getSeries)(seriesId);
-    const page = new import_series.SeriesPage(data);
-    res.set("Content-Type", "text/html").send(page.render());
+    import_series_svc.default.get(seriesId).then((data) => {
+      res.set("Content-Type", "text/html").send(new import_series.SeriesPage(data).render());
+    });
   }
 );
 app.listen(port, () => {

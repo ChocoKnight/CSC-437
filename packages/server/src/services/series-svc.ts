@@ -1,6 +1,7 @@
+import mongoose from "mongoose";
 import { Schema, model } from "mongoose";
-import { Series, Game } from "../models";
- 
+import { Series, Game, Objectives, PickBan } from "../models";
+
 const series = {
     blg_vs_t1: {
         seriesId: "blgvst1_finals",
@@ -323,79 +324,68 @@ const series = {
     }
 }
 
-// const GameSchema = new Schema<Game>(
-//     {
-//         gameId: { type: String, required: true, trim: true },
-//         // seriesId: { type: String, required: true, trim: true },
-//         blueTeam: { type: String, required: true, trim: true },
-//         redTeam: { type: String, required: true, trim: true },
-//         pickBans: {
-//             // pickBanId: { type: String, required: true, trim: true },
-//             // gameId: { type: String, required: true, trim: true },
-//             blueBanOne: { type: String, required: true, trim: true },
-//             blueBanTwo: { type: String, required: true, trim: true },
-//             blueBanThree: { type: String, required: true, trim: true },
-//             blueBanFour: { type: String, required: true, trim: true },
-//             blueBanFive: { type: String, required: true, trim: true },
-//             bluePickOne: { type: String, required: true, trim: true },
-//             bluePickTwo: { type: String, required: true, trim: true },
-//             bluePickThree: { type: String, required: true, trim: true },
-//             bluePickFour: { type: String, required: true, trim: true },
-//             bluePickFive: { type: String, required: true, trim: true },
-//             redBanOne: { type: String, required: true, trim: true },
-//             redBanTwo: { type: String, required: true, trim: true },
-//             redBanThree: { type: String, required: true, trim: true },
-//             redBanFour: { type: String, required: true, trim: true },
-//             redBanFive: { type: String, required: true, trim: true },
-//             redPickOne: { type: String, required: true, trim: true },
-//             redPickTwo: { type: String, required: true, trim: true },
-//             redPickThree: { type: String, required: true, trim: true },
-//             redPickFour: { type: String, required: true, trim: true },
-//             redPickFive: { type: String, required: true, trim: true },
-//         },
-//         blueWin: { type: Boolean, required: true, },
-//         blueFirstBlood: { type: Boolean, required: true, },
-//         blueFirstTower: { type: Boolean, required: true, },
-//         blueTopPlates: { type: Number, required: true },
-//         blueMidPlates: { type: Number, required: true },
-//         blueBotPlates: { type: Number, required: true },
-//         blueGrubs: { type: Number, required: true },
-//         blueHerald: { type: Number, required: true },
-//         blueBarons: { type: Number, required: true },
-//         blueCloudDrakes: { type: Number, required: true },
-//         blueOceanDrakes: { type: Number, required: true },
-//         blueMountainDrakes: { type: Number, required: true },
-//         blueInfernalDrakes: { type: Number, required: true },
-//         blueHextechDrakes: { type: Number, required: true },
-//         blueChemtechDrakes: { type: Number, required: true },
-//         blueElderDrakes: { type: Number, required: true },
-//         redTopPlates: { type: Number, required: true },
-//         redMidPlates: { type: Number, required: true },
-//         redBotPlates: { type: Number, required: true },
-//         redGrubs: { type: Number, required: true },
-//         redHerald: { type: Number, required: true },
-//         redBarons: { type: Number, required: true },
-//         redCloudDrakes: { type: Number, required: true },
-//         redOceanDrakes: { type: Number, required: true },
-//         redMountainDrakes: { type: Number, required: true },
-//         redInfernalDrakes: { type: Number, required: true },
-//         redHextechDrakes: { type: Number, required: true },
-//         redChemtechDrakes: { type: Number, required: true },
-//         redElderDrakes: { type: Number, required: true },
-//     },
-//     { collection: "games" }
-// );
+const PickBanSchema = new Schema<PickBan>({
+    banOne: { type: String, required: true, trim: true },
+    banTwo: { type: String, required: true, trim: true },
+    banThree: { type: String, required: true, trim: true },
+    banFour: { type: String, required: true, trim: true },
+    banFive: { type: String, required: true, trim: true },
+    pickOne: { type: String, required: true, trim: true },
+    pickTwo: { type: String, required: true, trim: true },
+    pickThree: { type: String, required: true, trim: true },
+    pickFour: { type: String, required: true, trim: true },
+    pickFive: { type: String, required: true, trim: true },
+});
+
+const ObjectivesSchema = new Schema<Objectives>({
+    towers: { type: Number, required: true },
+    topPlates: { type: Number, required: true },
+    midPlates: { type: Number, required: true },
+    botPlates: { type: Number, required: true },
+    grubs: { type: Number, required: true },
+    herald: { type: Number, required: true },
+    barons: { type: Number, required: true },
+    firstDrake: { type: String, required: true, trim: true },
+    secondDrake: { type: String, required: true, trim: true },
+    thirdDrake: { type: String, required: true, trim: true },
+    fourthDrake: { type: String, required: true, trim: true },
+    elderDrakes: { type: Number, required: true },
+});
+
+const GameSchema = new Schema<Game>(
+    {
+        gameId: { type: String, required: true, trim: true },
+        seriesId: { type: String, required: true, trim: true },
+        blueTeam: { type: String, required: true, trim: true },
+        redTeam: { type: String, required: true, trim: true },
+        bluePickBans: { type: PickBanSchema, required: true },
+        redPickBans: { type: PickBanSchema, required: true },
+        blueWin: { type: Boolean, required: true },
+        blueFirstBlood: { type: Boolean, required: true },
+        blueFirstTower: { type: Boolean, required: true },
+        blueObjectives: { type: ObjectivesSchema, required: true },
+        redObjectives: { type: ObjectivesSchema, required: true },
+        duration: { type: Number, required: true },
+    }
+);
+
+const GameModel = model<Game>("Game", GameSchema);
 
 const SeriesSchema = new Schema<Series>(
     {
         seriesId: { type: String, required: true, trim: true },
         tournamentName: { type: String, required: true, trim: true },
-        date: { type: Date, required: true, trim: true },
+        date: { type: Date, required: true },
         teamOne: { type: String, required: true, trim: true },
         teamTwo: { type: String, required: true, trim: true },
-        games: { type: new Array<Game>, required: true },
+        games: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Game', // Reference to the Game model
+            },
+        ]
     },
-    { collection: "series" }
+    { collection: 'series' }
 );
 
 const SeriesModel = model<Series>("Series", SeriesSchema);
@@ -404,15 +394,58 @@ function index(): Promise<Series[]> {
     return SeriesModel.find();
 }
 
-function get(seriesid: String): Promise<Series> {
-    return SeriesModel.find({ seriesid })
-        .then((list) => list[0])
+// SeriesModel.findOne({ seriesId: "blg_vs_t1_finals" })
+//     .populate('games')
+//     .then((result) => {
+//         console.log("Manual Query Result:", result);
+//     })
+//     .catch(console.error);
+
+// GameModel.find({ seriesId: "blg_vs_t1_finals" })
+//     .then((result) => {
+//         console.log("Found Games:", result); // Prints the games with the given seriesId
+//     })
+//     .catch(console.error);
+
+function get(seriesId: String): Promise<Series> {
+    return SeriesModel.find({ seriesId })
+        .populate('games')
+        .then((list) => {
+            console.log("Query result:", list);
+            return list[0];
+        })
         .catch((err) => {
-            throw `${seriesid} Not Found`;
+            console.log(err)
+            throw `${seriesId} Not Found`;
         });
 }
 
-export default { index, get };
+function create(json: Series): Promise<Series> {
+    const t = new SeriesModel(json);
+    return t.save();
+}
+
+function update(
+    seriesId: String,
+    series: Series
+): Promise<Series> {
+    return SeriesModel.findOneAndUpdate({ seriesId }, series, {
+        new: true
+    }).then((updated) => {
+        if (!updated) throw `${seriesId} not updated`;
+        else return updated as Series;
+    });
+}
+
+function remove(seriesId: String): Promise<void> {
+    return SeriesModel.findOneAndDelete({ seriesId }).then(
+        (deleted) => {
+            if (!deleted) throw `${seriesId} not deleted`;
+        }
+    );
+}
+
+export default { index, get, create, update, remove };
 export function getSeries(_: string) {
     return series["blg_vs_t1"];
 }

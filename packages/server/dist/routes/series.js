@@ -26,35 +26,34 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-var mongo_exports = {};
-__export(mongo_exports, {
-  connect: () => connect
+var series_exports = {};
+__export(series_exports, {
+  default: () => series_default
 });
-module.exports = __toCommonJS(mongo_exports);
-var import_mongoose = __toESM(require("mongoose"));
-var import_dotenv = __toESM(require("dotenv"));
-import_mongoose.default.set("debug", true);
-import_dotenv.default.config();
-function getMongoURI(dbname) {
-  let connection_string = `mongodb://localhost:27017/${dbname}`;
-  const { MONGO_USER, MONGO_PWD, MONGO_CLUSTER } = process.env;
-  if (MONGO_USER && MONGO_PWD && MONGO_CLUSTER) {
-    console.log(
-      "Connecting to MongoDB at",
-      `mongodb+srv://${MONGO_USER}:<password>@${MONGO_CLUSTER}/${dbname}`
-    );
-    connection_string = `mongodb+srv://${MONGO_USER}:${MONGO_PWD}@${MONGO_CLUSTER}/${dbname}?retryWrites=true&w=majority`;
-  } else {
-    console.log("Connecting to MongoDB at ", connection_string);
-  }
-  return connection_string;
-}
-function connect(dbname) {
-  const uri = getMongoURI(dbname);
-  console.log("Mongo URI being used:", uri);
-  import_mongoose.default.connect(getMongoURI(dbname)).then(() => console.log(`Successfully connected to MongoDB database: ${dbname}`)).catch((error) => console.log(error));
-}
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  connect
+module.exports = __toCommonJS(series_exports);
+var import_express = __toESM(require("express"));
+var import_series_svc = __toESM(require("../services/series-svc"));
+const router = import_express.default.Router();
+router.get("/", (_, res) => {
+  import_series_svc.default.index().then((list) => res.json(list)).catch((err) => res.status(500).send(err));
 });
+router.get("/:userid", (req, res) => {
+  const { userid } = req.params;
+  import_series_svc.default.get(userid).then((series) => res.json(series)).catch((err) => res.status(404).send(err));
+});
+router.post("/", (req, res) => {
+  const newSeries = req.body;
+  import_series_svc.default.create(newSeries).then(
+    (series) => res.status(201).json(series)
+  ).catch((err) => res.status(500).send(err));
+});
+router.put("/:seriesId", (req, res) => {
+  const { seriesId } = req.params;
+  const newSeries = req.body;
+  import_series_svc.default.update(seriesId, newSeries).then((series) => res.json(series)).catch((err) => res.status(404).end());
+});
+router.delete("/:seriesId", (req, res) => {
+  const { seriesId } = req.params;
+  import_series_svc.default.remove(seriesId).then(() => res.status(204).end()).catch((err) => res.status(404).send(err));
+});
+var series_default = router;

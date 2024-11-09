@@ -22,7 +22,7 @@ __export(series_svc_exports, {
   getSeries: () => getSeries
 });
 module.exports = __toCommonJS(series_svc_exports);
-var import_mongoose = require("mongoose");
+var import_mongoose2 = require("mongoose");
 const series = {
   blg_vs_t1: {
     seriesId: "blgvst1_finals",
@@ -344,27 +344,99 @@ const series = {
     ]
   }
 };
-const SeriesSchema = new import_mongoose.Schema(
+const PickBanSchema = new import_mongoose2.Schema({
+  banOne: { type: String, required: true, trim: true },
+  banTwo: { type: String, required: true, trim: true },
+  banThree: { type: String, required: true, trim: true },
+  banFour: { type: String, required: true, trim: true },
+  banFive: { type: String, required: true, trim: true },
+  pickOne: { type: String, required: true, trim: true },
+  pickTwo: { type: String, required: true, trim: true },
+  pickThree: { type: String, required: true, trim: true },
+  pickFour: { type: String, required: true, trim: true },
+  pickFive: { type: String, required: true, trim: true }
+});
+const ObjectivesSchema = new import_mongoose2.Schema({
+  towers: { type: Number, required: true },
+  topPlates: { type: Number, required: true },
+  midPlates: { type: Number, required: true },
+  botPlates: { type: Number, required: true },
+  grubs: { type: Number, required: true },
+  herald: { type: Number, required: true },
+  barons: { type: Number, required: true },
+  firstDrake: { type: String, required: true, trim: true },
+  secondDrake: { type: String, required: true, trim: true },
+  thirdDrake: { type: String, required: true, trim: true },
+  fourthDrake: { type: String, required: true, trim: true },
+  elderDrakes: { type: Number, required: true }
+});
+const GameSchema = new import_mongoose2.Schema(
+  {
+    gameId: { type: String, required: true, trim: true },
+    seriesId: { type: String, required: true, trim: true },
+    blueTeam: { type: String, required: true, trim: true },
+    redTeam: { type: String, required: true, trim: true },
+    bluePickBans: { type: PickBanSchema, required: true },
+    redPickBans: { type: PickBanSchema, required: true },
+    blueWin: { type: Boolean, required: true },
+    blueFirstBlood: { type: Boolean, required: true },
+    blueFirstTower: { type: Boolean, required: true },
+    blueObjectives: { type: ObjectivesSchema, required: true },
+    redObjectives: { type: ObjectivesSchema, required: true },
+    duration: { type: Number, required: true }
+  }
+);
+const GameModel = (0, import_mongoose2.model)("Game", GameSchema);
+const SeriesSchema = new import_mongoose2.Schema(
   {
     seriesId: { type: String, required: true, trim: true },
     tournamentName: { type: String, required: true, trim: true },
-    date: { type: Date, required: true, trim: true },
+    date: { type: Date, required: true },
     teamOne: { type: String, required: true, trim: true },
     teamTwo: { type: String, required: true, trim: true },
-    games: { type: new Array(), required: true }
+    games: [
+      {
+        type: import_mongoose2.Schema.Types.ObjectId,
+        ref: "Game"
+        // Reference to the Game model
+      }
+    ]
   },
   { collection: "series" }
 );
-const SeriesModel = (0, import_mongoose.model)("Series", SeriesSchema);
+const SeriesModel = (0, import_mongoose2.model)("Series", SeriesSchema);
 function index() {
   return SeriesModel.find();
 }
-function get(seriesid) {
-  return SeriesModel.find({ seriesid }).then((list) => list[0]).catch((err) => {
-    throw `${seriesid} Not Found`;
+function get(seriesId) {
+  return SeriesModel.find({ seriesId }).populate("games").then((list) => {
+    console.log("Query result:", list);
+    return list[0];
+  }).catch((err) => {
+    console.log(err);
+    throw `${seriesId} Not Found`;
   });
 }
-var series_svc_default = { index, get };
+function create(json) {
+  const t = new SeriesModel(json);
+  return t.save();
+}
+function update(seriesId, series2) {
+  return SeriesModel.findOneAndUpdate({ seriesId }, series2, {
+    new: true
+  }).then((updated) => {
+    if (!updated) throw `${seriesId} not updated`;
+    else return updated;
+  });
+}
+function remove(seriesId) {
+  return SeriesModel.findOneAndDelete({ seriesId }).then(
+    (deleted) => {
+      if (!deleted) throw `${seriesId} not deleted`;
+    }
+  );
+}
+var series_svc_default = { index, get, create, update, remove };
 function getSeries(_) {
   return series["blg_vs_t1"];
 }
