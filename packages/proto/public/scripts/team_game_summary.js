@@ -3,6 +3,10 @@ import reset from "./styles/reset.css.js";
 import header from "./styles/header.css.js";
 
 export class TeamGameSummaryElement extends HTMLElement {
+    get src() {
+        return this.getAttribute("src");
+    }
+
     static template = html`
     <template>
         <div class="game_overview">
@@ -174,4 +178,27 @@ export class TeamGameSummaryElement extends HTMLElement {
             .styles(TeamGameSummaryElement.styles, reset.styles, header.styles);
     }
 
+    connectedCallback() {
+        if (this.src) this.hydrate(this.src);
+    }
+
+    hydrate(url) {
+        fetch(url)
+            .then((res) => {
+                if (res.status !== 200) throw `Status: ${res.status}`;
+                return res.json();
+            })
+            .then((json) => this.renderSlots(json))
+            .catch((error) =>
+                console.log(`Failed to render data ${url}:`, error)
+            );
+    }
+
+    renderSlots(json) {
+        const entries = Object.entries(json);
+        const toSlot = ([key, value]) =>
+            html`<span slot="${key}">${value}</span>`
+        const fragment = entries.map(toSlot);
+        this.replaceChildren(...fragment);
+    }
 }

@@ -3,32 +3,38 @@ import reset from "./styles/reset.css.js";
 import header from "./styles/header.css.js";
 
 export class PickBanElement extends HTMLElement {
+    get src() {
+        return this.getAttribute("src");
+    }
+
     static template = html`
     <template>
         <div class="pick_ban">
             <div class="blue">
-                <slot name="bban1"></slot>
-                <slot name="bban2"></slot>
-                <slot name="bban3"></slot>
-                <slot name="bpick1"></slot>
-                <slot name="bpick2"></slot>
-                <slot name="bpick3"></slot>
-                <slot name="bban4"></slot>
-                <slot name="bban5"></slot>
-                <slot name="bpick4"></slot>
-                <slot name="bpick5"></slot>
+                <slot name="banOne">
+                    <span>One</span>
+                </slot>
+                <slot name="banTwo"><span>One</span></slot>
+                <slot name="banThree"><span>One</span></slot>
+                <slot name="pickOne"><span>One</span></slot>
+                <slot name="pickTwo"><span>One</span></slot>
+                <slot name="pickThree"><span>One</span></slot>
+                <slot name="banFour"><span>One</span></slot>
+                <slot name="banFive"><span>One</span></slot>
+                <slot name="pickFour"><span>One</span></slot>
+                <slot name="pickFive"><span>One</span></slot>
             </div>
             <div class="red">
-                <slot name="rban1"></slot>
-                <slot name="rban2"></slot>
-                <slot name="rban3"></slot>
-                <slot name="rpick1"></slot>
-                <slot name="rpick2"></slot>
-                <slot name="rpick3"></slot>
-                <slot name="rban4"></slot>
-                <slot name="rban5"></slot>
-                <slot name="rpick4"></slot>
-                <slot name="rpick5"></slot>
+                <slot name="rban1"><span>One</span></slot>
+                <slot name="rban2"><span>One</span></slot>
+                <slot name="rban3"><span>One</span></slot>
+                <slot name="rpick1"><span>One</span></slot>
+                <slot name="rpick2"><span>One</span></slot>
+                <slot name="rpick3"><span>One</span></slot>
+                <slot name="rban4"><span>One</span></slot>
+                <slot name="rban5"><span>One</span></slot>
+                <slot name="rpick4"><span>One</span></slot>
+                <slot name="rpick5"><span>One</span></slot>
             </div>
         </div>
     </template>
@@ -79,5 +85,29 @@ export class PickBanElement extends HTMLElement {
         shadow(this)
             .template(PickBanElement.template)
             .styles(PickBanElement.styles, reset.styles, header.styles);
+    }
+
+    connectedCallback() {
+        if (this.src) this.hydrate(this.src);
+    }
+
+    hydrate(url) {
+        fetch(url)
+            .then((res) => {
+                if (res.status !== 200) throw `Status: ${res.status}`;
+                return res.json();
+            })
+            .then((json) => this.renderSlots(json))
+            .catch((error) =>
+                console.log(`Failed to render data ${url}:`, error)
+            );
+    }
+
+    renderSlots(json) {
+        const entries = Object.entries(json);
+        const toSlot = ([key, value]) =>
+            html`<img slot="${key}" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${value}_0.jpg" class="champ_icon">`
+        const fragment = entries.map(toSlot);
+        this.replaceChildren(...fragment);
     }
 }
