@@ -421,7 +421,22 @@ function create(json) {
   const t = new SeriesModel(json);
   return t.save();
 }
-var series_svc_default = { index, get };
+function update(seriesId, series2) {
+  return SeriesModel.findOneAndUpdate({ seriesId }, series2, {
+    new: true
+  }).then((updated) => {
+    if (!updated) throw `${seriesId} not updated`;
+    else return updated;
+  });
+}
+function remove(seriesId) {
+  return SeriesModel.findOneAndDelete({ seriesId }).then(
+    (deleted) => {
+      if (!deleted) throw `${seriesId} not deleted`;
+    }
+  );
+}
+var series_svc_default = { index, get, create, update };
 function getSeries(_) {
   return series["blg_vs_t1"];
 }

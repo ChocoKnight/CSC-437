@@ -20,12 +20,30 @@ router.get("/:userid", (req: Request, res: Response) => {
 
 router.post("/", (req: Request, res: Response) => {
     const newSeries = req.body;
-  
+
     SeriesMultiple.create(newSeries)
-      .then((series: Series) =>
-        res.status(201).json(series)
-      )
-      .catch((err) => res.status(500).send(err));
-  });
+        .then((series: Series) =>
+            res.status(201).json(series)
+        )
+        .catch((err) => res.status(500).send(err));
+});
+
+router.put("/:seriesId", (req: Request, res: Response) => {
+    const { seriesId } = req.params;
+    const newSeries = req.body;
+
+    SeriesMultiple
+        .update(seriesId, newSeries)
+        .then((series: Series) => res.json(series))
+        .catch((err) => res.status(404).end());
+});
+
+router.delete("/:seriesId", (req: Request, res: Response) => {
+    const { seriesId } = req.params;
+
+    SeriesMultiple.remove(seriesId)
+        .then(() => res.status(204).end())
+        .catch((err) => res.status(404).send(err));
+});
 
 export default router;

@@ -47,4 +47,13 @@ router.post("/", (req, res) => {
     (series) => res.status(201).json(series)
   ).catch((err) => res.status(500).send(err));
 });
+router.put("/:seriesId", (req, res) => {
+  const { seriesId } = req.params;
+  const newSeries = req.body;
+  import_series_svc.default.update(seriesId, newSeries).then((series) => res.json(series)).catch((err) => res.status(404).end());
+});
+router.delete("/:seriesId", (req, res) => {
+  const { seriesId } = req.params;
+  import_series_svc.default.remove(seriesId).then(() => res.status(204).end()).catch((err) => res.status(404).send(err));
+});
 var series_default = router;

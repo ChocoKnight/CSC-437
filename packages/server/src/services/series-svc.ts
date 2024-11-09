@@ -425,7 +425,27 @@ function create(json: Series): Promise<Series> {
     return t.save();
 }
 
-export default { index, get };
+function update(
+    seriesId: String,
+    series: Series
+): Promise<Series> {
+    return SeriesModel.findOneAndUpdate({ seriesId }, series, {
+        new: true
+    }).then((updated) => {
+        if (!updated) throw `${seriesId} not updated`;
+        else return updated as Series;
+    });
+}
+
+function remove(seriesId: String): Promise<void> {
+    return SeriesModel.findOneAndDelete({ seriesId }).then(
+        (deleted) => {
+            if (!deleted) throw `${seriesId} not deleted`;
+        }
+    );
+}
+
+export default { index, get, create, update };
 export function getSeries(_: string) {
     return series["blg_vs_t1"];
 }
