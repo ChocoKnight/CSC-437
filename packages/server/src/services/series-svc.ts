@@ -445,7 +445,7 @@ function remove(seriesId: String): Promise<void> {
     );
 }
 
-export default { index, get, create, update };
+export default { index, get, create, update, remove };
 export function getSeries(_: string) {
     return series["blg_vs_t1"];
 }

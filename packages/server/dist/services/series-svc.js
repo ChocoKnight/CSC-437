@@ -436,7 +436,7 @@ function remove(seriesId) {
     }
   );
 }
-var series_svc_default = { index, get, create, update };
+var series_svc_default = { index, get, create, update, remove };
 function getSeries(_) {
   return series["blg_vs_t1"];
 }
