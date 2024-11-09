@@ -18,4 +18,14 @@ router.get("/:userid", (req: Request, res: Response) => {
         .catch((err) => res.status(404).send(err));
 });
 
+router.post("/", (req: Request, res: Response) => {
+    const newSeries = req.body;
+  
+    SeriesMultiple.create(newSeries)
+      .then((series: Series) =>
+        res.status(201).json(series)
+      )
+      .catch((err) => res.status(500).send(err));
+  });
+
 export default router;

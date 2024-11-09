@@ -41,4 +41,10 @@ router.get("/:userid", (req, res) => {
   const { userid } = req.params;
   import_series_svc.default.get(userid).then((series) => res.json(series)).catch((err) => res.status(404).send(err));
 });
+router.post("/", (req, res) => {
+  const newSeries = req.body;
+  import_series_svc.default.create(newSeries).then(
+    (series) => res.status(201).json(series)
+  ).catch((err) => res.status(500).send(err));
+});
 var series_default = router;

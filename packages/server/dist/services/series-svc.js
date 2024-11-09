@@ -417,6 +417,10 @@ function get(seriesId) {
     throw `${seriesId} Not Found`;
   });
 }
+function create(json) {
+  const t = new SeriesModel(json);
+  return t.save();
+}
 var series_svc_default = { index, get };
 function getSeries(_) {
   return series["blg_vs_t1"];

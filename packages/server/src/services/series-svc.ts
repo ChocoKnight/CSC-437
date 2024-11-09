@@ -420,6 +420,11 @@ function get(seriesId: String): Promise<Series> {
         });
 }
 
+function create(json: Series): Promise<Series> {
+    const t = new SeriesModel(json);
+    return t.save();
+}
+
 export default { index, get };
 export function getSeries(_: string) {
     return series["blg_vs_t1"];
