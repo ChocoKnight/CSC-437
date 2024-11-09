@@ -5,6 +5,10 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
 var __copyProps = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
     for (let key of __getOwnPropNames(from))
@@ -21,30 +25,20 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var series_exports = {};
+__export(series_exports, {
+  default: () => series_default
+});
+module.exports = __toCommonJS(series_exports);
 var import_express = __toESM(require("express"));
-var import_series = require("./pages/series");
-var import_series_svc = __toESM(require("./services/series-svc"));
-var import_series2 = __toESM(require("./routes/series"));
-var import_mongo = require("./services/mongo");
-const app = (0, import_express.default)();
-const port = process.env.PORT || 3e3;
-(0, import_mongo.connect)("LoL");
-const staticDir = process.env.STATIC || "public";
-app.use(import_express.default.static(staticDir));
-app.use(import_express.default.json());
-app.use("/api/series", import_series2.default);
-app.get("/hello", (req, res) => {
-  res.send("Hello, World");
+var import_series_svc = __toESM(require("../services/series-svc"));
+const router = import_express.default.Router();
+router.get("/", (_, res) => {
+  import_series_svc.default.index().then((list) => res.json(list)).catch((err) => res.status(500).send(err));
 });
-app.get(
-  "/series/:seriesId",
-  (req, res) => {
-    const { seriesId } = req.params;
-    import_series_svc.default.get(seriesId).then((data) => {
-      res.set("Content-Type", "text/html").send(new import_series.SeriesPage(data).render());
-    });
-  }
-);
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+router.get("/:userid", (req, res) => {
+  const { userid } = req.params;
+  import_series_svc.default.get(userid).then((series) => res.json(series)).catch((err) => res.status(404).send(err));
 });
+var series_default = router;

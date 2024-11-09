@@ -1,16 +1,25 @@
 import express, { Request, Response } from "express";
 import { SeriesPage } from "./pages/series";
 import Series from "./services/series-svc"
+import SeriesMultiple from "./routes/series";
 import Game from "./services/game-svc"
 import { connect } from "./services/mongo";
 
-connect("LoL");
-
 const app = express();
 const port = process.env.PORT || 3000;
-const staticDir = process.env.STATIC || "public";
 
+// Connect to DB
+connect("LoL");
+
+// Static Files
+const staticDir = process.env.STATIC || "public";
 app.use(express.static(staticDir));
+
+// Middleware
+app.use(express.json());
+
+// Routes
+app.use("/api/series", SeriesMultiple);
 
 app.get("/hello", (req: Request, res: Response) => {
   res.send("Hello, World");
