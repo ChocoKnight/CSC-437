@@ -25,6 +25,7 @@ var import_express = __toESM(require("express"));
 var import_series = require("./pages/series");
 var import_series_svc = __toESM(require("./services/series-svc"));
 var import_series2 = __toESM(require("./routes/series"));
+var import_auth = __toESM(require("./routes/auth"));
 var import_mongo = require("./services/mongo");
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
@@ -32,10 +33,10 @@ const port = process.env.PORT || 3e3;
 const staticDir = process.env.STATIC || "public";
 app.use(import_express.default.static(staticDir));
 app.use(import_express.default.json());
-app.use("/api/series", import_series2.default);
 app.get("/hello", (req, res) => {
   res.send("Hello, World");
 });
+app.use("/api/series", import_series2.default);
 app.get(
   "/series/:seriesId",
   (req, res) => {
@@ -45,6 +46,7 @@ app.get(
     });
   }
 );
+app.use("/auth", import_auth.default);
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });

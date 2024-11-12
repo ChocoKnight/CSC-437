@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import { SeriesPage } from "./pages/series";
 import Series from "./services/series-svc"
 import SeriesMultiple from "./routes/series";
-import Game from "./services/game-svc"
+import auth, { authenticateUser } from "./routes/auth";
 import { connect } from "./services/mongo";
 
 const app = express();
@@ -19,31 +19,25 @@ app.use(express.static(staticDir));
 app.use(express.json());
 
 // Routes
-app.use("/api/series", SeriesMultiple);
-
 app.get("/hello", (req: Request, res: Response) => {
   res.send("Hello, World");
 });
+
+app.use("/api/series", SeriesMultiple);
 
 app.get(
   "/series/:seriesId",
   (req: Request, res: Response) => {
     const { seriesId } = req.params;
-    // const data = getSeries(seriesId);
-    // const page = new SeriesPage(data);
-    // res.set("Content-Type", "text/html").send(page.render());
-
-    // console.log(Game.index());
 
     Series.get(seriesId).then((data) => {
-
-      // console.log(data)
-
       res.set("Content-Type", "text/html")
         .send(new SeriesPage(data).render());
     });
   }
 );
+
+app.use("/auth", auth);
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
