@@ -22,9 +22,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var import_express = __toESM(require("express"));
-var import_series = require("./pages/series");
-var import_series_svc = __toESM(require("./services/series-svc"));
-var import_series2 = __toESM(require("./routes/series"));
+var import_match = require("./pages/match");
+var import_match_svc = __toESM(require("./services/match-svc"));
+var import_match2 = __toESM(require("./routes/match"));
 var import_auth = __toESM(require("./routes/auth"));
 var import_mongo = require("./services/mongo");
 const app = (0, import_express.default)();
@@ -34,11 +34,11 @@ const staticDir = process.env.STATIC || "public";
 app.use(import_express.default.static(staticDir));
 app.use(import_express.default.json());
 app.use("/auth", import_auth.default);
-app.use("/api/series", import_auth.authenticateUser, import_series2.default);
-app.get("/series/:seriesId", (req, res) => {
-  const { seriesId } = req.params;
-  import_series_svc.default.get(seriesId).then((data) => {
-    res.set("Content-Type", "text/html").send(new import_series.SeriesPage(data).render());
+app.use("/api/matches", import_auth.authenticateUser, import_match2.default);
+app.get("/matches/:seriesId", (req, res) => {
+  const { matchId } = req.params;
+  import_match_svc.default.get(matchId).then((data) => {
+    res.set("Content-Type", "text/html").send(new import_match.MatchPage(data).render());
   });
 });
 app.listen(port, () => {

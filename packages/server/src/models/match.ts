@@ -1,4 +1,4 @@
-export interface Series {
+export interface Match {
     seriesId: string;
     tournamentName: string;
     date: Date;

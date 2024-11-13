@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
-import { SeriesPage } from "./pages/series";
-import Series from "./services/series-svc"
-import SeriesMultiple from "./routes/series";
+import { MatchPage } from "./pages/match";
+import Match from "./services/match-svc"
+import Matches from "./routes/match";
 import auth, { authenticateUser } from "./routes/auth";
 import { connect } from "./services/mongo";
 
@@ -22,14 +22,14 @@ app.use(express.json());
 app.use("/auth", auth);
 
 // Routes
-app.use("/api/series", authenticateUser, SeriesMultiple);
+app.use("/api/matches", authenticateUser, Matches);
 
-app.get("/series/:seriesId", (req: Request, res: Response) => {
-  const { seriesId } = req.params;
+app.get("/matches/:seriesId", (req: Request, res: Response) => {
+  const { matchId } = req.params;
 
-  Series.get(seriesId).then((data) => {
+  Match.get(matchId).then((data) => {
     res.set("Content-Type", "text/html")
-      .send(new SeriesPage(data).render());
+      .send(new MatchPage(data).render());
   });
 });
 

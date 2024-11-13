@@ -1,23 +1,50 @@
-import { css, html } from "@calpoly/mustang/server";
-import { Series, Game, PickBan, Objectives} from "../models";
-import GameObj from "../services/game-svc"
-import renderPage from "./renderPage"; // generic page renderer
-
-export class SeriesPage {
-    data: Series;
-
-    constructor(data: Series) {
-        this.data = data;
-    }
-
-    render() {
-        return renderPage({
-            body: this.renderBody(),
-            stylesheets: [],
-            styles: [
-            ],
-            scripts: [
-                `import { define } from "@calpoly/mustang";
+"use strict";
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var match_exports = {};
+__export(match_exports, {
+  MatchPage: () => MatchPage
+});
+module.exports = __toCommonJS(match_exports);
+var import_server = require("@calpoly/mustang/server");
+var import_renderPage = __toESM(require("./renderPage"));
+class MatchPage {
+  data;
+  constructor(data) {
+    this.data = data;
+  }
+  render() {
+    return (0, import_renderPage.default)({
+      body: this.renderBody(),
+      stylesheets: [],
+      styles: [],
+      scripts: [
+        `import { define } from "@calpoly/mustang";
                 import { HeaderElement } from "/scripts/header.js";
                 import { GameHeaderElement } from "/scripts/game_header.js";
                 import { TeamGameSummaryElement } from "/scripts/team_game_summary.js";
@@ -37,33 +64,19 @@ export class SeriesPage {
                 HeaderElement.initializeOnce();
                 GameTabPanelElement.initializeOnce();
                 `
-            ]
-        });
-    }
-
-    renderBody() {
-        const { tournamentName, date, teamOne, teamTwo, games } = this.data;
-
-        // console.log(games)
-
-        var game_num: number = 1;
-        const gameList = games.map((game) =>
-            this.renderGame(game, teamOne, teamTwo, game_num),
-            game_num += 1
-        );
-
-        // console.log(gameList)
-
-        const { seriesId } = this.data;
-        const api = `/api/series/${seriesId}`;
-
-        // <a slot="teamOne" href="">${teamOne}</a>
-        // <a slot="teamTwo" href="">${teamTwo}</a>
-        // <a slot="tournamentName" href="../tournaments/${tournamentName.replace(/\s+/g, '').toLowerCase()}.html">${tournamentName}</a>
-        // <span slot="score" href="">0-0</span>
-        // <span slot="date">${this.formatDate(date)}</span>      
-
-        return html`
+      ]
+    });
+  }
+  renderBody() {
+    const { tournamentName, date, teamOne, teamTwo, games } = this.data;
+    var game_num = 1;
+    const gameList = games.map(
+      (game) => this.renderGame(game, teamOne, teamTwo, game_num),
+      game_num += 1
+    );
+    const { seriesId } = this.data;
+    const api = `/api/series/${seriesId}`;
+    return import_server.html`
         <lol-header></lol-header>
         <main class="page">
             <game-header src="${api}">
@@ -73,30 +86,33 @@ export class SeriesPage {
             </game-tab-panel>
         </main>
         `;
+  }
+  renderGame(game, teamOne, teamTwo, game_number) {
+    const {
+      blueTeam,
+      redTeam,
+      bluePickBans,
+      redPickBans,
+      blueWin,
+      blueFirstBlood,
+      blueFirstTower,
+      blueObjectives,
+      redObjectives,
+      duration
+    } = game;
+    if (teamOne === blueTeam) {
+      var teamOneSide = "Blue Side";
+      var teamTwoSide = "Red Side";
+    } else {
+      var teamOneSide = "Red Side";
+      var teamTwoSide = "Blue Side";
     }
-
-    renderGame(game: Game, teamOne: string, teamTwo: string, game_number: number) {
-        const {
-            blueTeam, redTeam, bluePickBans, redPickBans, blueWin, blueFirstBlood, blueFirstTower, blueObjectives, redObjectives, duration
-        } = game; 
-
-        // console.log(game)
-
-        if (teamOne === blueTeam) {
-            var teamOneSide: string = "Blue Side";
-            var teamTwoSide: string = "Red Side";
-        } else {
-            var teamOneSide: string = "Red Side";
-            var teamTwoSide: string = "Blue Side";
-        }
-
-        if ((blueWin && teamOneSide === "Blue Side") || (!blueWin && teamOneSide === "Red Side")) {
-            var score: string = "W - L"
-        } else {
-            var score: string = "L - W"
-        }
-
-        return html`
+    if (blueWin && teamOneSide === "Blue Side" || !blueWin && teamOneSide === "Red Side") {
+      var score = "W - L";
+    } else {
+      var score = "L - W";
+    }
+    return import_server.html`
         <team-game-summary slot="game${game_number}">
             <span slot="team_one_side">${teamOneSide}</span>
             <span slot="score">${score}</span>
@@ -122,17 +138,23 @@ export class SeriesPage {
             <span slot="red_gold">0</span>
         </team-game-summary>
         `;
-    }
-
-    renderPickBan(bluePickBans: PickBan, redPickBans: PickBan ) {
-        const {
-            banOne, banTwo, banThree, banFour, banFive, pickOne, pickTwo, pickThree, pickFour, pickFive 
-        } = bluePickBans;
-
-        const { seriesId } = this.data;
-        const api = `/api/series/${seriesId}`;
-
-        return html` 
+  }
+  renderPickBan(bluePickBans, redPickBans) {
+    const {
+      banOne,
+      banTwo,
+      banThree,
+      banFour,
+      banFive,
+      pickOne,
+      pickTwo,
+      pickThree,
+      pickFour,
+      pickFive
+    } = bluePickBans;
+    const { seriesId } = this.data;
+    const api = `/api/series/${seriesId}`;
+    return import_server.html` 
         <pick-ban slot="pick_ban">
             <img slot="banOne" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${banOne}_0.jpg"
                 class="champ_icon">
@@ -176,76 +198,65 @@ export class SeriesPage {
                 class="champ_icon">
         </pick-ban>
         `;
+  }
+  static altChampNames = {
+    "Wukong": "MonkeyKing"
+  };
+  formatDuration = (duration) => {
+    const minutesString = String(Math.floor(duration / 60)).padStart(2, "0");
+    const secondsString = String(duration % 60).padStart(2, "0");
+    return `${minutesString}:${secondsString}`;
+  };
+  static months = [
+    "January",
+    "Febuary",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+  formatDate = (date) => {
+    const dt = date || /* @__PURE__ */ new Date();
+    const y = dt.getUTCFullYear();
+    const m = MatchPage.months[dt.getUTCMonth()];
+    const d = dt.getUTCDate();
+    return `${m} ${d}, ${y}`;
+  };
+  static drakeIcons = {
+    cloudDrake: "Cloud Drake",
+    ocenDrake: "Ocean Drake",
+    mountainDrake: "Mountain Drake",
+    infernalDrake: "Infernal Drake",
+    hextechDrake: "Hextech Drake",
+    chemtechDrake: "Chemtech Drake",
+    elderDrake: "Elder Drake"
+  };
+  static validDrakes = /* @__PURE__ */ new Set(["Cloud", "Ocean", "Mountain", "Infernal", "Hextech", "Chemtech", "Elder"]);
+  countDrakes = (objectives) => {
+    var count = 0;
+    if (MatchPage.validDrakes.has(objectives.firstDrake)) {
+      count += 1;
     }
-
-    static altChampNames = {
-        "Wukong": "MonkeyKing"
+    if (MatchPage.validDrakes.has(objectives.secondDrake)) {
+      count += 1;
     }
-
-    formatDuration = (duration : number) => {
-        const minutesString = String(Math.floor(duration / 60)).padStart(2, '0');
-        const secondsString = String(duration % 60).padStart(2, '0');
-
-        return `${minutesString}:${secondsString}`;
+    if (MatchPage.validDrakes.has(objectives.thirdDrake)) {
+      count += 1;
     }
-
-    static months = [
-        "January",
-        "Febuary",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
-    ];
-
-    formatDate = (date: Date | undefined) => {
-        const dt = date || new Date();
-        const y = dt.getUTCFullYear();
-        const m = SeriesPage.months[dt.getUTCMonth()];
-        const d = dt.getUTCDate();
-
-        return `${m} ${d}, ${y}`;
-    };
-
-    static drakeIcons = {
-        cloudDrake : "Cloud Drake",
-        ocenDrake : "Ocean Drake",
-        mountainDrake : "Mountain Drake",
-        infernalDrake : "Infernal Drake",
-        hextechDrake : "Hextech Drake",
-        chemtechDrake : "Chemtech Drake",
-        elderDrake : "Elder Drake",
+    if (MatchPage.validDrakes.has(objectives.fourthDrake)) {
+      count += 1;
     }
-
-    static validDrakes = new Set<String>(["Cloud", "Ocean", "Mountain", "Infernal", "Hextech", "Chemtech", "Elder"]);
-
-    countDrakes = (objectives: Objectives) => {
-        var count : number = 0;
-
-        if (SeriesPage.validDrakes.has(objectives.firstDrake)) {
-            count += 1
-        }
-
-        if (SeriesPage.validDrakes.has(objectives.secondDrake)) {
-            count += 1
-        }
-
-        if (SeriesPage.validDrakes.has(objectives.thirdDrake)) {
-            count += 1
-        }
-
-        if (SeriesPage.validDrakes.has(objectives.fourthDrake)) {
-            count += 1
-        }
-
-        count += objectives.elderDrakes
-
-        return `${count}`;
-    }
+    count += objectives.elderDrakes;
+    return `${count}`;
+  };
 }
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  MatchPage
+});

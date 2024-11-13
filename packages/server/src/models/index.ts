@@ -1,2 +1,2 @@
-export * from "./series";
+export * from "./match";
 export * from "./champion";
