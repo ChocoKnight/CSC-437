@@ -74,8 +74,8 @@ class MatchPage {
       (game) => this.renderGame(game, teamOne, teamTwo, game_num),
       game_num += 1
     );
-    const { seriesId } = this.data;
-    const api = `/api/series/${seriesId}`;
+    const { matchId } = this.data;
+    const api = `/api/matches/${matchId}`;
     return import_server.html`
         <lol-header></lol-header>
         <main class="page">
@@ -152,8 +152,8 @@ class MatchPage {
       pickFour,
       pickFive
     } = bluePickBans;
-    const { seriesId } = this.data;
-    const api = `/api/series/${seriesId}`;
+    const { matchId } = this.data;
+    const api = `/api/match/${matchId}`;
     return import_server.html` 
         <pick-ban slot="pick_ban">
             <img slot="banOne" src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${banOne}_0.jpg"

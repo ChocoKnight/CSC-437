@@ -1,5 +1,5 @@
 export interface Match {
-    seriesId: string;
+    matchId: string;
     tournamentName: string;
     date: Date;
     teamOne: string;
@@ -37,7 +37,7 @@ export interface PickBan {
 
 export interface Game {
     gameId: string;
-    seriesId: string;
+    matchId: string;
     blueTeam: string;
     redTeam: string;
     bluePickBans: PickBan;

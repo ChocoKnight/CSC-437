@@ -43,18 +43,14 @@ export class MatchPage {
     renderBody() {
         const { tournamentName, date, teamOne, teamTwo, games } = this.data;
 
-        // console.log(games)
-
         var game_num: number = 1;
         const gameList = games.map((game) =>
             this.renderGame(game, teamOne, teamTwo, game_num),
             game_num += 1
         );
 
-        // console.log(gameList)
-
-        const { seriesId } = this.data;
-        const api = `/api/series/${seriesId}`;
+        const { matchId } = this.data;
+        const api = `/api/matches/${matchId}`;
 
         // <a slot="teamOne" href="">${teamOne}</a>
         // <a slot="teamTwo" href="">${teamTwo}</a>
@@ -78,8 +74,6 @@ export class MatchPage {
         const {
             blueTeam, redTeam, bluePickBans, redPickBans, blueWin, blueFirstBlood, blueFirstTower, blueObjectives, redObjectives, duration
         } = game; 
-
-        // console.log(game)
 
         if (teamOne === blueTeam) {
             var teamOneSide: string = "Blue Side";
@@ -128,8 +122,8 @@ export class MatchPage {
             banOne, banTwo, banThree, banFour, banFive, pickOne, pickTwo, pickThree, pickFour, pickFive 
         } = bluePickBans;
 
-        const { seriesId } = this.data;
-        const api = `/api/series/${seriesId}`;
+        const { matchId } = this.data;
+        const api = `/api/match/${matchId}`;
 
         return html` 
         <pick-ban slot="pick_ban">

@@ -373,7 +373,7 @@ const ObjectivesSchema = new import_mongoose2.Schema({
 const GameSchema = new import_mongoose2.Schema(
   {
     gameId: { type: String, required: true, trim: true },
-    seriesId: { type: String, required: true, trim: true },
+    matchId: { type: String, required: true, trim: true },
     blueTeam: { type: String, required: true, trim: true },
     redTeam: { type: String, required: true, trim: true },
     bluePickBans: { type: PickBanSchema, required: true },
@@ -389,7 +389,7 @@ const GameSchema = new import_mongoose2.Schema(
 const GameModel = (0, import_mongoose2.model)("Game", GameSchema, "game");
 const MatchSchema = new import_mongoose2.Schema(
   {
-    seriesId: { type: String, required: true, trim: true },
+    matchId: { type: String, required: true, trim: true },
     tournamentName: { type: String, required: true, trim: true },
     date: { type: Date, required: true },
     teamOne: { type: String, required: true, trim: true },
@@ -402,14 +402,14 @@ const MatchSchema = new import_mongoose2.Schema(
       }
     ]
   },
-  { collection: "series" }
+  { collection: "match" }
 );
 const MatchModel = (0, import_mongoose2.model)("Match", MatchSchema, "match");
 function index() {
   return MatchModel.find();
 }
 function get(matchId) {
-  return MatchModel.find({ seriesId: matchId }).populate("games").then((list) => {
+  return MatchModel.find({ matchId }).populate("games").then((list) => {
     return list[0];
   }).catch((err) => {
     console.log(err);

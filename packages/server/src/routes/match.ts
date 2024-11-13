@@ -13,35 +13,39 @@ router.get("/", (_, res: Response) => {
 router.get("/:matchId", (req: Request, res: Response) => {
     const { matchId } = req.params;
 
+    console.log(matchId)
+    console.log(req.params)
+    console.log(matchId)
+
     Matches.get(matchId)
-        .then((series: Match) => res.json(series))
+        .then((match: Match) => res.json(match))
         .catch((err) => res.status(404).send(err));
 });
 
 router.post("/", (req: Request, res: Response) => {
-    const newSeries = req.body;
+    const newMatch = req.body;
 
-    Matches.create(newSeries)
-        .then((series: Match) =>
-            res.status(201).json(series)
+    Matches.create(newMatch)
+        .then((match: Match) =>
+            res.status(201).json(match)
         )
         .catch((err) => res.status(500).send(err));
 });
 
-router.put("/:seriesId", (req: Request, res: Response) => {
-    const { seriesId } = req.params;
-    const newSeries = req.body;
+router.put("/:matchId", (req: Request, res: Response) => {
+    const { matchId } = req.params;
+    const newMatch = req.body;
 
     Matches
-        .update(seriesId, newSeries)
-        .then((series: Match) => res.json(series))
+        .update(matchId, newMatch)
+        .then((match: Match) => res.json(match))
         .catch((err) => res.status(404).end());
 });
 
-router.delete("/:seriesId", (req: Request, res: Response) => {
-    const { seriesId } = req.params;
+router.delete("/:matchId", (req: Request, res: Response) => {
+    const { matchId } = req.params;
 
-    Matches.remove(seriesId)
+    Matches.remove(matchId)
         .then(() => res.status(204).end())
         .catch((err) => res.status(404).send(err));
 });

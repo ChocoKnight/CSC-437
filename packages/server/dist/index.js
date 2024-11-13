@@ -35,7 +35,7 @@ app.use(import_express.default.static(staticDir));
 app.use(import_express.default.json());
 app.use("/auth", import_auth.default);
 app.use("/api/matches", import_auth.authenticateUser, import_match2.default);
-app.get("/matches/:seriesId", (req, res) => {
+app.get("/matches/:matchId", (req, res) => {
   const { matchId } = req.params;
   import_match_svc.default.get(matchId).then((data) => {
     res.set("Content-Type", "text/html").send(new import_match.MatchPage(data).render());

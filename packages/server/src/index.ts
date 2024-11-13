@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { Request, response, Response } from "express";
 import { MatchPage } from "./pages/match";
 import Match from "./services/match-svc"
 import Matches from "./routes/match";
@@ -21,10 +21,11 @@ app.use(express.json());
 // Auth Routes
 app.use("/auth", auth);
 
-// Routes
+// API Routes
 app.use("/api/matches", authenticateUser, Matches);
 
-app.get("/matches/:seriesId", (req: Request, res: Response) => {
+// Page Routes
+app.get("/matches/:matchId", (req: Request, res: Response) => {
   const { matchId } = req.params;
 
   Match.get(matchId).then((data) => {

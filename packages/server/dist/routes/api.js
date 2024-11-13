@@ -26,37 +26,15 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-var match_exports = {};
-__export(match_exports, {
-  default: () => match_default
+var api_exports = {};
+__export(api_exports, {
+  default: () => api_default
 });
-module.exports = __toCommonJS(match_exports);
+module.exports = __toCommonJS(api_exports);
 var import_express = __toESM(require("express"));
-var import_match_svc = __toESM(require("../services/match-svc"));
+var import_auth = require("./auth");
+var import_match = __toESM(require("./match"));
 const router = import_express.default.Router();
-router.get("/", (_, res) => {
-  import_match_svc.default.index().then((list) => res.json(list)).catch((err) => res.status(500).send(err));
-});
-router.get("/:matchId", (req, res) => {
-  const { matchId } = req.params;
-  console.log(matchId);
-  console.log(req.params);
-  console.log(matchId);
-  import_match_svc.default.get(matchId).then((match) => res.json(match)).catch((err) => res.status(404).send(err));
-});
-router.post("/", (req, res) => {
-  const newMatch = req.body;
-  import_match_svc.default.create(newMatch).then(
-    (match) => res.status(201).json(match)
-  ).catch((err) => res.status(500).send(err));
-});
-router.put("/:matchId", (req, res) => {
-  const { matchId } = req.params;
-  const newMatch = req.body;
-  import_match_svc.default.update(matchId, newMatch).then((match) => res.json(match)).catch((err) => res.status(404).end());
-});
-router.delete("/:matchId", (req, res) => {
-  const { matchId } = req.params;
-  import_match_svc.default.remove(matchId).then(() => res.status(204).end()).catch((err) => res.status(404).send(err));
-});
-var match_default = router;
+router.use(import_auth.authenticateUser);
+router.use("/matches", import_match.default);
+var api_default = router;

@@ -355,7 +355,7 @@ const ObjectivesSchema = new Schema<Objectives>({
 const GameSchema = new Schema<Game>(
     {
         gameId: { type: String, required: true, trim: true },
-        seriesId: { type: String, required: true, trim: true },
+        matchId: { type: String, required: true, trim: true },
         blueTeam: { type: String, required: true, trim: true },
         redTeam: { type: String, required: true, trim: true },
         bluePickBans: { type: PickBanSchema, required: true },
@@ -373,7 +373,7 @@ const GameModel = model<Game>("Game", GameSchema, "game");
 
 const MatchSchema = new Schema<Match>(
     {
-        seriesId: { type: String, required: true, trim: true },
+        matchId: { type: String, required: true, trim: true },
         tournamentName: { type: String, required: true, trim: true },
         date: { type: Date, required: true },
         teamOne: { type: String, required: true, trim: true },
@@ -385,7 +385,7 @@ const MatchSchema = new Schema<Match>(
             },
         ]
     },
-    { collection: 'series' }
+    { collection: 'match' }
 );
 
 const MatchModel = model<Match>("Match", MatchSchema, "match");
@@ -395,7 +395,7 @@ function index(): Promise<Match[]> {
 }
 
 function get(matchId: String): Promise<Match> {
-    return MatchModel.find({ seriesId: matchId })
+    return MatchModel.find({ matchId: matchId })
         .populate('games')
         .then((list) => {
             // console.log("Query result:", list);

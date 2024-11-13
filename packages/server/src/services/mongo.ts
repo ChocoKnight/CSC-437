@@ -4,10 +4,6 @@ import dotenv from "dotenv";
 mongoose.set("debug", true);
 dotenv.config();
 
-// mongoose.connection.on('connected', () => {
-//     console.log('Mongoose connected successfully');
-// });
-
 function getMongoURI(dbname: string) {
     let connection_string = `mongodb://localhost:27017/${dbname}`;
     const { MONGO_USER, MONGO_PWD, MONGO_CLUSTER } = process.env
