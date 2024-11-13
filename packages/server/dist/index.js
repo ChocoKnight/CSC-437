@@ -33,20 +33,14 @@ const port = process.env.PORT || 3e3;
 const staticDir = process.env.STATIC || "public";
 app.use(import_express.default.static(staticDir));
 app.use(import_express.default.json());
-app.get("/hello", (req, res) => {
-  res.send("Hello, World");
-});
-app.use("/api/series", import_series2.default);
-app.get(
-  "/series/:seriesId",
-  (req, res) => {
-    const { seriesId } = req.params;
-    import_series_svc.default.get(seriesId).then((data) => {
-      res.set("Content-Type", "text/html").send(new import_series.SeriesPage(data).render());
-    });
-  }
-);
 app.use("/auth", import_auth.default);
+app.use("/api/series", import_auth.authenticateUser, import_series2.default);
+app.get("/series/:seriesId", (req, res) => {
+  const { seriesId } = req.params;
+  import_series_svc.default.get(seriesId).then((data) => {
+    res.set("Content-Type", "text/html").send(new import_series.SeriesPage(data).render());
+  });
+});
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });

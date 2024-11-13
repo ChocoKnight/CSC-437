@@ -18,26 +18,20 @@ app.use(express.static(staticDir));
 // Middleware
 app.use(express.json());
 
-// Routes
-app.get("/hello", (req: Request, res: Response) => {
-  res.send("Hello, World");
-});
-
-app.use("/api/series", SeriesMultiple);
-
-app.get(
-  "/series/:seriesId",
-  (req: Request, res: Response) => {
-    const { seriesId } = req.params;
-
-    Series.get(seriesId).then((data) => {
-      res.set("Content-Type", "text/html")
-        .send(new SeriesPage(data).render());
-    });
-  }
-);
-
+// Auth Routes
 app.use("/auth", auth);
+
+// Routes
+app.use("/api/series", authenticateUser, SeriesMultiple);
+
+app.get("/series/:seriesId", (req: Request, res: Response) => {
+  const { seriesId } = req.params;
+
+  Series.get(seriesId).then((data) => {
+    res.set("Content-Type", "text/html")
+      .send(new SeriesPage(data).render());
+  });
+});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
