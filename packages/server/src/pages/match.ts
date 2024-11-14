@@ -16,7 +16,7 @@ export class MatchPage {
             styles: [
             ],
             scripts: [
-                `import { define } from "@calpoly/mustang";
+                `import { define, Auth } from "@calpoly/mustang";
                 import { HeaderElement } from "/scripts/header.js";
                 import { GameHeaderElement } from "/scripts/game_header.js";
                 import { TeamGameSummaryElement } from "/scripts/team_game_summary.js";

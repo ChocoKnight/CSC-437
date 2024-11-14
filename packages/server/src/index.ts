@@ -1,8 +1,13 @@
 import express, { Request, response, Response } from "express";
+
+import { LoginPage } from "./pages/auth";
+
 import { MatchPage } from "./pages/match";
 import Match from "./services/match-svc"
 import Matches from "./routes/match";
+
 import auth, { authenticateUser } from "./routes/auth";
+
 import { connect } from "./services/mongo";
 
 const app = express();
@@ -25,6 +30,11 @@ app.use("/auth", auth);
 app.use("/api/matches", authenticateUser, Matches);
 
 // Page Routes
+app.get("/login", (req: Request, res: Response) => {
+  const page = new LoginPage();
+  res.set("Content-Type", "text/html").send(page.render());
+});
+
 app.get("/matches/:matchId", (req: Request, res: Response) => {
   const { matchId } = req.params;
 

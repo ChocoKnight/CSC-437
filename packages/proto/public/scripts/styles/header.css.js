@@ -42,8 +42,12 @@ const styles = css`
         font-style: italic;
     }
 
-    a {
+    h1 > a {
         color: var(--color-link);
+    }
+
+    a {
+        color: var(--color-link-header);
     }
 
     a:link {

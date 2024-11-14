@@ -14,6 +14,11 @@ export class HeaderElement extends HTMLElement {
                 <h1>
                     <a href="/">Lens of Legends</a>
                 </h1>
+                
+                <a slot="actuator">
+                    Hello,
+                    <span id="userid"></span>
+                </a>
             </div>
             <div class="nav_bar">
                 <ul>
@@ -38,7 +43,7 @@ export class HeaderElement extends HTMLElement {
                 </div>
                 <label class="light-mode-switch" autocomplete="off">
                     <input type="checkbox"/>
-                    Light Mode
+                    <a> Light Mode </a>
                 </label>
             </div>
         </header>
@@ -132,4 +137,14 @@ export class HeaderElement extends HTMLElement {
             toggleLightMode(event.currentTarget, event.detail.checked)
         );
     }
+
+    // _authObserver = new Observer(this, "lol:auth");
+
+    // connectedCallback() {
+    //     this._authObserver.observe(({ user }) => {
+    //         if (user && user.username !== this.userid) {
+    //             this.userid = user.username;
+    //         }
+    //     });
+    // }
 }

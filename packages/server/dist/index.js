@@ -22,10 +22,11 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var import_express = __toESM(require("express"));
+var import_auth = require("./pages/auth");
 var import_match = require("./pages/match");
 var import_match_svc = __toESM(require("./services/match-svc"));
 var import_match2 = __toESM(require("./routes/match"));
-var import_auth = __toESM(require("./routes/auth"));
+var import_auth2 = __toESM(require("./routes/auth"));
 var import_mongo = require("./services/mongo");
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
@@ -33,8 +34,12 @@ const port = process.env.PORT || 3e3;
 const staticDir = process.env.STATIC || "public";
 app.use(import_express.default.static(staticDir));
 app.use(import_express.default.json());
-app.use("/auth", import_auth.default);
-app.use("/api/matches", import_auth.authenticateUser, import_match2.default);
+app.use("/auth", import_auth2.default);
+app.use("/api/matches", import_auth2.authenticateUser, import_match2.default);
+app.get("/login", (req, res) => {
+  const page = new import_auth.LoginPage();
+  res.set("Content-Type", "text/html").send(page.render());
+});
 app.get("/matches/:matchId", (req, res) => {
   const { matchId } = req.params;
   import_match_svc.default.get(matchId).then((data) => {
