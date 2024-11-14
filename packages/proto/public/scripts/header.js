@@ -15,22 +15,23 @@ export class HeaderElement extends HTMLElement {
                     <a href="/">Lens of Legends</a>
                 </h1>
 
-                <div class="user">
+                <mu-dropdown>
                     <a slot="actuator">
                         <h3 id="userid"></h3>
                     </a>
 
-                    <mu-dropdown>
-                        <menu>
-                            <li class="when-signed-in">
-                                <a id="signout">Sign Out</a>
-                            </li>
-                            <li class="when-signed-out">
-                                <a href="/login">Sign In</a>
-                            </li>
-                        </menu>
-                    </mu-dropdown>
-                </div>
+                    <menu>
+                        <li>
+                            <a href="">Profile</a>
+                        </li>
+                        <li>
+                            <a href="/login">Sign In</a>
+                        </li>
+                        <li>
+                            <a id="signout">Sign Out</a>
+                        </li>
+                    </menu>
+                </mu-dropdown>  
             </div>
             <div class="nav_bar">
                 <ul>
@@ -84,7 +85,7 @@ export class HeaderElement extends HTMLElement {
         padding: 0;
     }
 
-    header h1, .nav_bar, .user {
+    header h1, .nav_bar, mu-dropdown {
         padding-left: var(--size-spacing-xlarge);
         padding-right: var(--size-spacing-xlarge);
     }
@@ -94,11 +95,10 @@ export class HeaderElement extends HTMLElement {
         grid-template-columns: 1fr 1fr;
     }
 
-    .user {
-        display: flex;
-        flex-direction: row;
+    mu-dropdown {
         justify-self: end;
         align-self: center;
+        align-text: right;
     }
 
     a[slot="actuator"] {
@@ -110,10 +110,15 @@ export class HeaderElement extends HTMLElement {
         content: "Summoner";
     }
 
+    menu {
+        background: var(--color-background-header);
+    }
+
     menu a {
         color: var(--color-link);
         cursor: pointer;
         text-decoration: underline;
+        text-align: right;
     }
 
     .nav_bar {
@@ -158,8 +163,10 @@ export class HeaderElement extends HTMLElement {
     set userid(id) {
         if (id === "anonymous") {
             this._userid.textContent = "";
+            this._signout.disabled = true;
         } else {
             this._userid.textContent = id;
+            this._signout.disabled = false;
         }
     }
 
@@ -181,11 +188,11 @@ export class HeaderElement extends HTMLElement {
 
         this._userid = this.shadowRoot.querySelector("#userid");
 
-        // this._signout = this.shadowRoot.querySelector("#signout");
+        this._signout = this.shadowRoot.querySelector("#signout");
 
-        // this._signout.addEventListener("click", (event) =>
-        //     Events.relay(event, "auth:message", ["auth/signout"])
-        // );
+        this._signout.addEventListener("click", (event) =>
+            Events.relay(event, "auth:message", ["auth/signout"])
+        );
     }
 
     _authObserver = new Observer(this, "lol:auth");
