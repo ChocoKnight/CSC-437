@@ -53,18 +53,16 @@ class LoginPage {
               `
       ],
       body: import_server.html`
-              <body>
+            <body>
                 <mu-auth provides="lol:auth">
-                  <article>
                     <lol-header></lol-header>
                     <main class="page">
-                      <login-form api="/auth/login">
-                        <h3 slot="title">Sign into Lens of Legends</h3>
-                      </login-form>
+                        <login-form api="/auth/login">
+                            <h3 slot="title">Sign into Lens of Legends</h3>
+                        </login-form>
                     </main>
-                  </article>
                 </mu-auth>
-              </body>
+            </body>
             `
     });
   }

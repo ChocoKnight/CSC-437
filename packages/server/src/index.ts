@@ -27,7 +27,8 @@ app.use(express.json());
 app.use("/auth", auth);
 
 // API Routes
-app.use("/api/matches", authenticateUser, Matches);
+app.use("/api/matches", Matches);
+// app.use("/api/matches", authenticateUser, Matches);
 
 // Page Routes
 app.get("/login", (req: Request, res: Response) => {

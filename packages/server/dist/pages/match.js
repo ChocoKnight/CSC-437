@@ -59,6 +59,7 @@ class MatchPage {
                     "player-game-summary": PlayerGameSummaryElement,
                     "game-tab-panel": GameTabPanelElement,
                     "pick-ban": PickBanElement,
+                    "mu-auth": Auth.Provider,
                 });
                 
                 HeaderElement.initializeOnce();
@@ -77,14 +78,16 @@ class MatchPage {
     const { matchId } = this.data;
     const api = `/api/matches/${matchId}`;
     return import_server.html`
-        <lol-header></lol-header>
-        <main class="page">
-            <game-header src="${api}">
-            </game-header>
-            <game-tab-panel> 
-                ${gameList}
-            </game-tab-panel>
-        </main>
+        <mu-auth provides="lol:auth">
+            <lol-header></lol-header>
+            <main class="page">
+                <game-header src="${api}">
+                </game-header>
+                <game-tab-panel> 
+                    ${gameList}
+                </game-tab-panel>
+            </main>
+        </mu-auth>
         `;
   }
   renderGame(game, teamOne, teamTwo, game_number) {

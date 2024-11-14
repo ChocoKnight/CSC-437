@@ -31,6 +31,7 @@ export class MatchPage {
                     "player-game-summary": PlayerGameSummaryElement,
                     "game-tab-panel": GameTabPanelElement,
                     "pick-ban": PickBanElement,
+                    "mu-auth": Auth.Provider,
                 });
                 
                 HeaderElement.initializeOnce();
@@ -59,14 +60,16 @@ export class MatchPage {
         // <span slot="date">${this.formatDate(date)}</span>      
 
         return html`
-        <lol-header></lol-header>
-        <main class="page">
-            <game-header src="${api}">
-            </game-header>
-            <game-tab-panel> 
-                ${gameList}
-            </game-tab-panel>
-        </main>
+        <mu-auth provides="lol:auth">
+            <lol-header></lol-header>
+            <main class="page">
+                <game-header src="${api}">
+                </game-header>
+                <game-tab-panel> 
+                    ${gameList}
+                </game-tab-panel>
+            </main>
+        </mu-auth>
         `;
     }
 

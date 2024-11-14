@@ -35,7 +35,7 @@ const staticDir = process.env.STATIC || "public";
 app.use(import_express.default.static(staticDir));
 app.use(import_express.default.json());
 app.use("/auth", import_auth2.default);
-app.use("/api/matches", import_auth2.authenticateUser, import_match2.default);
+app.use("/api/matches", import_match2.default);
 app.get("/login", (req, res) => {
   const page = new import_auth.LoginPage();
   res.set("Content-Type", "text/html").send(page.render());
