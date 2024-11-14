@@ -15,10 +15,22 @@ export class HeaderElement extends HTMLElement {
                     <a href="/">Lens of Legends</a>
                 </h1>
 
-                <a slot="actuator">
-                    Hello,
-                    <span id="userid"></span>
-                </a>
+                <div class="user">
+                    <a slot="actuator">
+                        <h3 id="userid"></h3>
+                    </a>
+
+                    <mu-dropdown>
+                        <menu>
+                            <li class="when-signed-in">
+                                <a id="signout">Sign Out</a>
+                            </li>
+                            <li class="when-signed-out">
+                                <a href="/login">Sign In</a>
+                            </li>
+                        </menu>
+                    </mu-dropdown>
+                </div>
             </div>
             <div class="nav_bar">
                 <ul>
@@ -35,12 +47,6 @@ export class HeaderElement extends HTMLElement {
                         <a href="/champions/champions.html">Champions</a>
                     </li>
                 </ul>
-                <div class="search_container">
-                    <form action="/search" method="get">
-                        <input type="text" placeholder="Search..." name="search">
-                        <button type="submit">Search</button>
-                    </form>
-                </div>
                 <label class="light-mode-switch" autocomplete="off">
                     <input type="checkbox"/>
                     <a> Light Mode </a>
@@ -49,6 +55,13 @@ export class HeaderElement extends HTMLElement {
         </header>
     </template>
     `;
+
+    // <div class="search_container">
+    //                 <form action="/search" method="get">
+    //                     <input type="text" placeholder="Search..." name="search">
+    //                     <button type="submit">Search</button>
+    //                 </form>
+    //             </div>
 
     static styles = css`
     :host {
@@ -71,7 +84,7 @@ export class HeaderElement extends HTMLElement {
         padding: 0;
     }
 
-    header h1, .nav_bar {
+    header h1, .nav_bar, .user {
         padding-left: var(--size-spacing-xlarge);
         padding-right: var(--size-spacing-xlarge);
     }
@@ -79,6 +92,28 @@ export class HeaderElement extends HTMLElement {
     .top_bar {
         display: grid;
         grid-template-columns: 1fr 1fr;
+    }
+
+    .user {
+        display: flex;
+        flex-direction: row;
+        justify-self: end;
+        align-self: center;
+    }
+
+    a[slot="actuator"] {
+        color: var(--color-link-inverted);
+        cursor: pointer;
+    }
+
+    #userid:empty::before {
+        content: "Summoner";
+    }
+
+    menu a {
+        color: var(--color-link);
+        cursor: pointer;
+        text-decoration: underline;
     }
 
     .nav_bar {
@@ -103,7 +138,7 @@ export class HeaderElement extends HTMLElement {
 
     .search_container {
         display: flex;
-        align-items: right; /* Center the search input and button */
+        align-items: right;
     }
 
     .search_container input[type="text"] {
@@ -123,10 +158,8 @@ export class HeaderElement extends HTMLElement {
     set userid(id) {
         if (id === "anonymous") {
             this._userid.textContent = "";
-            this._signout.disabled = true;
         } else {
             this._userid.textContent = id;
-            this._signout.disabled = false;
         }
     }
 
@@ -148,11 +181,11 @@ export class HeaderElement extends HTMLElement {
 
         this._userid = this.shadowRoot.querySelector("#userid");
 
-        this._signout = this.shadowRoot.querySelector("#signout");
+        // this._signout = this.shadowRoot.querySelector("#signout");
 
-        this._signout.addEventListener("click", (event) =>
-            Events.relay(event, "auth:message", ["auth/signout"])
-        );
+        // this._signout.addEventListener("click", (event) =>
+        //     Events.relay(event, "auth:message", ["auth/signout"])
+        // );
     }
 
     _authObserver = new Observer(this, "lol:auth");
