@@ -24,24 +24,26 @@
 </script>
 
 <script type="module">
-  import { define } from "@calpoly/mustang";
+  import { define, Auth } from "@calpoly/mustang";
   import { HeaderElement } from "../scripts/header.js";
 
   define({
     "lol-header": HeaderElement,
+    "mu-auth": Auth.Provider
   });
 
   HeaderElement.initializeOnce();
 </script>
 
-<lol-header>
+<body>
+  <mu-auth provides="lol:auth">
+    <lol-header></lol-header>
+    <main class="page">
+      <span>Fill in some content</span>
+    </main>
+  </mu-auth>
+</body>
 
-</lol-header>
 
-<main class="page">
-
-  <body>
-  </body>
-</main>
 
 </html>

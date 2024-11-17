@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import { Schema, model } from "mongoose";
-import { Series, Game, Objectives, PickBan } from "../models";
+import { Match, Game, Objectives, PickBan } from "../models";
 
-const series = {
+const match = {
     blg_vs_t1: {
         seriesId: "blgvst1_finals",
         tournamentName: "Worlds 2024",
@@ -355,7 +355,7 @@ const ObjectivesSchema = new Schema<Objectives>({
 const GameSchema = new Schema<Game>(
     {
         gameId: { type: String, required: true, trim: true },
-        seriesId: { type: String, required: true, trim: true },
+        matchId: { type: String, required: true, trim: true },
         blueTeam: { type: String, required: true, trim: true },
         redTeam: { type: String, required: true, trim: true },
         bluePickBans: { type: PickBanSchema, required: true },
@@ -371,9 +371,9 @@ const GameSchema = new Schema<Game>(
 
 const GameModel = model<Game>("Game", GameSchema, "game");
 
-const SeriesSchema = new Schema<Series>(
+const MatchSchema = new Schema<Match>(
     {
-        seriesId: { type: String, required: true, trim: true },
+        matchId: { type: String, required: true, trim: true },
         tournamentName: { type: String, required: true, trim: true },
         date: { type: Date, required: true },
         teamOne: { type: String, required: true, trim: true },
@@ -385,33 +385,17 @@ const SeriesSchema = new Schema<Series>(
             },
         ]
     },
-    { collection: 'series' }
+    { collection: 'match' }
 );
 
-const SeriesModel = model<Series>("Series", SeriesSchema);
+const MatchModel = model<Match>("Match", MatchSchema, "match");
 
-function index(): Promise<Series[]> {
-    return SeriesModel.find();
+function index(): Promise<Match[]> {
+    return MatchModel.find();
 }
 
-// SeriesModel.findOne({ seriesId: "blg_vs_t1_finals" })
-//     .then((result) => {
-//         console.log("Manual Query Result:", result);
-//     })
-//     .catch(console.error);
-
-// GameModel.find({ _id: { $in: ["672d93f06857e8c5fc799c55", "672d95d46857e8c5fc799c56", "672d95df6857e8c5fc799c57", "672d95e96857e8c5fc799c58", "672d95fb6857e8c5fc799c59"] } })
-//     .then(games => console.log(games))
-//     .catch(err => console.log(err));
-
-// GameModel.find({ seriesId: "blg_vs_t1_finals" })
-//     .then((result) => {
-//         console.log("Found Games:", result); // Prints the games with the given seriesId
-//     })
-//     .catch(console.error);
-
-function get(seriesId: String): Promise<Series> {
-    return SeriesModel.find({ seriesId })
+function get(matchId: String): Promise<Match> {
+    return MatchModel.find({ matchId: matchId })
         .populate('games')
         .then((list) => {
             // console.log("Query result:", list);
@@ -419,36 +403,36 @@ function get(seriesId: String): Promise<Series> {
         })
         .catch((err) => {
             console.log(err)
-            throw `${seriesId} Not Found`;
+            throw `${matchId} Not Found`;
         });
 }
 
-function create(json: Series): Promise<Series> {
-    const t = new SeriesModel(json);
+function create(json: Match): Promise<Match> {
+    const t = new MatchModel(json);
     return t.save();
 }
 
 function update(
-    seriesId: String,
-    series: Series
-): Promise<Series> {
-    return SeriesModel.findOneAndUpdate({ seriesId }, series, {
+    matchId: String,
+    match: Match
+): Promise<Match> {
+    return MatchModel.findOneAndUpdate({ matchId }, match, {
         new: true
     }).then((updated) => {
-        if (!updated) throw `${seriesId} not updated`;
-        else return updated as Series;
+        if (!updated) throw `${matchId} not updated`;
+        else return updated as Match;
     });
 }
 
-function remove(seriesId: String): Promise<void> {
-    return SeriesModel.findOneAndDelete({ seriesId }).then(
+function remove(matchId: String): Promise<void> {
+    return MatchModel.findOneAndDelete({ matchId }).then(
         (deleted) => {
-            if (!deleted) throw `${seriesId} not deleted`;
+            if (!deleted) throw `${matchId} not deleted`;
         }
     );
 }
 
 export default { index, get, create, update, remove };
-export function getSeries(_: string) {
-    return series["blg_vs_t1"];
+export function getMatch(_: string) {
+    return match["blg_vs_t1"];
 }

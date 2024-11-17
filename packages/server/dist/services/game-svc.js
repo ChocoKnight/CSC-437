@@ -51,7 +51,7 @@ const ObjectivesSchema = new import_mongoose.Schema({
 const GameSchema = new import_mongoose.Schema(
   {
     gameId: { type: String, required: true, trim: true },
-    seriesId: { type: String, required: true, trim: true },
+    matchId: { type: String, required: true, trim: true },
     blueTeam: { type: String, required: true, trim: true },
     redTeam: { type: String, required: true, trim: true },
     bluePickBans: { type: PickBanSchema, required: true },

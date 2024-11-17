@@ -32,7 +32,7 @@ const ObjectivesSchema = new Schema<Objectives>({
 const GameSchema = new Schema<Game>(
     {
         gameId: { type: String, required: true, trim: true },
-        seriesId: { type: String, required: true, trim: true },
+        matchId: { type: String, required: true, trim: true },
         blueTeam: { type: String, required: true, trim: true },
         redTeam: { type: String, required: true, trim: true },
         bluePickBans: { type: PickBanSchema, required: true },

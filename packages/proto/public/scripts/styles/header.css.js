@@ -22,8 +22,7 @@ const styles = css`
 
     h3 {
         font-size: var(--size-type-large);
-        font-weight: var(--font-weight-normal);
-        font-style: oblique;
+        font-weight: var(--font-weight-bold);
     }
 
     h4 {
@@ -42,8 +41,12 @@ const styles = css`
         font-style: italic;
     }
 
-    a {
+    h1 > a {
         color: var(--color-link);
+    }
+
+    a {
+        color: var(--color-link-header);
     }
 
     a:link {

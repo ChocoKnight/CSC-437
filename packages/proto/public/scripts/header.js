@@ -1,4 +1,4 @@
-import { css, define, html, shadow, Dropdown, Events } from "@calpoly/mustang";
+import { css, define, html, shadow, Dropdown, Events, Observer } from "@calpoly/mustang";
 import reset from "./styles/reset.css.js";
 import header from "./styles/header.css.js";
 
@@ -10,10 +10,28 @@ export class HeaderElement extends HTMLElement {
     static template = html`
     <template>
         <header>
-            <div>
+            <div class="top_bar">
                 <h1>
                     <a href="/">Lens of Legends</a>
                 </h1>
+
+                <mu-dropdown>
+                    <a slot="actuator">
+                        <h3 id="userid"></h3>
+                    </a>
+
+                    <menu>
+                        <li>
+                            <a href="">Profile</a>
+                        </li>
+                        <li>
+                            <a href="/login">Sign In</a>
+                        </li>
+                        <li>
+                            <a id="signout">Sign Out</a>
+                        </li>
+                    </menu>
+                </mu-dropdown>  
             </div>
             <div class="nav_bar">
                 <ul>
@@ -30,20 +48,21 @@ export class HeaderElement extends HTMLElement {
                         <a href="/champions/champions.html">Champions</a>
                     </li>
                 </ul>
-                <div class="search_container">
-                    <form action="/search" method="get">
-                        <input type="text" placeholder="Search..." name="search">
-                        <button type="submit">Search</button>
-                    </form>
-                </div>
                 <label class="light-mode-switch" autocomplete="off">
                     <input type="checkbox"/>
-                    Light Mode
+                    <a> Light Mode </a>
                 </label>
             </div>
         </header>
     </template>
     `;
+
+    // <div class="search_container">
+    //                 <form action="/search" method="get">
+    //                     <input type="text" placeholder="Search..." name="search">
+    //                     <button type="submit">Search</button>
+    //                 </form>
+    //             </div>
 
     static styles = css`
     :host {
@@ -66,19 +85,44 @@ export class HeaderElement extends HTMLElement {
         padding: 0;
     }
 
-    header h1, .nav_bar {
+    header h1, .nav_bar, mu-dropdown {
         padding-left: var(--size-spacing-xlarge);
         padding-right: var(--size-spacing-xlarge);
     }
 
-    .nav_bar {
-        background-color: var(--color-background-nav);
+    .top_bar {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
     }
 
-    .search_container{
-        display: flex;
-        flex-direction: column;
-        align-items: end;
+    mu-dropdown {
+        justify-self: end;
+        align-self: center;
+        align-text: right;
+    }
+
+    a[slot="actuator"] {
+        color: var(--color-link-inverted);
+        cursor: pointer;
+    }
+
+    #userid:empty::before {
+        content: "Summoner";
+    }
+
+    menu {
+        background: var(--color-background-header);
+    }
+
+    menu a {
+        color: var(--color-link);
+        cursor: pointer;
+        text-decoration: underline;
+        text-align: right;
+    }
+
+    .nav_bar {
+        background-color: var(--color-background-nav);
     }
 
     .nav_bar ul {
@@ -91,9 +135,15 @@ export class HeaderElement extends HTMLElement {
         margin: var(--size-spacing-medium);
     }
 
+    .search_container{
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+    }
+
     .search_container {
         display: flex;
-        align-items: right; /* Center the search input and button */
+        align-items: right;
     }
 
     .search_container input[type="text"] {
@@ -105,6 +155,20 @@ export class HeaderElement extends HTMLElement {
         margin-left: var(--size-spacing-small);
     }
     `;
+
+    get userid() {
+        return this._userid.textContent;
+    }
+
+    set userid(id) {
+        if (id === "anonymous") {
+            this._userid.textContent = "";
+            this._signout.disabled = true;
+        } else {
+            this._userid.textContent = id;
+            this._signout.disabled = false;
+        }
+    }
 
     constructor() {
         super();
@@ -121,6 +185,32 @@ export class HeaderElement extends HTMLElement {
                 checked: event.target.checked
             })
         );
+
+        this._userid = this.shadowRoot.querySelector("#userid");
+
+        this._signout = this.shadowRoot.querySelector("#signout");
+
+        this._signout.addEventListener("click", (event) =>
+            Events.relay(event, "auth:message", ["auth/signout"])
+        );
+    }
+
+    _authObserver = new Observer(this, "lol:auth");
+
+    get authorization() {
+        return (
+            this._user?.authenticated && {
+                Authorization: `Bearer ${this._user.token}`
+            }
+        );
+    }
+
+    connectedCallback() {
+        this._authObserver.observe(({ user }) => {
+            if (user && user.username !== this.userid) {
+                this.userid = user.username;
+            }
+        });
     }
 
     static initializeOnce() {

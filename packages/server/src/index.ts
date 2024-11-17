@@ -1,8 +1,13 @@
-import express, { Request, Response } from "express";
-import { SeriesPage } from "./pages/series";
-import Series from "./services/series-svc"
-import SeriesMultiple from "./routes/series";
-import Game from "./services/game-svc"
+import express, { Request, response, Response } from "express";
+
+import { LoginPage } from "./pages/auth";
+
+import { MatchPage } from "./pages/match";
+import Match from "./services/match-svc"
+import Matches from "./routes/match";
+
+import auth, { authenticateUser } from "./routes/auth";
+
 import { connect } from "./services/mongo";
 
 const app = express();
@@ -18,32 +23,27 @@ app.use(express.static(staticDir));
 // Middleware
 app.use(express.json());
 
-// Routes
-app.use("/api/series", SeriesMultiple);
+// Auth Routes
+app.use("/auth", auth);
 
-app.get("/hello", (req: Request, res: Response) => {
-  res.send("Hello, World");
+// API Routes
+app.use("/api/matches", Matches);
+// app.use("/api/matches", authenticateUser, Matches);
+
+// Page Routes
+app.get("/login", (req: Request, res: Response) => {
+  const page = new LoginPage();
+  res.set("Content-Type", "text/html").send(page.render());
 });
 
-app.get(
-  "/series/:seriesId",
-  (req: Request, res: Response) => {
-    const { seriesId } = req.params;
-    // const data = getSeries(seriesId);
-    // const page = new SeriesPage(data);
-    // res.set("Content-Type", "text/html").send(page.render());
+app.get("/matches/:matchId", (req: Request, res: Response) => {
+  const { matchId } = req.params;
 
-    // console.log(Game.index());
-
-    Series.get(seriesId).then((data) => {
-
-      // console.log(data)
-
-      res.set("Content-Type", "text/html")
-        .send(new SeriesPage(data).render());
-    });
-  }
-);
+  Match.get(matchId).then((data) => {
+    res.set("Content-Type", "text/html")
+      .send(new MatchPage(data).render());
+  });
+});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
