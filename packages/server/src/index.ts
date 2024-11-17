@@ -32,8 +32,8 @@ app.use(express.json());
 app.use("/auth", auth);
 
 // API Routes
-app.use("/api/users", Users);
-// app.use("/api/users", authenticateUser, Users);
+// app.use("/api/users", Users);
+app.use("/api/users", authenticateUser, Users);
 app.use("/api/matches", Matches);
 // app.use("/api/matches", authenticateUser, Matches);
 

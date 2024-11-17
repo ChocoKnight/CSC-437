@@ -33,16 +33,18 @@ export class UserPage {
     }
 
     renderBody() {
-        const base = "/api/travelers";
+        const base = "/api/users";
         const api = this.data
             ? `${base}/${this.data.username}`
             : base;
+
+        // console.log(api)
 
         return html`<body>
           <mu-auth provides="lol:auth">
             <lol-header></lol-header>
             <main class="page">
-                <user-profile-element> </user-profile-element>
+                <user-profile-element src="${api}"> </user-profile-element>
             </main>
           </mu-auth>
         </body>`;
