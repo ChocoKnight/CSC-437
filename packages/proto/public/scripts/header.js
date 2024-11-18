@@ -21,13 +21,14 @@ export class HeaderElement extends HTMLElement {
                     </a>
 
                     <menu>
-                        <li>
-                            <a href="">Profile</a>
-                        </li>
-                        <li>
+                        <li class="when-signed-out">
                             <a href="/login">Sign In</a>
                         </li>
-                        <li>
+
+                        <li class="when-signed-in">
+                            <a href="/users/">Profile</a>
+                        </li>
+                        <li class="when-signed-in">
                             <a id="signout">Sign Out</a>
                         </li>
                     </menu>

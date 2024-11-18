@@ -6,9 +6,14 @@ import { MatchPage } from "./pages/match";
 import Match from "./services/match-svc"
 import Matches from "./routes/match";
 
+import { UserPage } from "./pages/user";
+import User from "./services/user-svc";
+import Users from "./routes/user";
+
 import auth, { authenticateUser } from "./routes/auth";
 
 import { connect } from "./services/mongo";
+
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -27,6 +32,8 @@ app.use(express.json());
 app.use("/auth", auth);
 
 // API Routes
+// app.use("/api/users", Users);
+app.use("/api/users", authenticateUser, Users);
 app.use("/api/matches", Matches);
 // app.use("/api/matches", authenticateUser, Matches);
 
@@ -34,6 +41,15 @@ app.use("/api/matches", Matches);
 app.get("/login", (req: Request, res: Response) => {
   const page = new LoginPage();
   res.set("Content-Type", "text/html").send(page.render());
+});
+
+app.get("/users/:username", (req: Request, res: Response) => {
+  const { username } = req.params;
+
+  User.get(username).then((data) => {
+    const page = new UserPage(data);
+    res.set("Content-Type", "text/html").send(page.render());
+  });
 });
 
 app.get("/matches/:matchId", (req: Request, res: Response) => {

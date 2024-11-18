@@ -26,34 +26,53 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-var series_exports = {};
-__export(series_exports, {
-  default: () => series_default
+var user_exports = {};
+__export(user_exports, {
+  UserPage: () => UserPage
 });
-module.exports = __toCommonJS(series_exports);
-var import_express = __toESM(require("express"));
-var import_series_svc = __toESM(require("../services/series-svc"));
-const router = import_express.default.Router();
-router.get("/", (_, res) => {
-  import_series_svc.default.index().then((list) => res.json(list)).catch((err) => res.status(500).send(err));
+module.exports = __toCommonJS(user_exports);
+var import_server = require("@calpoly/mustang/server");
+var import_renderPage = __toESM(require("./renderPage"));
+class UserPage {
+  data;
+  constructor(data) {
+    this.data = data;
+  }
+  render() {
+    return (0, import_renderPage.default)({
+      body: this.renderBody(),
+      scripts: [
+        `
+            import { define, Auth } from "@calpoly/mustang";
+            import { HeaderElement } from "/scripts/header.js";
+            import { UserProfileElement } from "/scripts/user.js";
+    
+            define({
+                "lol-header": HeaderElement,
+                "user-profile-element": UserProfileElement,
+                "mu-auth": Auth.Provider,
+            });
+
+            HeaderElement.initializeOnce();
+            `
+      ],
+      styles: []
+    });
+  }
+  renderBody() {
+    const base = "/api/users";
+    const api = this.data ? `${base}/${this.data.username}` : base;
+    return import_server.html`<body>
+          <mu-auth provides="lol:auth">
+            <lol-header></lol-header>
+            <main class="page">
+                <user-profile-element src="${api}"> </user-profile-element>
+            </main>
+          </mu-auth>
+        </body>`;
+  }
+}
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  UserPage
 });
-router.get("/:userid", (req, res) => {
-  const { userid } = req.params;
-  import_series_svc.default.get(userid).then((series) => res.json(series)).catch((err) => res.status(404).send(err));
-});
-router.post("/", (req, res) => {
-  const newSeries = req.body;
-  import_series_svc.default.create(newSeries).then(
-    (series) => res.status(201).json(series)
-  ).catch((err) => res.status(500).send(err));
-});
-router.put("/:seriesId", (req, res) => {
-  const { seriesId } = req.params;
-  const newSeries = req.body;
-  import_series_svc.default.update(seriesId, newSeries).then((series) => res.json(series)).catch((err) => res.status(404).end());
-});
-router.delete("/:seriesId", (req, res) => {
-  const { seriesId } = req.params;
-  import_series_svc.default.remove(seriesId).then(() => res.status(204).end()).catch((err) => res.status(404).send(err));
-});
-var series_default = router;

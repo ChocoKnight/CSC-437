@@ -59,6 +59,8 @@ function generateAccessToken(username: string): Promise<String> {
 export function authenticateUser(req: Request, res: Response, next: NextFunction) {
     const authHeader = req.headers["authorization"];
 
+    console.log(authHeader)
+
     // getting the second part of the auth header (the token)
     const token = authHeader && authHeader.split(" ")[1];
 

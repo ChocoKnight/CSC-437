@@ -77,6 +77,7 @@ function generateAccessToken(username) {
 }
 function authenticateUser(req, res, next) {
   const authHeader = req.headers["authorization"];
+  console.log(authHeader);
   const token = authHeader && authHeader.split(" ")[1];
   if (!token) {
     res.status(401).end();
