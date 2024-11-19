@@ -1,0 +1,232 @@
+.page {
+    display: flex;
+    flex-direction: column;
+    /* height: 100%; */
+}
+
+.page {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    /* column-gap: 10px; */
+}
+
+dl {
+    display: grid;
+    grid-template-columns: max-content auto auto auto auto auto;
+    /* align-items: start; */
+    align-items: center;
+}
+
+dt {
+    grid-column: 1;
+    padding: var(--size-spacing-medium);
+}
+
+dd {
+    margin: 0;
+}
+
+section {
+    margin: var(--size-spacing-medium)
+}
+
+header {
+    color: var(--color-text-important);
+    background-color: var(--color-background-header);
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    /* padding: var(--size-spacing-medium); */
+    display: flex;
+}
+
+header a {
+    color: var(--color-link);
+}
+
+/* body > :not(header) {
+    margin: var(--size-spacing-medium);
+} */
+
+body {
+    color: var(--color-text);
+    background-color: var(--color-background);
+    font-family: var(--font-family-body);
+}
+
+a {
+    color: var(--color-link-inverted);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+dt {
+    font-family: var(--font-family-display);
+    line-height: var(--font-line-height-display);
+    color: var(--color-text-important);
+}
+
+img {
+    width: 100%
+}
+
+/* Style the tab */
+/* Style tab links */
+.tablink {
+    background-color: #555;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 25%;
+}
+
+.tablink:hover {
+    background-color: #777;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+    color: white;
+    display: none;
+    padding: 100px 20px;
+    height: 100%;
+}
+
+.blue_side {
+    background-color: var(--color-blueside-background);
+}
+
+.blue_side h3,
+.blue_side h4 {
+    color: var(--color-blueside-dark);
+    border-style: solid;
+    border-bottom: 1;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+}
+
+.blue_side dt {
+    color: var(--color-blueside-light);
+}
+
+.red_side {
+    background-color: var(--color-redside-background);
+}
+
+.red_side h3,
+.red_side h4 {
+    color: var(--color-redside-dark);
+    border-style: solid;
+    border-bottom: 1;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+}
+
+.red_side dt {
+    color: var(--color-redside-light);
+}
+
+.champ_loading {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.champ_icon {
+    display: inline-block;
+    width: 80%;
+    border-radius: 50%
+}
+
+.champion_list {
+    background-color: var(--color-background-stats);
+}
+
+.champion_list dd {
+    background-color: var(--color-background-stats);
+    width: 50%
+}
+
+.rune,
+.summoner_spell,
+.item {
+    width: 50%
+}
+
+.dragon {
+    width: 20%;
+    align-items: bottom;
+}
+
+.game_overview {
+    background-color: var(--color-background-stats);
+}
+
+.team_game_summary {
+    border: 1em;
+    border-color: var(--color-text);
+    background-color: var(--color-background-stats);
+}
+
+.stats {
+    background-color: var(--color-background-stats);
+    padding: var(--size-spacing-medium);
+}
+
+/* SVG Icons */
+svg.icon {
+    display: inline;
+    height: 2em;
+    width: 2em;
+    vertical-align: middle;
+    fill: currentColor;
+}
+
+.grubs {
+    fill: var(--color-void)
+}
+
+/* Fonts */
+.play-regular {
+    font-family: "Play", sans-serif;
+    font-weight: var(--font-weight-normal);
+    font-style: normal;
+}
+
+.play-bold {
+    font-family: "Play", sans-serif;
+    font-weight: var(--font-weight-bold);
+    font-style: normal;
+}
+
+.inter-regular {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: var(--font-weight-normal);
+    font-style: normal;
+}
+
+.inter-light {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: var(--font-weight-light);
+    font-style: normal;
+}
+
+.inter-bold {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: var(--font-weight-bold);
+    font-style: normal;
+}
