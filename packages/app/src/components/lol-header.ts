@@ -1,8 +1,24 @@
+import { Auth, define, Dropdown, Events, Observer } from "@calpoly/mustang";
 import { LitElement, css, html } from "lit";
 import reset from "../styles/reset.css";
 import headings from "../styles/headings.css";
 
+function toggleLightMode(ev: InputEvent) {
+    const target = ev.target as HTMLInputElement;
+    const checked = target.checked;
+
+    Events.relay(ev, "light-mode", { checked });
+}
+
+function signOut(ev: MouseEvent) {
+    Events.relay(ev, "auth:message", ["auth/signout"]);
+}
+
 export class LensOfLegendsHeaderElement extends LitElement {
+    static uses = define({
+        "drop-down": Dropdown.Element
+    });
+
     render() {
         return html`
         <header>
@@ -11,7 +27,7 @@ export class LensOfLegendsHeaderElement extends LitElement {
                     <a href="/">Lens of Legends</a>
                 </h1>
 
-                <mu-dropdown>
+                <drop-down>
                     <a slot="actuator">
                         <h3 id="userid"></h3>
                     </a>
@@ -25,10 +41,10 @@ export class LensOfLegendsHeaderElement extends LitElement {
                             <a href="/users/">Profile</a>
                         </li>
                         <li class="when-signed-in">
-                            <a id="signout">Sign Out</a>
+                            <a id="signout" @click=${signOut}>Sign Out</a>
                         </li>
                     </menu>
-                </mu-dropdown>  
+                </drop-down>
             </div>
             <div class="nav_bar">
                 <ul>
@@ -45,9 +61,10 @@ export class LensOfLegendsHeaderElement extends LitElement {
                         <a href="/champions/champions.html">Champions</a>
                     </li>
                 </ul>
-                <label class="light-mode-switch" autocomplete="off">
-                    <input type="checkbox"/>
-                    <a> Light Mode </a>
+
+                <label @change=${toggleLightMode}>
+                    <input type="checkbox" autocomplete="off" />
+                    Light Mode
                 </label>
             </div>
         </header>`;
@@ -77,7 +94,7 @@ export class LensOfLegendsHeaderElement extends LitElement {
             padding: 0;
         }
 
-        header h1, .nav_bar, mu-dropdown {
+        header h1, .nav_bar, drop-down {
             padding-left: var(--size-spacing-xlarge);
             padding-right: var(--size-spacing-xlarge);
         }
@@ -87,7 +104,7 @@ export class LensOfLegendsHeaderElement extends LitElement {
             grid-template-columns: 1fr 1fr;
         }
 
-        mu-dropdown {
+        drop-down {
             justify-self: end;
             align-self: center;
         }
@@ -146,5 +163,39 @@ export class LensOfLegendsHeaderElement extends LitElement {
             margin-left: var(--size-spacing-small);
         }
         `
-    ] 
+    ]
+
+    _authObserver = new Observer(this, "lol:auth");
+
+    _user = new Auth.User();
+
+    // get authorization() {
+    //     return (
+    //         this._user?.authenticated && {
+    //             Authorization: `Bearer ${this._user.token}`
+    //         }
+    //     );
+    // }
+
+    // connectedCallback() {
+    //     super.connectedCallback();
+
+    //     this._authObserver.observe(({ user }) => {
+    //         if (user && user.username !== this.userid) {
+    //             this.userid = user.username;
+    //         }
+    //     });
+    // }
+
+    static initializeOnce() {
+        function toggleLightMode(page: HTMLElement, checked: boolean) {
+            page.classList.toggle("light-mode", checked);
+        }
+
+        document.body.addEventListener("light-mode", (event) =>
+            toggleLightMode(
+                event.currentTarget as HTMLElement,
+                (event as CustomEvent).detail?.checked)
+        );
+    }
 }

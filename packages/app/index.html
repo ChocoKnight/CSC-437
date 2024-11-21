@@ -14,33 +14,14 @@
   <link rel="stylesheet" href="/styles/reset.css" />
   <link rel="stylesheet" href="/styles/page.css" />
   <link rel="stylesheet" href="/styles/tokens.css" />
-
-  <script type="importmap">
-    {
-        "imports": {
-          "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
-        }
-    }
-  </script>
-
-  <script type="module">
-    import { define, Auth, Events} from "@calpoly/mustang";
-    import { LensOfLegendsHeaderElement } from "/src/components/lol-header";
-
-    define({
-      "mu-auth": Auth.Provider,
-      "lol-header": LensOfLegendsHeaderElement
-    });
-
-    window.relayEvent = Events.relay;
-  </script>
+  <script type="module" src="/src/main"></script>
 </head>
 
 <body>
   <mu-auth provides="lol:auth" redirect="./login.html">
     <lol-header></lol-header>
     <main class="page">
-      <span>Fill in some content</span>
+      <lol-app></lol-app>
     </main>
   </mu-auth>
 </body>

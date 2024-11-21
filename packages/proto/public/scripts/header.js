@@ -99,7 +99,7 @@ export class HeaderElement extends HTMLElement {
     mu-dropdown {
         justify-self: end;
         align-self: center;
-        align-text: right;
+        /* align-text: right; */
     }
 
     a[slot="actuator"] {
