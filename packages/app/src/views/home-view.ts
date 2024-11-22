@@ -55,42 +55,20 @@ export class HomeViewElement extends LitElement {
 
     render() {
         const matchList = this.matchIndex.map(this.renderItem);
-        const matchTable = this.matchIndex.map(this.renderItem);
 
         return html`
         <main class="page">
             <header>
                 <h2>Recent Matches</h2>
             </header>
-            <dl>${matchList}</dl>
-            <table>
-                <thead>
-                    <td>Tournament</td>
-                    <td>Match</td>
-                    <td>Date</td>
-                </thead>
-                <tbody>
-                    ${matchTable}
-                </tbody>
-            </table>
+            <dl>
+                <dt>Tournament</dt>
+                <dt>Match</dt>
+                <dt>Date</dt>
+                ${matchList}
+            </dl>
         </main>
       `;
-    }
-
-    renderMatch(match: Match) {
-        const { tournamentName, date, teamOne, teamTwo } = match;
-
-        return html`
-        <td>
-            ${tournamentName}
-        </td>
-        <td>
-            ${teamOne} vs ${teamTwo}
-        </td>
-        <td>
-            ${date}
-        </td>
-        `; 
     }
 
     renderItem(match: Match) {
@@ -117,15 +95,31 @@ export class HomeViewElement extends LitElement {
     static styles = [
         reset.styles,
         css`
-          :host {
+        :host {
             display: grid;
             grid-column: 1 / -1;
-          }
+        }
 
-          .page {
+        .page {
             padding-left: var(--size-spacing-xlarge);
             padding-right: var(--size-spacing-xlarge);
-          }
+            align-items: center;
+        }
+
+        dl {
+            display: grid;
+            grid-template-columns: max-content auto auto auto;
+            align-items: center;
+        }
+        
+        dt {
+            grid-column: 1;
+            padding: var(--size-spacing-medium);
+        }
+
+        dd {
+            margin: 0;
+        }
         `
     ];
 }
