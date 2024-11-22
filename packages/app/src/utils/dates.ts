@@ -19,8 +19,9 @@ export const formatDate = (date: Date | string | undefined) => {
         new Date();
     const m = months[dt.getUTCMonth()];
     const d = dt.getUTCDate();
+    const y = dt.getUTCFullYear();
 
-    return `${d} ${m}`;
+    return `${d} ${m} ${y}`;
 };
 
 interface DateStringRange {

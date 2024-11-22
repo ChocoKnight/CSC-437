@@ -55,15 +55,42 @@ export class HomeViewElement extends LitElement {
 
     render() {
         const matchList = this.matchIndex.map(this.renderItem);
+        const matchTable = this.matchIndex.map(this.renderItem);
 
         return html`
         <main class="page">
             <header>
                 <h2>Recent Matches</h2>
             </header>
-          <dl>${matchList}</dl>
+            <dl>${matchList}</dl>
+            <table>
+                <thead>
+                    <td>Tournament</td>
+                    <td>Match</td>
+                    <td>Date</td>
+                </thead>
+                <tbody>
+                    ${matchTable}
+                </tbody>
+            </table>
         </main>
       `;
+    }
+
+    renderMatch(match: Match) {
+        const { tournamentName, date, teamOne, teamTwo } = match;
+
+        return html`
+        <td>
+            ${tournamentName}
+        </td>
+        <td>
+            ${teamOne} vs ${teamTwo}
+        </td>
+        <td>
+            ${date}
+        </td>
+        `; 
     }
 
     renderItem(match: Match) {
@@ -75,9 +102,9 @@ export class HomeViewElement extends LitElement {
                 ${tournamentName}
             </dt>
             <dt>
-                    ${teamOne} 
-                    vs
-                    ${teamTwo}
+                ${teamOne} 
+                vs
+                ${teamTwo}
             </dt>
             <dt>
               <time>
