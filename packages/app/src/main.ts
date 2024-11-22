@@ -10,8 +10,8 @@ class AppElement extends LitElement {
 
     protected render() {
         return html`
-      <home-view></home-view>
-    `;
+        <home-view></home-view>
+        `;
     }
 
     connectedCallback(): void {

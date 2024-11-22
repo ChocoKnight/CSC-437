@@ -1,8 +1,7 @@
 import { Auth, Observer } from "@calpoly/mustang";
 import { css, html, LitElement } from "lit";
 import { state } from "lit/decorators.js";
-// import { Match } from "server/models";
-import { Match } from "../../../server/src/models";
+import { Match } from "server/models";
 import reset from "../styles/reset.css";
 
 import { formatDate } from "../utils/dates";
@@ -31,9 +30,10 @@ export class HomeViewElement extends LitElement {
     }
 
     hydrate(url: string) {
-        fetch(url, {
-            headers: Auth.headers(this._user)
-        })
+        // fetch(url, {
+        //     headers: Auth.headers(this._user)
+        // })
+        fetch(url)
             .then((res: Response) => {
                 if (res.status === 200) return res.json();
                 throw `Server responded with status ${res.status}`;
@@ -44,8 +44,8 @@ export class HomeViewElement extends LitElement {
             .then((json: unknown) => {
                 if (json) {
                     console.log("Matches:", json);
-                    const { data } = json as { data: Array<Match> };
-                    this.matchIndex = data;
+                    // const { data } = json as { data: Array<Match> };
+                    this.matchIndex = json as Array<Match>;
                 }
             })
             .catch((err) =>
@@ -68,18 +68,16 @@ export class HomeViewElement extends LitElement {
 
     renderItem(match: Match) {
         const { tournamentName, date, teamOne, teamTwo } = match;
-        const { _id } = match as unknown as { _id: string };
+        // const { _id } = match as unknown as { _id: string };
 
         return html`
             <dt>
                 ${tournamentName}
             </dt>
             <dt>
-                <a href="/app/tour/${_id}">
                     ${teamOne} 
                     vs
                     ${teamTwo}
-                </a> 
             </dt>
             <dt>
               <time>
@@ -93,7 +91,11 @@ export class HomeViewElement extends LitElement {
         reset.styles,
         css`
           :host {
-            display: contents;
+            display: grid;
+            grid-column: 1 / -1;
+          }
+
+          .page {
             padding-left: var(--size-spacing-xlarge);
             padding-right: var(--size-spacing-xlarge);
           }
