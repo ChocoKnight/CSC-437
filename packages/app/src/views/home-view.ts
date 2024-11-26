@@ -62,9 +62,23 @@ export class HomeViewElement extends LitElement {
                 <h2>Recent Matches</h2>
             </header>
             <dl>
-                <dt>Tournament</dt>
-                <dt>Match</dt>
-                <dt>Date</dt>
+                <div class="row_header">
+                    <dt>
+                        <h3>
+                            Tournament
+                        </h3>
+                    </dt>
+                    <dd>
+                        <h3>
+                            Match
+                        </h3>
+                    </dd>
+                    <dd>
+                        <h3>
+                            Date
+                        </h3>
+                    </dd>
+                </div>
                 ${matchList}
             </dl>
         </main>
@@ -76,19 +90,21 @@ export class HomeViewElement extends LitElement {
         // const { _id } = match as unknown as { _id: string };
 
         return html`
-            <dt>
-                ${tournamentName}
-            </dt>
-            <dt>
-                ${teamOne} 
-                vs
-                ${teamTwo}
-            </dt>
-            <dt>
-              <time>
-                ${formatDate(date)}
-              </time>
-            </dt>
+            <div class="row">
+                <dt>
+                    ${tournamentName}
+                </dt>
+                <dd>
+                    ${teamOne} 
+                    vs
+                    ${teamTwo}
+                </dd>
+                <dd>
+                <time>
+                    ${formatDate(date)}
+                </time>
+                </dd>
+            </div>
           `;
     }
 
@@ -101,24 +117,34 @@ export class HomeViewElement extends LitElement {
         }
 
         .page {
+            padding-top: var(--size-spacing-medium);
             padding-left: var(--size-spacing-xlarge);
             padding-right: var(--size-spacing-xlarge);
             align-items: center;
         }
 
         dl {
-            display: grid;
-            grid-template-columns: max-content auto auto auto;
-            align-items: center;
-        }
-        
-        dt {
-            grid-column: 1;
-            padding: var(--size-spacing-medium);
+            display: block; /* Ensure the rows stack vertically */
+            width: 100%;
+            border: solid;
         }
 
-        dd {
-            margin: 0;
+        .row_header {
+            color: var(--color-text-important);
+            /* border: solid; */
+        }
+
+        .row_header, .row {
+            display: flex; /* Use flexbox for the layout */
+            justify-content: space-evenly; /* Evenly distribute the space */
+            align-items: center; /* Align items vertically */
+            margin-bottom: 10px;
+        }
+        
+        dt, dd {
+            flex: 1;
+            margin-left: var(--size-spacing-medium);
+            margin-right: var(--size-spacing-medium);
         }
         `
     ];
