@@ -18,8 +18,7 @@ var __copyProps = (to, from, except, desc) => {
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 var match_svc_exports = {};
 __export(match_svc_exports, {
-  default: () => match_svc_default,
-  getMatch: () => getMatch
+  default: () => match_svc_default
 });
 module.exports = __toCommonJS(match_svc_exports);
 var import_mongoose2 = require("mongoose");
@@ -436,10 +435,3 @@ function remove(matchId) {
   );
 }
 var match_svc_default = { index, get, create, update, remove };
-function getMatch(_) {
-  return match["blg_vs_t1"];
-}
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  getMatch
-});

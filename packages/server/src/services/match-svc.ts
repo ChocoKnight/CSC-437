@@ -433,6 +433,6 @@ function remove(matchId: String): Promise<void> {
 }
 
 export default { index, get, create, update, remove };
-export function getMatch(_: string) {
-    return match["blg_vs_t1"];
-}
+// export function getMatch(_: string) {
+//     return match["blg_vs_t1"];
+// }

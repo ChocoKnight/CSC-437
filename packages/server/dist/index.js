@@ -23,6 +23,7 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 ));
 var import_express = __toESM(require("express"));
 var import_auth = require("./pages/auth");
+var import_tournament = __toESM(require("./routes/tournament"));
 var import_match = require("./pages/match");
 var import_match_svc = __toESM(require("./services/match-svc"));
 var import_match2 = __toESM(require("./routes/match"));
@@ -39,6 +40,7 @@ app.use(import_express.default.static(staticDir));
 app.use(import_express.default.json());
 app.use("/auth", import_auth2.default);
 app.use("/api/users", import_auth2.authenticateUser, import_user2.default);
+app.use("/api/tournaments", import_tournament.default);
 app.use("/api/matches", import_match2.default);
 app.get("/login", (req, res) => {
   const page = new import_auth.LoginPage();

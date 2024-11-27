@@ -2,19 +2,28 @@ import { Auth, History, Switch, define } from "@calpoly/mustang";
 import { css, html, LitElement } from "lit";
 import { LensOfLegendsHeaderElement } from "./components/lol-header";
 import { HomeViewElement } from "./views/home-view";
+import { TournamentSearchView } from "./views/tournament-search-view";
 
 const routes = [
     {
-        path: "/app/tour/:id",
-        view: (params: Switch.Params) => html`
-        <tour-view tour-id=${params.id}></tour-view>
+        path: "/app/tournaments",
+        view: () => html`
+        <tournament-search-view></tournament-search-view>
+      `
+    },
+    {
+        path: "/app/tournaments/",
+        redirect: "/app/tournaments"
+    },
+    {
+        path: "/app/",
+        view: () => html`
+        <home-view></home-view>
       `
     },
     {
         path: "/app",
-        view: () => html`
-        <home-view></home-view>
-      `
+        view: () => html`<home-view></home-view>`
     },
     {
         path: "/",
@@ -49,10 +58,11 @@ define({
     "mu-history": History.Provider,
     "mu-switch": class AppSwitch extends Switch.Element {
         constructor() {
-            super(routes, "lol:history")
+            super(routes, "lol:history", "lol:auth")
         }
     },
     "lol-app": AppElement,
     "lol-header": LensOfLegendsHeaderElement,
-    "home-view": HomeViewElement
+    "home-view": HomeViewElement,
+    "tournament-search-view": TournamentSearchView
 });

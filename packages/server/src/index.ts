@@ -2,6 +2,10 @@ import express, { Request, response, Response } from "express";
 
 import { LoginPage } from "./pages/auth";
 
+// import { MatchPage } from "./pages/match";
+import Tournament from "./services/tournament-svc"
+import Tournaments from "./routes/tournament";
+
 import { MatchPage } from "./pages/match";
 import Match from "./services/match-svc"
 import Matches from "./routes/match";
@@ -34,6 +38,7 @@ app.use("/auth", auth);
 // API Routes
 // app.use("/api/users", Users);
 app.use("/api/users", authenticateUser, Users);
+app.use("/api/tournaments", Tournaments);
 app.use("/api/matches", Matches);
 // app.use("/api/matches", authenticateUser, Matches);
 
@@ -60,6 +65,15 @@ app.get("/matches/:matchId", (req: Request, res: Response) => {
       .send(new MatchPage(data).render());
   });
 });
+
+// app.get("/tournament/:matchId", (req: Request, res: Response) => {
+//   const { matchId } = req.params;
+
+//   Match.get(matchId).then((data) => {
+//     res.set("Content-Type", "text/html")
+//       .send(new MatchPage(data).render());
+//   });
+// });
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
