@@ -1,5 +1,5 @@
 export interface Team {
+    teamId: String, 
     name: String, 
-    region: String,
-    season: String
+    year: Number
 }

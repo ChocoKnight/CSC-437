@@ -1,6 +1,6 @@
 export interface Player {
+    playerId: String,
     name: String,
-    country: String,
     team: String, 
-    season: String,
+    year: Number,
 }
