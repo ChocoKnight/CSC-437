@@ -1,16 +1,16 @@
 import { Auth, Observer } from "@calpoly/mustang";
 import { css, html, LitElement } from "lit";
 import { state } from "lit/decorators.js";
-import { Match } from "server/models";
+import { Tournament } from "server/models";
 import reset from "../styles/reset.css";
 
-import { formatDate } from "../utils/dates";
+// import { formatDate } from "../utils/dates";
 
 export class TournamentSearchView extends LitElement {
-    src = "/api/matches";
+    src = "/api/tournaments";
 
     @state()
-    matchIndex = new Array<Match>();
+    tournamentIndex = new Array<Tournament>();
 
     _authObserver = new Observer<Auth.Model>(
         this,
@@ -45,7 +45,7 @@ export class TournamentSearchView extends LitElement {
                 if (json) {
                     console.log("Matches:", json);
                     // const { data } = json as { data: Array<Match> };
-                    this.matchIndex = json as Array<Match>;
+                    this.tournamentIndex = json as Array<Tournament>;
                 }
             })
             .catch((err) =>
@@ -54,12 +54,12 @@ export class TournamentSearchView extends LitElement {
     }
 
     render() {
-        const matchList = this.matchIndex.map(this.renderItem);
+        const tournamentList = this.tournamentIndex.map(this.renderItem);
 
         return html`
         <main class="page">
             <header>
-                <h2>Recent Tournaments</h2>
+                <h2>Tournaments</h2>
             </header>
             <dl>
                 <div class="row_header">
@@ -68,41 +68,39 @@ export class TournamentSearchView extends LitElement {
                             Tournament
                         </h3>
                     </dt>
-                    <dd>
+                    <!-- <dd>
                         <h3>
                             Match
                         </h3>
-                    </dd>
+                    </dd> -->
                     <dd>
                         <h3>
-                            Date
+                            Year
                         </h3>
                     </dd>
                 </div>
-                ${matchList}
+                ${tournamentList}
             </dl>
         </main>
       `;
     }
 
-    renderItem(match: Match) {
-        const { tournamentName, date, teamOne, teamTwo } = match;
+    renderItem(tournament: Tournament) {
+        const { league, year, split } = tournament;
         // const { _id } = match as unknown as { _id: string };
 
         return html`
             <div class="row">
                 <dt>
-                    ${tournamentName}
+                    ${league} ${split} ${year}
                 </dt>
-                <dd>
-                    ${teamOne} 
+                <!-- <dd>
+                    ${split} 
                     vs
-                    ${teamTwo}
-                </dd>
+                    ${split}
+                </dd> -->
                 <dd>
-                <time>
-                    ${formatDate(date)}
-                </time>
+                    ${year}
                 </dd>
             </div>
           `;
