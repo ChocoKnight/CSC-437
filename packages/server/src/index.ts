@@ -10,6 +10,15 @@ import { MatchPage } from "./pages/match";
 import Match from "./services/match-svc"
 import Matches from "./routes/match";
 
+import Champion from "./services/champion-svc"
+import Champions from "./routes/champion";
+
+import Team from "./services/team-svc"
+import Teams from "./routes/team";
+
+import Player from "./services/player-svc"
+import Players from "./routes/player";
+
 import { UserPage } from "./pages/user";
 import User from "./services/user-svc";
 import Users from "./routes/user";
@@ -40,6 +49,9 @@ app.use("/auth", auth);
 app.use("/api/users", authenticateUser, Users);
 app.use("/api/tournaments", Tournaments);
 app.use("/api/matches", Matches);
+app.use("/api/champions", Champions);
+app.use("/api/players", Players);
+app.use("/api/teams", Teams);
 // app.use("/api/matches", authenticateUser, Matches);
 
 // Page Routes
@@ -57,6 +69,15 @@ app.get("/users/:username", (req: Request, res: Response) => {
   });
 });
 
+// app.get("/tournament/:matchId", (req: Request, res: Response) => {
+//   const { matchId } = req.params;
+
+//   Match.get(matchId).then((data) => {
+//     res.set("Content-Type", "text/html")
+//       .send(new MatchPage(data).render());
+//   });
+// });
+
 app.get("/matches/:matchId", (req: Request, res: Response) => {
   const { matchId } = req.params;
 
@@ -66,14 +87,14 @@ app.get("/matches/:matchId", (req: Request, res: Response) => {
   });
 });
 
-// app.get("/tournament/:matchId", (req: Request, res: Response) => {
-//   const { matchId } = req.params;
+app.get("/champions/:championName", (req: Request, res: Response) => {
+  const { matchId } = req.params;
 
-//   Match.get(matchId).then((data) => {
-//     res.set("Content-Type", "text/html")
-//       .send(new MatchPage(data).render());
-//   });
-// });
+  Match.get(matchId).then((data) => {
+    res.set("Content-Type", "text/html")
+      .send(new MatchPage(data).render());
+  });
+});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

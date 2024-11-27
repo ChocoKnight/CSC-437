@@ -27,6 +27,9 @@ var import_tournament = __toESM(require("./routes/tournament"));
 var import_match = require("./pages/match");
 var import_match_svc = __toESM(require("./services/match-svc"));
 var import_match2 = __toESM(require("./routes/match"));
+var import_champion = __toESM(require("./routes/champion"));
+var import_team = __toESM(require("./routes/team"));
+var import_player = __toESM(require("./routes/player"));
 var import_user = require("./pages/user");
 var import_user_svc = __toESM(require("./services/user-svc"));
 var import_user2 = __toESM(require("./routes/user"));
@@ -42,6 +45,9 @@ app.use("/auth", import_auth2.default);
 app.use("/api/users", import_auth2.authenticateUser, import_user2.default);
 app.use("/api/tournaments", import_tournament.default);
 app.use("/api/matches", import_match2.default);
+app.use("/api/champions", import_champion.default);
+app.use("/api/players", import_player.default);
+app.use("/api/teams", import_team.default);
 app.get("/login", (req, res) => {
   const page = new import_auth.LoginPage();
   res.set("Content-Type", "text/html").send(page.render());
@@ -54,6 +60,12 @@ app.get("/users/:username", (req, res) => {
   });
 });
 app.get("/matches/:matchId", (req, res) => {
+  const { matchId } = req.params;
+  import_match_svc.default.get(matchId).then((data) => {
+    res.set("Content-Type", "text/html").send(new import_match.MatchPage(data).render());
+  });
+});
+app.get("/champions/:championName", (req, res) => {
   const { matchId } = req.params;
   import_match_svc.default.get(matchId).then((data) => {
     res.set("Content-Type", "text/html").send(new import_match.MatchPage(data).render());
