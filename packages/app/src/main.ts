@@ -3,6 +3,7 @@ import { css, html, LitElement } from "lit";
 import { LensOfLegendsHeaderElement } from "./components/lol-header";
 import { HomeViewElement } from "./views/home-view";
 import { TournamentSearchView } from "./views/tournament-search-view";
+import { TournamentView } from "./views/tournament-view";
 
 const routes = [
     {
@@ -64,5 +65,6 @@ define({
     "lol-app": AppElement,
     "lol-header": LensOfLegendsHeaderElement,
     "home-view": HomeViewElement,
-    "tournament-search-view": TournamentSearchView
+    "tournament-search-view": TournamentSearchView,
+    "tournament-view": TournamentView
 });
