@@ -101,7 +101,7 @@ define({
     "mu-history": History.Provider,
     "mu-store": class AppStore extends Store.Provider<Model,Msg> {
         constructor() {
-        super(update, init, "blazing:auth");
+        super(update, init, "lol:auth");
         }
     },
     "mu-switch": class AppSwitch extends Switch.Element {

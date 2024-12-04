@@ -1,64 +1,45 @@
-import { Auth, Observer } from "@calpoly/mustang";
-import { css, html, LitElement } from "lit";
+import { Auth, Observer, View } from "@calpoly/mustang";
+// import { css, html, LitElement } from "lit";
+import { css, html } from "lit";
 import { property, state } from "lit/decorators.js";
 import { Tournament } from "server/models";
+import { Msg } from "../messages";
+import { Model } from "../model";
 import reset from "../styles/reset.css";
 
 // import { formatDate } from "../utils/dates";
 
-export class TournamentView extends LitElement {
+export class TournamentView extends View<Model, Msg> {
     @property({ attribute: "tournament-id", reflect: true })
     tournamentId = "";
 
+    // @state()
+    // tournamentIndex = new Array<Tournament>();
+
     @state()
-    tournamentIndex = new Array<Tournament>();
+    get tournament(): Tournament | undefined {
+        return this.model.tournament;
+    }
 
     _authObserver = new Observer<Auth.Model>(
         this,
         "lol:auth"
     );
 
-    src = `/api/tournaments/${this.tournamentId}`;
-
     _user = new Auth.User();
 
-    connectedCallback() {
-        super.connectedCallback();
-        this._authObserver.observe(({ user }) => {
-            if (user) {
-                this._user = user;
-            }
-            this.hydrate(this.src);
-        });
+    constructor() {
+        super("lol:model");
     }
 
-    hydrate(url: string) {
-        // fetch(url, {
-        //     headers: Auth.headers(this._user)
-        // })
-        fetch(url)
-            .then((res: Response) => {
-                if (res.status === 200) return res.json();
-                throw `Server responded with status ${res.status}`;
-            })
-            .catch((err) =>
-                console.log("Failed to load match data:", err)
-            )
-            .then((json: unknown) => {
-                if (json) {
-                    console.log("Tournament:", json);
-                    // const { data } = json as { data: Array<Match> };
-                    this.tournamentIndex = json as Array<Tournament>;
-                }
-            })
-            .catch((err) =>
-                console.log("Failed to convert match data:", err)
-            );
+    attributeChangedCallback(name: string, old: string | null, value: string | null) {
+        super.attributeChangedCallback(name, old, value);
+        if (name === "tournament-id" && old !== value && value)
+            this.dispatchMessage(["tournament/select", { tournamentId: value }]);
     }
 
     render() {
-        const tournamentList = this.tournamentIndex.map(this.renderItem);
-
+        const { league, split, year } = this.tournament || {};
         return html`
         <main class="page">
             <header>
@@ -71,20 +52,24 @@ export class TournamentView extends LitElement {
                             ${this.tournamentId}
                         </h3>
                     </dt>
-                    <!-- <dd>
-                        <h3>
-                            Match
-                        </h3>
-                    </dd> -->
                     <dd>
                         <h3>
-                            Year
+                            ${league}
                         </h3>
-                    </dd>
+                    </dd> 
+                    <dd>
+                        <h3>
+                            ${split}
+                        </h3>
+                    </dd> 
+                    <dd>
+                        <h3>
+                            ${year}
+                        </h3>
+                    </dd> 
                 </div>
-                <!-- ${tournamentList} -->
             </dl>
-        </main>
+        </main>  
       `;
     }
 
