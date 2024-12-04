@@ -36,22 +36,25 @@ const PickBanSchema = new import_mongoose.Schema({
 });
 const ObjectivesSchema = new import_mongoose.Schema({
   towers: { type: Number, required: true },
-  topPlates: { type: Number, required: true },
-  midPlates: { type: Number, required: true },
-  botPlates: { type: Number, required: true },
-  grubs: { type: Number, required: true },
-  herald: { type: Number, required: true },
-  barons: { type: Number, required: true },
-  firstDrake: { type: String, required: true, trim: true },
-  secondDrake: { type: String, required: true, trim: true },
-  thirdDrake: { type: String, required: true, trim: true },
-  fourthDrake: { type: String, required: true, trim: true },
-  elderDrakes: { type: Number, required: true }
+  plates: { type: Number, required: true },
+  voidGrubs: { type: Number, required: true },
+  riftHearlds: { type: Number, required: true },
+  baronNashors: { type: Number, required: true },
+  ruinousAtakan: { type: Number, required: true },
+  voraciousAtakan: { type: Number, required: true },
+  infernalDragons: { type: Number, required: true, trim: true },
+  mountainDragons: { type: Number, required: true, trim: true },
+  oceanDragons: { type: Number, required: true, trim: true },
+  cloudDragons: { type: Number, required: true, trim: true },
+  hextechDragons: { type: Number, required: true, trim: true },
+  chemtechDragons: { type: Number, required: true, trim: true },
+  elderDragons: { type: Number, required: true }
 });
 const GameSchema = new import_mongoose.Schema(
   {
     gameId: { type: String, required: true, trim: true },
     matchId: { type: String, required: true, trim: true },
+    gameName: { type: String, required: true, trim: true },
     blueTeam: { type: String, required: true, trim: true },
     redTeam: { type: String, required: true, trim: true },
     bluePickBans: { type: PickBanSchema, required: true },

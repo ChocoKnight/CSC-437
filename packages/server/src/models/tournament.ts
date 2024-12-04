@@ -1,4 +1,6 @@
 export interface Tournament {
-    name: String,
-    region: String
+    tournamentId: String,
+    league: String,
+    year: Number,
+    split: String
 }

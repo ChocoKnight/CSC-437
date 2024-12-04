@@ -4,22 +4,25 @@ export interface Match {
     date: Date;
     teamOne: string;
     teamTwo: string;
+    patch: number;
     games: Array<Game>;
 }
 
 export interface Objectives {
     towers: number;
-    topPlates: number,
-    midPlates: number;
-    botPlates: number;
-    grubs: number;
-    herald: number;
-    barons: number;
-    firstDrake: String;
-    secondDrake: String;
-    thirdDrake: String;
-    fourthDrake: String;
-    elderDrakes: number;
+    plates: number;
+    voidGrubs: number;
+    riftHearlds: number;
+    baronNashors: number;
+    ruinousAtakan: number,
+    voraciousAtakan: number,
+    infernalDragons: number,
+    mountainDragons: number,
+    cloudDragons: number,
+    oceanDragons: number,
+    hextechDragons: number,
+    chemtechDragons: number,
+    elderDragons: number;
 }
 
 export interface PickBan {
@@ -38,6 +41,7 @@ export interface PickBan {
 export interface Game {
     gameId: string;
     matchId: string;
+    gameName: string;
     blueTeam: string;
     redTeam: string;
     bluePickBans: PickBan;

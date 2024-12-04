@@ -339,23 +339,26 @@ const PickBanSchema = new Schema<PickBan>({
 
 const ObjectivesSchema = new Schema<Objectives>({
     towers: { type: Number, required: true },
-    topPlates: { type: Number, required: true },
-    midPlates: { type: Number, required: true },
-    botPlates: { type: Number, required: true },
-    grubs: { type: Number, required: true },
-    herald: { type: Number, required: true },
-    barons: { type: Number, required: true },
-    firstDrake: { type: String, required: true, trim: true },
-    secondDrake: { type: String, required: true, trim: true },
-    thirdDrake: { type: String, required: true, trim: true },
-    fourthDrake: { type: String, required: true, trim: true },
-    elderDrakes: { type: Number, required: true },
+    plates: { type: Number, required: true },
+    voidGrubs: { type: Number, required: true },
+    riftHearlds: { type: Number, required: true },
+    baronNashors: { type: Number, required: true },
+    ruinousAtakan: { type: Number, required: true },
+    voraciousAtakan: { type: Number, required: true },
+    infernalDragons: { type: Number, required: true, trim: true },
+    mountainDragons: { type: Number, required: true, trim: true },
+    oceanDragons: { type: Number, required: true, trim: true },
+    cloudDragons: { type: Number, required: true, trim: true },
+    hextechDragons: { type: Number, required: true, trim: true },
+    chemtechDragons: { type: Number, required: true, trim: true },
+    elderDragons: { type: Number, required: true },
 });
 
 const GameSchema = new Schema<Game>(
     {
         gameId: { type: String, required: true, trim: true },
         matchId: { type: String, required: true, trim: true },
+        gameName: { type: String, required: true, trim: true },
         blueTeam: { type: String, required: true, trim: true },
         redTeam: { type: String, required: true, trim: true },
         bluePickBans: { type: PickBanSchema, required: true },
@@ -380,8 +383,8 @@ const MatchSchema = new Schema<Match>(
         teamTwo: { type: String, required: true, trim: true },
         games: [
             {
-                type: Schema.Types.ObjectId,
-                ref: 'Game', // Reference to the Game model
+                type: Number
+                // ref: 'Game', // Reference to the Game model
             },
         ]
     },
@@ -395,7 +398,7 @@ function index(): Promise<Match[]> {
 }
 
 function get(matchId: String): Promise<Match> {
-    return MatchModel.find({ matchId: matchId })
+    return MatchModel.find({ _id: matchId })
         .populate('games')
         .then((list) => {
             // console.log("Query result:", list);
@@ -433,6 +436,6 @@ function remove(matchId: String): Promise<void> {
 }
 
 export default { index, get, create, update, remove };
-export function getMatch(_: string) {
-    return match["blg_vs_t1"];
-}
+// export function getMatch(_: string) {
+//     return match["blg_vs_t1"];
+// }

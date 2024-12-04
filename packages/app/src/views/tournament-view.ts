@@ -1,21 +1,24 @@
 import { Auth, Observer } from "@calpoly/mustang";
 import { css, html, LitElement } from "lit";
-import { state } from "lit/decorators.js";
-import { Match } from "server/models";
+import { property, state } from "lit/decorators.js";
+import { Tournament } from "server/models";
 import reset from "../styles/reset.css";
 
-import { formatDate } from "../utils/dates";
+// import { formatDate } from "../utils/dates";
 
-export class HomeViewElement extends LitElement {
-    src = "/api/matches";
+export class TournamentView extends LitElement {
+    @property({ attribute: "tournament-id", reflect: true })
+    tournamentId = "";
 
     @state()
-    matchIndex = new Array<Match>();
+    tournamentIndex = new Array<Tournament>();
 
     _authObserver = new Observer<Auth.Model>(
         this,
         "lol:auth"
     );
+
+    src = `/api/tournaments/${this.tournamentId}`;
 
     _user = new Auth.User();
 
@@ -43,9 +46,9 @@ export class HomeViewElement extends LitElement {
             )
             .then((json: unknown) => {
                 if (json) {
-                    console.log("Matches:", json);
+                    console.log("Tournament:", json);
                     // const { data } = json as { data: Array<Match> };
-                    this.matchIndex = json as Array<Match>;
+                    this.tournamentIndex = json as Array<Tournament>;
                 }
             })
             .catch((err) =>
@@ -54,56 +57,53 @@ export class HomeViewElement extends LitElement {
     }
 
     render() {
-        this.matchIndex.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-        const matchList = this.matchIndex.slice(0, 15).map(this.renderItem);
+        const tournamentList = this.tournamentIndex.map(this.renderItem);
 
         return html`
         <main class="page">
             <header>
-                <h2>Recent Matches</h2>
+                <h2>Tournaments</h2>
             </header>
             <dl>
                 <div class="row_header">
                     <dt>
                         <h3>
-                            Tournament
+                            ${this.tournamentId}
                         </h3>
                     </dt>
-                    <dd>
+                    <!-- <dd>
                         <h3>
                             Match
                         </h3>
-                    </dd>
+                    </dd> -->
                     <dd>
                         <h3>
-                            Date
+                            Year
                         </h3>
                     </dd>
                 </div>
-                ${matchList}
+                <!-- ${tournamentList} -->
             </dl>
         </main>
       `;
     }
 
-    renderItem(match: Match) {
-        const { tournamentName, date, teamOne, teamTwo } = match;
+    renderItem(tournament: Tournament) {
+        const { league, year, split } = tournament;
         // const { _id } = match as unknown as { _id: string };
 
         return html`
             <div class="row">
                 <dt>
-                    ${tournamentName}
+                    ${league} ${split} ${year}
                 </dt>
-                <dd>
-                    ${teamOne} 
+                <!-- <dd>
+                    ${split} 
                     vs
-                    ${teamTwo}
-                </dd>
+                    ${split}
+                </dd> -->
                 <dd>
-                <time>
-                    ${formatDate(date)}
-                </time>
+                    ${year}
                 </dd>
             </div>
           `;

@@ -34,11 +34,11 @@ export class LensOfLegendsHeaderElement extends LitElement {
 
                     <menu>
                         <li class="when-signed-out">
-                            <a href="/login">Sign In</a>
+                            <a href="/app/login">Sign In</a>
                         </li>
 
                         <li class="when-signed-in">
-                            <a href="/users/">Profile</a>
+                            <a href="/app/users/">Profile</a>
                         </li>
                         <li class="when-signed-in">
                             <a id="signout" @click=${signOut}>Sign Out</a>
@@ -49,16 +49,16 @@ export class LensOfLegendsHeaderElement extends LitElement {
             <div class="nav_bar">
                 <ul>
                     <li>
-                        <a href="/tournaments/tournaments.html">Tournaments</a>
+                        <a href="/app/tournaments">Tournaments</a>
                     </li>
                     <li>
-                        <a href="/teams/teams.html">Teams</a>
+                        <a href="/app/teams">Teams</a>
                     </li>
                     <li>
-                        <a href="/players/players.html">Players</a>
+                        <a href="/app/players">Players</a>
                     </li>
                     <li>
-                        <a href="/champions/champions.html">Champions</a>
+                        <a href="/app/champions">Champions</a>
                     </li>
                 </ul>
 

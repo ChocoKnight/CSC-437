@@ -18,8 +18,7 @@ var __copyProps = (to, from, except, desc) => {
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 var match_svc_exports = {};
 __export(match_svc_exports, {
-  default: () => match_svc_default,
-  getMatch: () => getMatch
+  default: () => match_svc_default
 });
 module.exports = __toCommonJS(match_svc_exports);
 var import_mongoose2 = require("mongoose");
@@ -358,22 +357,25 @@ const PickBanSchema = new import_mongoose2.Schema({
 });
 const ObjectivesSchema = new import_mongoose2.Schema({
   towers: { type: Number, required: true },
-  topPlates: { type: Number, required: true },
-  midPlates: { type: Number, required: true },
-  botPlates: { type: Number, required: true },
-  grubs: { type: Number, required: true },
-  herald: { type: Number, required: true },
-  barons: { type: Number, required: true },
-  firstDrake: { type: String, required: true, trim: true },
-  secondDrake: { type: String, required: true, trim: true },
-  thirdDrake: { type: String, required: true, trim: true },
-  fourthDrake: { type: String, required: true, trim: true },
-  elderDrakes: { type: Number, required: true }
+  plates: { type: Number, required: true },
+  voidGrubs: { type: Number, required: true },
+  riftHearlds: { type: Number, required: true },
+  baronNashors: { type: Number, required: true },
+  ruinousAtakan: { type: Number, required: true },
+  voraciousAtakan: { type: Number, required: true },
+  infernalDragons: { type: Number, required: true, trim: true },
+  mountainDragons: { type: Number, required: true, trim: true },
+  oceanDragons: { type: Number, required: true, trim: true },
+  cloudDragons: { type: Number, required: true, trim: true },
+  hextechDragons: { type: Number, required: true, trim: true },
+  chemtechDragons: { type: Number, required: true, trim: true },
+  elderDragons: { type: Number, required: true }
 });
 const GameSchema = new import_mongoose2.Schema(
   {
     gameId: { type: String, required: true, trim: true },
     matchId: { type: String, required: true, trim: true },
+    gameName: { type: String, required: true, trim: true },
     blueTeam: { type: String, required: true, trim: true },
     redTeam: { type: String, required: true, trim: true },
     bluePickBans: { type: PickBanSchema, required: true },
@@ -396,9 +398,8 @@ const MatchSchema = new import_mongoose2.Schema(
     teamTwo: { type: String, required: true, trim: true },
     games: [
       {
-        type: import_mongoose2.Schema.Types.ObjectId,
-        ref: "Game"
-        // Reference to the Game model
+        type: Number
+        // ref: 'Game', // Reference to the Game model
       }
     ]
   },
@@ -409,7 +410,7 @@ function index() {
   return MatchModel.find();
 }
 function get(matchId) {
-  return MatchModel.find({ matchId }).populate("games").then((list) => {
+  return MatchModel.find({ _id: matchId }).populate("games").then((list) => {
     return list[0];
   }).catch((err) => {
     console.log(err);
@@ -436,10 +437,3 @@ function remove(matchId) {
   );
 }
 var match_svc_default = { index, get, create, update, remove };
-function getMatch(_) {
-  return match["blg_vs_t1"];
-}
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  getMatch
-});
