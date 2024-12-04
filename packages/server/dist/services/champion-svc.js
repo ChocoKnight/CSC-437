@@ -32,12 +32,13 @@ const ChampionModel = (0, import_mongoose.model)("Champion", ChampionSchema, "ch
 function index() {
   return ChampionModel.find();
 }
-function get(championId) {
-  return ChampionModel.find({ championId }).populate("games").then((list) => {
+function get(championName) {
+  return ChampionModel.find({ champion_name: championName }).then((list) => {
+    console.log("Query result:", list);
     return list[0];
   }).catch((err) => {
     console.log(err);
-    throw `${championId} Not Found`;
+    throw `${championName} Not Found`;
   });
 }
 function create(json) {

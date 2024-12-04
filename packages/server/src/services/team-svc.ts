@@ -15,7 +15,6 @@ function index(): Promise<Team[]> {
 
 function get(teamId: String): Promise<Team> {
     return TeamModel.find({ teamId: teamId })
-        .populate('games')
         .then((list) => {
             // console.log("Query result:", list);
             return list[0];

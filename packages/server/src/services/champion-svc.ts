@@ -14,16 +14,15 @@ function index(): Promise<Champion[]> {
     return ChampionModel.find();
 }
 
-function get(championId: String): Promise<Champion> {
-    return ChampionModel.find({ championId: championId })
-        .populate('games')
+function get(championName: String): Promise<Champion> {
+    return ChampionModel.find({ champion_name: championName })
         .then((list) => {
-            // console.log("Query result:", list);
+            console.log("Query result:", list);
             return list[0];
         })
         .catch((err) => {
             console.log(err)
-            throw `${championId} Not Found`;
+            throw `${championName} Not Found`;
         });
 }
 

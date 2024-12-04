@@ -3,6 +3,7 @@ import { css, html, LitElement } from "lit";
 import { state } from "lit/decorators.js";
 import { Tournament } from "server/models";
 import reset from "../styles/reset.css";
+import headings from "../styles/headings.css";
 
 // import { formatDate } from "../utils/dates";
 
@@ -30,26 +31,23 @@ export class TournamentSearchView extends LitElement {
     }
 
     hydrate(url: string) {
-        // fetch(url, {
-        //     headers: Auth.headers(this._user)
-        // })
         fetch(url)
             .then((res: Response) => {
                 if (res.status === 200) return res.json();
                 throw `Server responded with status ${res.status}`;
             })
             .catch((err) =>
-                console.log("Failed to load match data:", err)
+                console.log("Failed to load Tournament data:", err)
             )
             .then((json: unknown) => {
                 if (json) {
-                    console.log("Matches:", json);
+                    console.log("Tournaments:", json);
                     // const { data } = json as { data: Array<Match> };
                     this.tournamentIndex = json as Array<Tournament>;
                 }
             })
             .catch((err) =>
-                console.log("Failed to convert match data:", err)
+                console.log("Failed to convert tournament data:", err)
             );
     }
 
@@ -65,17 +63,27 @@ export class TournamentSearchView extends LitElement {
                 <div class="row_header">
                     <dt>
                         <h3>
-                            Tournament
+                            Name
                         </h3>
                     </dt>
-                    <!-- <dd>
-                        <h3>
-                            Match
-                        </h3>
-                    </dd> -->
                     <dd>
                         <h3>
-                            Year
+                            Number of Games
+                        </h3>
+                    </dd>
+                    <dd>
+                        <h3>
+                            Average Duration
+                        </h3>
+                    </dd>
+                    <dd>
+                        <h3>
+                            First Game
+                        </h3>
+                    </dd>
+                    <dd>
+                        <h3>
+                            Last Game
                         </h3>
                     </dd>
                 </div>
@@ -86,19 +94,28 @@ export class TournamentSearchView extends LitElement {
     }
 
     renderItem(tournament: Tournament) {
-        const { league, year, split } = tournament;
+        const { _id, league, year, split } = tournament;
         // const { _id } = match as unknown as { _id: string };
 
+        var tournamentName = `${league} ${split} ${year}`;
+        if (split === "N/A") {
+            tournamentName = `${league} ${year}`
+        }
+            
         return html`
             <div class="row">
                 <dt>
-                    ${league} ${split} ${year}
+                    <a href="/app/tournaments/${_id}">${tournamentName}</a>
                 </dt>
-                <!-- <dd>
-                    ${split} 
-                    vs
-                    ${split}
-                </dd> -->
+                <dd>
+                    ${_id}
+                </dd>
+                <dd>
+                    ${year}
+                </dd>
+                <dd>
+                    ${year}
+                </dd>
                 <dd>
                     ${year}
                 </dd>
@@ -108,6 +125,7 @@ export class TournamentSearchView extends LitElement {
 
     static styles = [
         reset.styles,
+        headings.styles,
         css`
         :host {
             display: grid;

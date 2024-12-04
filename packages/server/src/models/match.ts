@@ -13,7 +13,7 @@ export interface Objectives {
     plates: number;
     voidGrubs: number;
     riftHearlds: number;
-    baronNashots: number;
+    baronNashors: number;
     ruinousAtakan: number,
     voraciousAtakan: number,
     infernalDragons: number,
@@ -22,7 +22,7 @@ export interface Objectives {
     oceanDragons: number,
     hextechDragons: number,
     chemtechDragons: number,
-    elderDrakes: number;
+    elderDragons: number;
 }
 
 export interface PickBan {

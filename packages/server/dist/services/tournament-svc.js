@@ -24,16 +24,18 @@ module.exports = __toCommonJS(tournament_svc_exports);
 var import_mongoose = require("mongoose");
 const TournamentSchemea = new import_mongoose.Schema({
   tournamentId: { type: String, required: true, trim: true },
+  // _id: { type: String, required: true, trim: true},
   league: { type: String, required: true, trim: true },
   year: { type: Number, required: true },
-  split: { type: Number, required: false }
+  split: { type: String, required: false }
 });
 const TournamentModel = (0, import_mongoose.model)("Tournament", TournamentSchemea, "tournament");
 function index() {
   return TournamentModel.find();
 }
 function get(tournamentId) {
-  return TournamentModel.find({ tournamentId }).populate("games").then((list) => {
+  return TournamentModel.find({ _id: tournamentId }).then((list) => {
+    console.log("Query result:", list);
     return list[0];
   }).catch((err) => {
     console.log(err);

@@ -3,9 +3,10 @@ import { Tournament } from "../models/tournament";
 
 const TournamentSchemea = new Schema<Tournament>({
     tournamentId: { type: String, required: true, trim: true},
+    // _id: { type: String, required: true, trim: true},
     league: { type: String, required: true, trim: true},
     year: { type: Number, required: true},
-    split: { type: Number, required: false}
+    split: { type: String, required: false}
 });
 
 const TournamentModel = model<Tournament>("Tournament", TournamentSchemea, "tournament");
@@ -15,10 +16,9 @@ function index(): Promise<Tournament[]> {
 }
 
 function get(tournamentId: String): Promise<Tournament> {
-    return TournamentModel.find({ tournamentId: tournamentId })
-        .populate('games')
+    return TournamentModel.find({ _id: tournamentId })
         .then((list) => {
-            // console.log("Query result:", list);
+            console.log("Query result:", list);
             return list[0];
         })
         .catch((err) => {

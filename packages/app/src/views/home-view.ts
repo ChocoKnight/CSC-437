@@ -54,7 +54,8 @@ export class HomeViewElement extends LitElement {
     }
 
     render() {
-        const matchList = this.matchIndex.map(this.renderItem);
+        this.matchIndex.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        const matchList = this.matchIndex.slice(0, 15).map(this.renderItem);
 
         return html`
         <main class="page">

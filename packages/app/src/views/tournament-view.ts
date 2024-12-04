@@ -1,13 +1,14 @@
 import { Auth, Observer } from "@calpoly/mustang";
 import { css, html, LitElement } from "lit";
-import { state } from "lit/decorators.js";
+import { property, state } from "lit/decorators.js";
 import { Tournament } from "server/models";
 import reset from "../styles/reset.css";
 
 // import { formatDate } from "../utils/dates";
 
 export class TournamentView extends LitElement {
-    src = "/api/tournaments";
+    @property({ attribute: "tournament-id", reflect: true })
+    tournamentId = "";
 
     @state()
     tournamentIndex = new Array<Tournament>();
@@ -16,6 +17,8 @@ export class TournamentView extends LitElement {
         this,
         "lol:auth"
     );
+
+    src = `/api/tournaments/${this.tournamentId}`;
 
     _user = new Auth.User();
 
@@ -43,7 +46,7 @@ export class TournamentView extends LitElement {
             )
             .then((json: unknown) => {
                 if (json) {
-                    console.log("Matches:", json);
+                    console.log("Tournament:", json);
                     // const { data } = json as { data: Array<Match> };
                     this.tournamentIndex = json as Array<Tournament>;
                 }
@@ -65,7 +68,7 @@ export class TournamentView extends LitElement {
                 <div class="row_header">
                     <dt>
                         <h3>
-                            Tournament
+                            ${this.tournamentId}
                         </h3>
                     </dt>
                     <!-- <dd>
@@ -79,7 +82,7 @@ export class TournamentView extends LitElement {
                         </h3>
                     </dd>
                 </div>
-                ${tournamentList}
+                <!-- ${tournamentList} -->
             </dl>
         </main>
       `;

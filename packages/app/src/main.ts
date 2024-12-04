@@ -4,8 +4,17 @@ import { LensOfLegendsHeaderElement } from "./components/lol-header";
 import { HomeViewElement } from "./views/home-view";
 import { TournamentSearchView } from "./views/tournament-search-view";
 import { TournamentView } from "./views/tournament-view";
+import { ChampionSearchView } from "./views/champion-search-view";
+import { TeamSearchView } from "./views/team-search-view";
+import { PlayerSearchView } from "./views/player-serach-view";
 
 const routes = [
+    {
+        path: "/app/tournaments/:id",
+        view: (params: Switch.Params) => html`
+            <tournament-view tournament-id=${params.id}></tournament-view>
+        `
+    },
     {
         path: "/app/tournaments",
         view: () => html`
@@ -15,6 +24,36 @@ const routes = [
     {
         path: "/app/tournaments/",
         redirect: "/app/tournaments"
+    },
+    {
+        path: "/app/champions",
+        view: () => html`
+        <champion-search-view></champion-search-view>
+        `
+    },
+    {
+        path: "/app/champions/",
+        redirect: "/app/champions"
+    },
+    {
+        path: "/app/teams",
+        view: () => html`
+        <team-search-view></team-search-view>
+      `
+    },
+    {
+        path: "/app/teams/",
+        redirect: "/app/teams"
+    },
+    {
+        path: "/app/players",
+        view: () => html`
+        <player-search-view></player-search-view>
+      `
+    },
+    {
+        path: "/app/players/",
+        redirect: "/app/teams"
     },
     {
         path: "/app/",
@@ -66,5 +105,8 @@ define({
     "lol-header": LensOfLegendsHeaderElement,
     "home-view": HomeViewElement,
     "tournament-search-view": TournamentSearchView,
-    "tournament-view": TournamentView
+    "tournament-view": TournamentView,
+    "champion-search-view": ChampionSearchView,
+    "team-search-view": TeamSearchView,
+    "player-search-view": PlayerSearchView,
 });

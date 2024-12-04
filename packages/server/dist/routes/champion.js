@@ -37,12 +37,9 @@ const router = import_express.default.Router();
 router.get("/", (_, res) => {
   import_champion_svc.default.index().then((list) => res.json(list)).catch((err) => res.status(500).send(err));
 });
-router.get("/:championId", (req, res) => {
-  const { championId } = req.params;
-  console.log(championId);
-  console.log(req.params);
-  console.log(championId);
-  import_champion_svc.default.get(championId).then((champion) => res.json(champion)).catch((err) => res.status(404).send(err));
+router.get("/:championName", (req, res) => {
+  const { championName } = req.params;
+  import_champion_svc.default.get(championName).then((champion) => res.json(champion)).catch((err) => res.status(404).send(err));
 });
 router.post("/", (req, res) => {
   const newChampion = req.body;

@@ -10,14 +10,10 @@ router.get("/", (_, res: Response) => {
         .catch((err) => res.status(500).send(err));
 });
 
-router.get("/:championId", (req: Request, res: Response) => {
-    const { championId } = req.params;
+router.get("/:championName", (req: Request, res: Response) => {
+    const { championName } = req.params;
 
-    console.log(championId)
-    console.log(req.params)
-    console.log(championId)
-
-    Champions.get(championId)
+    Champions.get(championName)
         .then((champion: Champion) => res.json(champion))
         .catch((err) => res.status(404).send(err));
 });

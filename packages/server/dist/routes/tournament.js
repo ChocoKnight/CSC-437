@@ -40,8 +40,6 @@ router.get("/", (_, res) => {
 router.get("/:tournamentId", (req, res) => {
   const { tournamentId } = req.params;
   console.log(tournamentId);
-  console.log(req.params);
-  console.log(tournamentId);
   import_tournament_svc.default.get(tournamentId).then((tournament) => res.json(tournament)).catch((err) => res.status(404).send(err));
 });
 router.post("/", (req, res) => {

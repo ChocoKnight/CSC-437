@@ -14,8 +14,6 @@ router.get("/:tournamentId", (req: Request, res: Response) => {
     const { tournamentId } = req.params;
 
     console.log(tournamentId)
-    console.log(req.params)
-    console.log(tournamentId)
 
     Tournaments.get(tournamentId)
         .then((tournament: Tournament) => res.json(tournament))
