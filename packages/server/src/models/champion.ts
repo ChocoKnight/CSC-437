@@ -12,3 +12,9 @@ export interface Tournament {
     year: Number,
     split: String
 }
+
+export interface User {
+    username: string;
+    favoriteTeams: Array<String>;
+    favoriteChampions: Array<String>;
+}

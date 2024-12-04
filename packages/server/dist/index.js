@@ -22,6 +22,8 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var import_express = __toESM(require("express"));
+var import_promises = __toESM(require("node:fs/promises"));
+var import_path = __toESM(require("path"));
 var import_auth = require("./pages/auth");
 var import_tournament = __toESM(require("./routes/tournament"));
 var import_match = require("./pages/match");
@@ -70,6 +72,12 @@ app.get("/champions/:championName", (req, res) => {
   import_match_svc.default.get(matchId).then((data) => {
     res.set("Content-Type", "text/html").send(new import_match.MatchPage(data).render());
   });
+});
+app.use("/app", (req, res) => {
+  const indexHtml = import_path.default.resolve(staticDir, "index.html");
+  import_promises.default.readFile(indexHtml, { encoding: "utf8" }).then(
+    (html) => res.send(html)
+  );
 });
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

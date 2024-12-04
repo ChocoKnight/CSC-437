@@ -1,4 +1,7 @@
-import { Auth, History, Switch, define } from "@calpoly/mustang";
+import { Auth, History, Store, Switch, define } from "@calpoly/mustang";
+import { Msg } from "./messages";
+import { Model, init } from "./model";
+import update from "./update";
 import { css, html, LitElement } from "lit";
 import { LensOfLegendsHeaderElement } from "./components/lol-header";
 import { HomeViewElement } from "./views/home-view";
@@ -96,6 +99,11 @@ class AppElement extends LitElement {
 define({
     "mu-auth": Auth.Provider,
     "mu-history": History.Provider,
+    "mu-store": class AppStore extends Store.Provider<Model,Msg> {
+        constructor() {
+        super(update, init, "blazing:auth");
+        }
+    },
     "mu-switch": class AppSwitch extends Switch.Element {
         constructor() {
             super(routes, "lol:history", "lol:auth")
