@@ -90,6 +90,7 @@ function selectPlayer(msg: {playerName: string}) {
 }
 
 function selectTournament(msg: {tournamentId: string}) {
+    console.log(`/api/tournaments/${msg.tournamentId}`)
     return fetch(`/api/tournaments/${msg.tournamentId}`)
         .then((response: Response) => {
             if (response.status === 200) {
