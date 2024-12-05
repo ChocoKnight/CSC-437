@@ -6,6 +6,7 @@ import { Tournament, Match } from "server/models";
 import { Msg } from "../messages";
 import { Model } from "../model";
 import reset from "../styles/reset.css";
+import headings from "../styles/headings.css";
 
 import { formatDate } from "../utils/dates";
 
@@ -38,15 +39,6 @@ export class TournamentView extends View<Model, Msg> {
         super.attributeChangedCallback(name, old, value);
         if (name === "tournament-id" && old !== value && value) {
             this.dispatchMessage(["tournament/select", { tournamentId: value }]);
-
-            // const { league, split, year } = this.tournament || {};
-            // if (split === "N/A") {
-            //     this.tournamentName = `${league} ${year}`;
-            // } else {
-            //     this.tournamentName = `${league} ${year} ${split}`;
-            // }
-
-            // this.dispatchMessage(["tournament/match/select", { tournamentName: this.tournamentName }])
         }
     }
 
@@ -119,14 +111,16 @@ export class TournamentView extends View<Model, Msg> {
     }
 
     renderItem(match: Match) {
-        const { date, teamOne, teamTwo, games, patch } = match;
+        const { date, teamOne, teamTwo, games, patch, _id } = match;
 
         return html`
             <div class="row">
                 <dt>
-                    ${teamOne} 
-                    vs
-                    ${teamTwo}
+                    <a href="/app/matches/${_id}">
+                        ${teamOne} 
+                        vs
+                        ${teamTwo}
+                    </a> 
                 </dt>
                 <dd>
                     ${games.length}
@@ -145,6 +139,7 @@ export class TournamentView extends View<Model, Msg> {
 
     static styles = [
         reset.styles,
+        headings.styles,
         css`
         :host {
             display: grid;

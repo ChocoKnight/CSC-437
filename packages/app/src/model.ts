@@ -5,6 +5,7 @@ export interface Model {
     match?: Match;
     matches?: Match[];
     game?: Game;
+    games?: Game[];
     player?: Player;
     team?: Team;
     tournament?: Tournament;

@@ -7,7 +7,7 @@ import reset from "../styles/reset.css";
 // import { formatDate } from "../utils/dates";
 
 export class TeamSearchView extends LitElement {
-    src = "/api/matches";
+    src = "/api/teams";
 
     @state()
     teamIndex = new Array<Team>();

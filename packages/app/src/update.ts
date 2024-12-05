@@ -2,9 +2,9 @@ import { Auth, Update } from "@calpoly/mustang";
 import { Msg } from "./messages";
 import { Model } from "./model";
 // import { Champion, Team, Player, Tournament, Match, User } from "server/models";
-import { Champion, Team, Player, Match, User } from "server/models";
+import { Champion, Team, Player, User } from "server/models";
 
-import { formatDate } from "../src/utils/dates";
+import { formatDateShort } from "../src/utils/dates";
 
 export default function update(message: Msg, apply: Update.ApplyMap<Model>, user: Auth.User) {
     switch (message[0]) {
@@ -46,9 +46,18 @@ export default function update(message: Msg, apply: Update.ApplyMap<Model>, user
             });
             break;
         case "match/select":
-            selectMatch(message[1]).then((match) =>
-                apply((model) => ({ ...model, match }))
-            );
+            selectMatchWithGames({ matchId: message[1].matchId }).then((data) => {
+                if (data) {
+                    const { match, games } = data;
+                    apply((model) => ({
+                        ...model,
+                        match, 
+                        games,
+                    }));
+                } else {
+                    console.error("Failed to fetch match or games.");
+                }
+            });
             break;
         default:
             const unhandled: string = message[0];
@@ -169,21 +178,21 @@ function selectTournamentWithMatches(msg: { tournamentId: string }) {
         });
 }
 
-function selectMatch(msg: { matchId: string }) {
-    return fetch(`/api/matches/${msg.matchId}`)
-        .then((response: Response) => {
-            if (response.status === 200) {
-                return response.json();
-            }
-            return undefined;
-        })
-        .then((json: unknown) => {
-            if (json) {
-                console.log("Profile:", json);
-                return json as Match;
-            }
-        });
-}
+// function selectMatch(msg: { matchId: string }) {
+//     return fetch(`/api/matches/${msg.matchId}`)
+//         .then((response: Response) => {
+//             if (response.status === 200) {
+//                 return response.json();
+//             }
+//             return undefined;
+//         })
+//         .then((json: unknown) => {
+//             if (json) {
+//                 console.log("Profile:", json);
+//                 return json as Match;
+//             }
+//         });
+// }
 
 function selectMatchWithGames(msg: { matchId: string }) {
     return fetch(`/api/matches/${msg.matchId}`)
@@ -197,9 +206,11 @@ function selectMatchWithGames(msg: { matchId: string }) {
             console.log("Match:", match);
 
             const { teamOne, teamTwo, date } = match;
-            const matchIndex = `${teamOne} vs ${teamTwo} - ${formatDate(date)}`;
+            const matchIndex = `${teamOne} vs ${teamTwo} - ${formatDateShort(date)}`;
 
-            return fetch(`/api/matches?tournamentName=${encodeURIComponent(matchIndex)}`)
+            console.log(matchIndex)
+
+            return fetch(`/api/games?matchId=${encodeURIComponent(matchIndex)}`)
                 .then((gamesResponse) => {
                     if (gamesResponse.status === 200) {
                         return gamesResponse.json();

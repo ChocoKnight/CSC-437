@@ -35,10 +35,15 @@ var import_express = __toESM(require("express"));
 var import_game_svc = __toESM(require("../services/game-svc"));
 const router = import_express.default.Router();
 router.get("/", (req, res) => {
-  const { tournamentName } = req.query;
+  const { matchId } = req.query;
   console.log("Raw Query Parameters:", req.query);
-  console.log("Tournament Name:", tournamentName);
-  import_game_svc.default.index().then((list) => res.json(list)).catch((err) => res.status(500).send(err));
+  console.log("MatchId:", matchId);
+  import_game_svc.default.index().then((list) => {
+    const filteredGames = matchId ? list.filter((game) => {
+      return game.matchId.trim().toLowerCase() === matchId.toString().trim().toLowerCase();
+    }) : list;
+    res.json(filteredGames);
+  }).catch((err) => res.status(500).send(err));
 });
 router.get("/:gameId", (req, res) => {
   const { gameId } = req.params;

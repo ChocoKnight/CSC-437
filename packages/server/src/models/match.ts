@@ -1,4 +1,5 @@
 export interface Match {
+    _id: string;
     matchId: string;
     tournamentName: string;
     date: Date;

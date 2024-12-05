@@ -5,33 +5,33 @@ import Games from "../services/game-svc";
 const router = express.Router();
 
 router.get("/", (req: Request, res: Response) => {
-    const { tournamentName } = req.query;
+    const { matchId } = req.query;
 
     console.log("Raw Query Parameters:", req.query);
-    console.log("Tournament Name:", tournamentName);
-
-    Games.index()
-        .then((list: Game[]) => res.json(list))
-        .catch((err) => res.status(500).send(err));
+    console.log("MatchId:", matchId);
 
     // Games.index()
-    //     .then((list: Game[]) => {
-    //         // console.log("Games Data:", list);
-    //         // if (tournamentName) {
-    //             const filteredGames = tournamentName
-    //             ? list.filter(game => {
-    //                 // console.log("Comparing:", `"${game.tournamentName.trim()}"`, "with", `"${tournamentName.toString().trim()}"`);
-    //                 // console.log( game.tournamentName.trim().toLowerCase() === tournamentName.toString().trim().toLowerCase());
-    //                 return game.tournamentName.trim().toLowerCase() === tournamentName.toString().trim().toLowerCase();
-    //             })
-    //             : list;
-
-    //             res.json(filteredGames)
-    //         // } else {
-    //         //     res.json(list)
-    //         // }
-    //     })
+    //     .then((list: Game[]) => res.json(list))
     //     .catch((err) => res.status(500).send(err));
+
+    Games.index()
+        .then((list: Game[]) => {
+            // console.log("Games Data:", list);
+            // if (tournamentName) {
+                const filteredGames = matchId
+                ? list.filter(game => {
+                    // console.log("Comparing:", `"${game.tournamentName.trim()}"`, "with", `"${tournamentName.toString().trim()}"`);
+                    // console.log( game.tournamentName.trim().toLowerCase() === tournamentName.toString().trim().toLowerCase());
+                    return game.matchId.trim().toLowerCase() === matchId.toString().trim().toLowerCase();
+                })
+                : list;
+
+                res.json(filteredGames)
+            // } else {
+            //     res.json(list)
+            // }
+        })
+        .catch((err) => res.status(500).send(err));
 });
 
 router.get("/:gameId", (req: Request, res: Response) => {

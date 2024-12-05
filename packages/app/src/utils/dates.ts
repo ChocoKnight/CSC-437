@@ -24,6 +24,23 @@ export const formatDate = (date: Date | string | undefined) => {
     return `${d} ${m} ${y}`;
 };
 
+export const formatDateShort = (date: Date | string | undefined) => {
+    const dt =
+        (typeof date === "string" ? new Date(date) : date) ||
+        new Date();
+    const m = dt.getUTCMonth() + 1;
+    const d = dt.getUTCDate();
+    const y = dt.getUTCFullYear();
+
+    if ((m < 10) && (d < 10)) {
+        return `${y}-0${m}-0${d}`;
+    } else if (m < 10) {
+        return `${y}-0${m}-${d}`;
+    } else {
+        return `${y}-${m}-${d}`;
+    }
+};
+
 interface DateStringRange {
     startDate: string;
     endDate: string;
