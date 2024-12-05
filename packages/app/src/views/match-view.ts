@@ -2,7 +2,7 @@
 import { View } from "@calpoly/mustang";
 import { css, html } from "lit";
 import { property, state } from "lit/decorators.js";
-import { Match, Game, Objectives, PickBan } from "server/models";
+import { Match, Game, Objectives } from "server/models";
 import { Msg } from "../messages";
 import { Model } from "../model";
 import reset from "../styles/reset.css";
@@ -75,6 +75,11 @@ export class MatchView extends View<Model, Msg> {
     `;
     }
 
+    findObjectiveCounts(objective: Objectives) {
+        var dragons: number = objective.infernalDragons + objective.mountainDragons + objective.oceanDragons + objective.cloudDragons + objective.hextechDragons + objective.chemtechDragons + objective.elderDragons
+        return [objective.towers, objective.plates, objective.voidGrubs, objective.riftHearlds, objective.baronNashors, dragons]
+    }
+
     renderGame(game: Game, match: Match | undefined) {
         var teamOne: string = ""
         if (match) {
@@ -83,8 +88,8 @@ export class MatchView extends View<Model, Msg> {
             return html``;
         }
 
-        const { blueTeam, redTeam, bluePickBans, redPickBans, blueWin,
-            blueFirstBlood, blueFirstTower, blueObjectives, redObjectives, duration } = game;
+        const { blueTeam, bluePickBans, redPickBans, blueWin,
+            blueObjectives, redObjectives, duration } = game;
 
         var teamOneSide: string = ""
         var teamTwoSide: string = ""
@@ -111,7 +116,21 @@ export class MatchView extends View<Model, Msg> {
             seconds = `${duration % 60}`;
         }
 
+        var teamOneObjectiveCounts = []
+        var teamTwoObjectiveCounts = []
+        if (teamOneSide === "Blue Side") {
+            teamOneObjectiveCounts = this.findObjectiveCounts(blueObjectives)
+            teamTwoObjectiveCounts = this.findObjectiveCounts(redObjectives)
+        } else {
+            teamOneObjectiveCounts = this.findObjectiveCounts(redObjectives)
+            teamTwoObjectiveCounts = this.findObjectiveCounts(blueObjectives)
+        }
+
         return html`
+        <div class = "game">
+            <h2>
+                Game 1
+            </h2>
             <div class="game_overview">
                 <span>
                     ${teamOneSide}
@@ -130,50 +149,104 @@ export class MatchView extends View<Model, Msg> {
             </div>
 
             <div class = "objectives">
+                <h2>
+                    Picks and Bans
+                </h2>
+                <div class="pick_ban">
+                    <div class="blue">
+                        <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBans.banOne}_0.jpg" class="grayscale">
+                        <span></span>
+                        <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBans.banTwo}_0.jpg" class="grayscale">
+                        <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBans.banThree}_0.jpg" class="grayscale">
+                        <span></span>
+                        <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBans.pickOne}_0.jpg" class="champ_icon">
+                        <span></span>
+                        <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBans.pickTwo}_0.jpg" class="champ_icon">
+                        <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBans.pickThree}_0.jpg" class="champ_icon">
+                        <span></span>
+                        <span></span>
+                        <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBans.banFour}_0.jpg" class="grayscale">
+                        <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBans.banFive}_0.jpg" class="grayscale">
+                        <span></span>
+                        <span></span>
+                        <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBans.pickFour}_0.jpg" class="champ_icon">
+                        <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${bluePickBans.pickFive}_0.jpg" class="champ_icon">
+                        <span></span>
+                    </div>
+                    <div class="red">
+                        <span></span>
+                        <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBans.banOne}_0.jpg" class="grayscale">
+                        <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBans.banTwo}_0.jpg" class="grayscale">
+                        <span></span>
+                        <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBans.banThree}_0.jpg" class="grayscale">
+                        <span></span>
+                        <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBans.pickOne}_0.jpg" class="champ_icon">
+                        <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBans.pickTwo}_0.jpg" class="champ_icon">
+                        <span></span>
+                        <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBans.pickThree}_0.jpg" class="champ_icon">
+                        <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBans.banFour}_0.jpg" class="grayscale">
+                        <span></span>
+                        <span></span>
+                        <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBans.banFive}_0.jpg" class="grayscale">
+                        <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBans.pickFour}_0.jpg" class="champ_icon">
+                        <span></span>
+                        <span></span>
+                        <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${redPickBans.pickFive}_0.jpg" class="champ_icon">
+                    </div>
+                </div>
+            </div>
+
+            <div class = "objectives">
                 <h2>Objectives</h2>
-                <section class="objective">
+                <!-- <section class="objective">
                     <span>0</span>
                     <h4>Kills</h4>
                     <span>0</span>
-                </section>
+                </section> -->
 
                 <section class="objective">
-                    <span>0</span>
-                    </slot>
+                    <span>${teamOneObjectiveCounts[0]}</span>
                     <h4>Towers</h4>
-                    <span>0</span>
+                    <span>${teamTwoObjectiveCounts[0]}</span>
                 </section>
 
                 <section class="objective">
-                    <span>0</span>
+                    <span>${teamOneObjectiveCounts[1]}</span>
+                    <h4>Plates</h4>
+                    <span>${teamTwoObjectiveCounts[1]}</span>
+                </section>
+
+                <section class="objective">
+                    <span>${teamOneObjectiveCounts[2]}</span>
                     <h4>Void Grubs</h4>
-                    <span>0</span>
+                    <span>${teamTwoObjectiveCounts[2]}</span>
                 </section>
 
                 <section class="objective">
-                    <span>0</span>
+                    <span>${teamOneObjectiveCounts[3]}</span>
                     <h4>Rift Heralds</h4>
-                    <span>0</span>
+                    <span>${teamTwoObjectiveCounts[3]}</span>
                 </section>
 
                 <section class="objective">
-                    <span>0</span>
+                    <span>${teamOneObjectiveCounts[4]}</span>
                     <h4>Baron Nashtors</h4>
-                    <span>0</span>
+                    <span>${teamTwoObjectiveCounts[4]}</span>
                 </section>
 
                 <section class="objective">
-                    <span>0</span>
+                    <span>${teamOneObjectiveCounts[5]}</span>
                     <h4>Drakes</h4>
-                    <span>0</span>
+                    <span>${teamTwoObjectiveCounts[5]}</span>
                 </section>
 
-                <section class="objective">
+                <!-- <section class="objective">
                     <span>0</span>
                     <h4>Total Gold</h4>
                     <span>0</span>
-                </section>
+                </section> -->
             </div>
+        </div>
           `;
     }
 
@@ -184,6 +257,12 @@ export class MatchView extends View<Model, Msg> {
         :host {
             display: grid;
             grid-column: 1 / -1;
+        }
+
+        .game {
+            display: block; /* Ensure the rows stack vertically */
+            width: 100%;
+            border: solid; 
         }
 
         .page {
@@ -241,7 +320,6 @@ export class MatchView extends View<Model, Msg> {
         .objectives {
             display: grid;
             grid-column: 1 / -1;
-            gap: 10px; /* Adds spacing between elements */
         }
 
         .objective {
@@ -250,6 +328,38 @@ export class MatchView extends View<Model, Msg> {
             align-items: center; 
             text-align: center; 
             justify-items: center; 
+        }
+
+        .pick_ban {
+            display: grid;
+            grid-column: 1 / -1;
+            // grid-template-columns: 1fr 1fr;
+        }
+
+        .blue, .red {
+            display: grid;
+            gap: var(--size-spacing-medium);
+        }
+        
+        .blue {
+            grid-template-columns: 1fr 0.25fr 1fr 1fr 0.25fr 1fr 0.25fr 1fr 1fr 0.25fr 0.25fr 1fr 1fr 0.25fr 0.25fr 1fr 1fr 0.25fr;
+            background: var(--color-blueside-background)
+        }
+            
+        .red {
+            grid-template-columns: 0.25fr 1fr 1fr 0.25fr 1fr 0.25fr 1fr 1fr 0.25fr 1fr 1fr 0.25fr 0.25fr 1fr 1fr 0.25fr 0.25fr 1fr;
+            background: var(--color-redside-background)
+        }
+
+        .ban, .pick {
+            display: flex;
+            flex-direction: row;
+            gap: var(--size-spacing-large);
+        }
+
+        .grayscale {
+            filter: grayscale(50%) !important;
+            transition: filter 0.3s ease;
         }
 
         h2 {
