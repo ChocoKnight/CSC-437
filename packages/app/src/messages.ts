@@ -8,6 +8,7 @@ export type Msg =
 | ["teams/select", { teamId: string }]
 | ["players/select", { playerName: string }]
 | ["tournament/select", { tournamentId: string }]
-| ["tournament/match/select", { tournamentName: string }]
+| ["tournaments/select", { }]
 | ["match/select", { matchId: string }]
+| ["matches/select", { }]
 | ["game/select", { gameId: string }];

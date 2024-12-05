@@ -9,6 +9,7 @@ export interface Model {
     player?: Player;
     team?: Team;
     tournament?: Tournament;
+    tournaments?: Tournament[];
 }
 
 export const init: Model = {};

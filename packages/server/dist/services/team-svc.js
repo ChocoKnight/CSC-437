@@ -32,7 +32,7 @@ function index() {
   return TeamModel.find();
 }
 function get(teamId) {
-  return TeamModel.find({ teamId }).then((list) => {
+  return TeamModel.find({ name: teamId }).then((list) => {
     return list[0];
   }).catch((err) => {
     console.log(err);

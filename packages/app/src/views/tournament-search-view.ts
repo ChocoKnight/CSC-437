@@ -1,17 +1,33 @@
-import { Auth, Observer } from "@calpoly/mustang";
-import { css, html, LitElement } from "lit";
-import { state } from "lit/decorators.js";
-import { Tournament } from "server/models";
+import { Auth, Observer, View } from "@calpoly/mustang";
+// import { css, html, LitElement } from "lit";
+import { css, html } from "lit";
+import { property, state } from "lit/decorators.js";
+import { Tournament, Match } from "server/models";
+import { Msg } from "../messages";
+import { Model } from "../model";
 import reset from "../styles/reset.css";
 import headings from "../styles/headings.css";
 
-// import { formatDate } from "../utils/dates";
+import { formatDate } from "../utils/dates";
 
-export class TournamentSearchView extends LitElement {
-    src = "/api/tournaments";
+export class TournamentSearchView extends View<Model, Msg> {
+    @property({ attribute: "tournament-id", reflect: true })
+    tournamentId = "nothing";
 
     @state()
-    tournamentIndex = new Array<Tournament>();
+    get tournaments(): Tournament[] | undefined {
+        return this.model.tournaments;
+    }
+
+    set tournaments(tournaments: Tournament[] | undefined) {
+        this.model.tournaments = tournaments;
+        this.requestUpdate();
+    }
+
+    @state()
+    get match(): Match[] | undefined {
+        return this.model.matches;
+    }
 
     _authObserver = new Observer<Auth.Model>(
         this,
@@ -20,45 +36,69 @@ export class TournamentSearchView extends LitElement {
 
     _user = new Auth.User();
 
-    connectedCallback() {
-        super.connectedCallback();
-        this._authObserver.observe(({ user }) => {
-            if (user) {
-                this._user = user;
-            }
-            this.hydrate(this.src);
-        });
+    constructor() {
+        super("lol:model");
     }
 
-    hydrate(url: string) {
-        fetch(url)
-            .then((res: Response) => {
-                if (res.status === 200) return res.json();
-                throw `Server responded with status ${res.status}`;
-            })
-            .catch((err) =>
-                console.log("Failed to load Tournament data:", err)
-            )
-            .then((json: unknown) => {
-                if (json) {
-                    console.log("Tournaments:", json);
-                    // const { data } = json as { data: Array<Match> };
-                    this.tournamentIndex = json as Array<Tournament>;
-                }
-            })
-            .catch((err) =>
-                console.log("Failed to convert tournament data:", err)
-            );
+    attributeChangedCallback(name: string, old: string | null, value: string | null) {
+        super.attributeChangedCallback(name, old, value);
+        if (name === "tournament-id" && old !== value && value) {
+            this.dispatchMessage(["tournaments/select", {}]);
+            this.dispatchMessage(["matches/select", {}]);
+        }
     }
 
     render() {
-        const tournamentList = this.tournamentIndex.map(this.renderItem);
+        // const tournamentList = this.tournaments.map(this.renderItem);
+        // var tournamentList = [html``];
+        // if (this.tournaments) {
+        //     tournamentList = this.tournaments.map(this.renderItem);
+        // }
+
+        var tournamentList = undefined;
+        if (this.match && this.tournaments) {
+            tournamentList = this.tournaments.map((tournament) => this.renderItem(tournament, this.match));
+        } else {
+            tournamentList = html``;
+        }
 
         return html`
         <main class="page">
             <header>
                 <h2>Tournaments</h2>
             </header>
+                <dl>
+                    <div class="row">
+                        <dt>
+                            Year
+                        </dt>
+                        <dd>
+                            <button @click="${() => this.queryYear(2024, this.tournaments)}">2024</button>
+                        </dd>
+                        <dd>
+                            <button @click="${() => this.queryYear(2025, this.tournaments)}">2025</button>
+                        </dd>
+                    </div>
+                    <div class="row">
+                        <dt>
+                            Split
+                        </dt>
+                        <dd>
+                            <button @click="${() => this.querySplit("First", this.tournaments)}">First</button> 
+                        </dd>
+                        <dd>
+                            <button @click="${() => this.querySplit("Second", this.tournaments)}">Second</button> 
+                        </dd>
+                        <dd>
+                            <button @click="${() => this.querySplit("Other", this.tournaments)}">Other</button> 
+                        </dd>
+                    </div>
+                    <div class="row">
+                        <dt>
+                        <button @click="${() => this.reset()}">Reset</button>
+                        </dt>
+                    </div>
+                </dl>
             <dl>
                 <div class="row_header">
                     <dt>
@@ -69,11 +109,6 @@ export class TournamentSearchView extends LitElement {
                     <dd>
                         <h3>
                             Number of Games
-                        </h3>
-                    </dd>
-                    <dd>
-                        <h3>
-                            Average Duration
                         </h3>
                     </dd>
                     <dd>
@@ -93,34 +128,83 @@ export class TournamentSearchView extends LitElement {
       `;
     }
 
-    renderItem(tournament: Tournament) {
+    queryYear(year: number, tournaments: Tournament[] | undefined) {
+        console.log("query year");
+        if (tournaments) {
+            // Filter tournaments based on the year
+            const filteredTournaments = tournaments.filter((tournament) => tournament.year === year);
+            // Set the filtered tournaments using the setter
+            this.tournaments = filteredTournaments;
+        }
+    }
+
+    querySplit(split: String, tournaments: Tournament[] | undefined) {
+        console.log("query year");
+        if (tournaments) {
+            var filteredTournaments = tournaments
+            if (split === "First") {
+                filteredTournaments = tournaments.filter((tournament) => (tournament.split === "Spring" || tournament.split === "Split 1" || tournament.split === "Champ 1" || tournament.split === "Opening"));
+            } else if (split === "Second") {
+                filteredTournaments = tournaments.filter((tournament) => (tournament.split === "Summer" || tournament.split === "Split 2" || tournament.split === "Champ 2" || tournament.split === "Closing"));
+            } else {
+                filteredTournaments = tournaments.filter((tournament) => (tournament.split === "N/A" || tournament.split === "BLX Masters" || tournament.split === "Finals" || tournament.split === "Split 3"));
+            }
+
+            this.tournaments = filteredTournaments;
+        }
+    }
+
+    reset() {
+        if (this.tournamentId === "") {
+            this.tournamentId = "nothing"
+        } else {
+            this.tournamentId = ""
+        }
+    }
+
+    renderItem(tournament: Tournament, matches: Match[] | undefined) {
         const { _id, league, year, split } = tournament;
         // const { _id } = match as unknown as { _id: string };
 
-        var tournamentName = `${league} ${split} ${year}`;
-        if (split === "N/A") {
-            tournamentName = `${league} ${year}`
+        const tournamentName = split === "N/A" ? `${league} ${year}` : `${league} ${year} ${split}`;
+
+        var filteredMatches = []
+        if (matches) {
+            filteredMatches = matches.filter(match => match.tournamentName.trim().toLowerCase() === tournamentName.trim().toLowerCase());
+            filteredMatches.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+            return html`
+                <div class="row">
+                    <dt>
+                        <a href="/app/tournaments/${_id}">${tournamentName}</a>
+                    </dt>
+                    <dd>
+                        ${filteredMatches.length}
+                    </dd>
+                    <dd>
+                        ${formatDate(filteredMatches[0].date)}
+                    </dd>
+                    <dd>
+                        ${formatDate(filteredMatches[filteredMatches.length - 1].date)}
+                    </dd>
+                </div>
+            `;
         }
-            
         return html`
             <div class="row">
                 <dt>
                     <a href="/app/tournaments/${_id}">${tournamentName}</a>
                 </dt>
                 <dd>
-                    ${_id}
+                    ${filteredMatches.length}
                 </dd>
                 <dd>
-                    ${year}
+                    "N/A"
                 </dd>
                 <dd>
-                    ${year}
-                </dd>
-                <dd>
-                    ${year}
+                    "N/A"
                 </dd>
             </div>
-          `;
+        `;
     }
 
     static styles = [

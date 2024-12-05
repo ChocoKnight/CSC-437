@@ -9,6 +9,7 @@ import { TournamentSearchView } from "./views/tournament-search-view";
 import { TournamentView } from "./views/tournament-view";
 import { ChampionSearchView } from "./views/champion-search-view";
 import { TeamSearchView } from "./views/team-search-view";
+// import { TeamView } from "./views/team-view";
 import { PlayerSearchView } from "./views/player-serach-view";
 import { MatchView } from "./views/match-view";
 
@@ -44,6 +45,12 @@ const routes = [
     {
         path: "/app/champions/",
         redirect: "/app/champions"
+    },
+    {
+        path: "/app/teams/:id",
+        view: (params: Switch.Params) => html`
+        <team-view team-id=${params.id}></team-view>
+        `
     },
     {
         path: "/app/teams",
@@ -123,6 +130,7 @@ define({
     "tournament-view": TournamentView,
     "champion-search-view": ChampionSearchView,
     "team-search-view": TeamSearchView,
+    // "team-view": TeamView,
     "player-search-view": PlayerSearchView,
     "match-view": MatchView,
 });

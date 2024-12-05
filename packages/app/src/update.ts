@@ -1,8 +1,8 @@
 import { Auth, Update } from "@calpoly/mustang";
 import { Msg } from "./messages";
 import { Model } from "./model";
-// import { Champion, Team, Player, Tournament, Match, User } from "server/models";
-import { Champion, Team, Player, User } from "server/models";
+import { Champion, Team, Player, Tournament, Match, User } from "server/models";
+// import { Champion, Team, Player, Tournament, User } from "server/models";
 
 import { formatDateShort } from "../src/utils/dates";
 
@@ -29,9 +29,6 @@ export default function update(message: Msg, apply: Update.ApplyMap<Model>, user
             );
             break;
         case "tournament/select":
-            // selectTournament(message[1]).then((tournament) =>
-            //     apply((model) => ({ ...model, tournament }))
-            // );
             selectTournamentWithMatches({ tournamentId: message[1].tournamentId }).then((data) => {
                 if (data) {
                     const { tournament, matches } = data;
@@ -45,13 +42,23 @@ export default function update(message: Msg, apply: Update.ApplyMap<Model>, user
                 }
             });
             break;
+        case "tournaments/select":
+            selectTournamentsWithMatches().then((tournaments) =>
+                apply((model) => ({ ...model, tournaments }))
+            );
+            break;
+        case "matches/select":
+            selectMatches().then((matches) =>
+                apply((model) => ({ ...model, matches }))
+            );
+            break;
         case "match/select":
             selectMatchWithGames({ matchId: message[1].matchId }).then((data) => {
                 if (data) {
                     const { match, games } = data;
                     apply((model) => ({
                         ...model,
-                        match, 
+                        match,
                         games,
                     }));
                 } else {
@@ -178,21 +185,35 @@ function selectTournamentWithMatches(msg: { tournamentId: string }) {
         });
 }
 
-// function selectMatch(msg: { matchId: string }) {
-//     return fetch(`/api/matches/${msg.matchId}`)
-//         .then((response: Response) => {
-//             if (response.status === 200) {
-//                 return response.json();
-//             }
-//             return undefined;
-//         })
-//         .then((json: unknown) => {
-//             if (json) {
-//                 console.log("Profile:", json);
-//                 return json as Match;
-//             }
-//         });
-// }
+function selectTournamentsWithMatches() {
+    return fetch("/api/tournaments")
+        .then((response: Response) => {
+            if (response.status !== 200)
+                throw `Failed to load index of tournaments`;
+            return response.json();
+        })
+        .then((json: unknown) => {
+            if (json) {
+                console.log("Tournament:", json);
+                return json as Tournament[];
+            }
+        });
+}
+
+function selectMatches() {
+    return fetch("/api/matches")
+        .then((response: Response) => {
+            if (response.status !== 200)
+                throw `Failed to load index of matches`;
+            return response.json();
+        })
+        .then((json: unknown) => {
+            if (json) {
+                console.log("matches:", json);
+                return json as Match[];
+            }
+        });
+}
 
 function selectMatchWithGames(msg: { matchId: string }) {
     return fetch(`/api/matches/${msg.matchId}`)
