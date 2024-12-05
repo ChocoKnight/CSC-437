@@ -55,7 +55,7 @@ export class MatchView extends View<Model, Msg> {
                     <a href="">${teamOne}</a>
                 </h2>
                 <h2>
-                    <span>0-0</span>
+                    ${this.findWinLoss(this.game, this.match)}
                 </h2>
                 <h2>
                     <a href="">${teamTwo}</a>
@@ -80,6 +80,40 @@ export class MatchView extends View<Model, Msg> {
         return [objective.towers, objective.plates, objective.voidGrubs, objective.riftHearlds, objective.baronNashors, dragons]
     }
 
+    findWinLoss(games: Game[] | undefined, match: Match | undefined) {
+        var teamOne: string = ""
+        if (match) {
+            teamOne = match.teamOne;
+        } else {
+            return html`0 - 0`;
+        }
+
+        if (games) {
+            var gamesPlayed = games.length
+            var teamOneWins = 0;
+            games.forEach((game) => {
+                const { blueTeam, blueWin } = game;
+
+                var teamOneSide: string = ""
+                if (teamOne === blueTeam) {
+                    teamOneSide = "Blue Side"
+                } else {
+                    teamOneSide = "Red Side"
+                }
+
+                if (blueWin && (teamOneSide === "Blue Side")) {
+                    teamOneWins += 1;
+                }
+            });
+
+            return html`
+            <span>${teamOneWins} - ${gamesPlayed - teamOneWins}</span>
+            `;
+        } else {
+            return html`0 - 0`; 
+        }
+    }
+
     renderGame(game: Game, match: Match | undefined) {
         var teamOne: string = ""
         if (match) {
@@ -88,7 +122,7 @@ export class MatchView extends View<Model, Msg> {
             return html``;
         }
 
-        const { blueTeam, bluePickBans, redPickBans, blueWin,
+        const { gameName, blueTeam, bluePickBans, redPickBans, blueWin,
             blueObjectives, redObjectives, duration } = game;
 
         var teamOneSide: string = ""
@@ -129,7 +163,7 @@ export class MatchView extends View<Model, Msg> {
         return html`
         <div class = "game">
             <h2>
-                Game 1
+                Game ${gameName[gameName.length - 1]}
             </h2>
             <div class="game_overview">
                 <span>
