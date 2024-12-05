@@ -426,10 +426,10 @@ Expecting `+Pt.join(", ")+", got '"+(this.terminals_[w]||w)+"'":Zt="Parse error 
                 ${t}
             </dl>
         </main>
-      `}renderItem(t){const{tournamentName:e,date:s,teamOne:i,teamTwo:n}=t;return y`
+      `}renderItem(t){const{tournamentName:e,date:s,teamOne:i,teamTwo:n,_id:o}=t;return y`
             <div class="row">
                 <dt>
-                    ${e}
+                    <a href="/app/tournaments/${o}">${e}</a>
                 </dt>
                 <dd>
                     ${i} 
