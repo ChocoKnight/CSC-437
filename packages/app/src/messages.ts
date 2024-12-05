@@ -1,4 +1,5 @@
-import { Tournament, Match, Game, User } from "server/models";
+// import { Tournament, Match, Game, User } from "server/models";
+import { User } from "server/models";
 
 export type Msg = 
 | ["user/select", { userId: string }]
@@ -7,8 +8,6 @@ export type Msg =
 | ["teams/select", { teamId: string }]
 | ["players/select", { playerName: string }]
 | ["tournament/select", { tournamentId: string }]
-| ["tournament/save", { tournamentId: string, tournament: Tournament }]
+| ["tournament/match/select", { tournamentName: string }]
 | ["match/select", { matchId: string }]
-| ["match/save", { matchId: string, match: Match }]
-| ["game/select", { gameId: string }]
-| ["game/save", { gameId: string, game: Game }];
+| ["game/select", { gameId: string }];

@@ -12,6 +12,9 @@ import { MatchPage } from "./pages/match";
 import Match from "./services/match-svc"
 import Matches from "./routes/match";
 
+import Game from "./services/game-svc";
+import Games from "./routes/game";
+
 import Champion from "./services/champion-svc"
 import Champions from "./routes/champion";
 
@@ -51,6 +54,7 @@ app.use("/auth", auth);
 app.use("/api/users", authenticateUser, Users);
 app.use("/api/tournaments", Tournaments);
 app.use("/api/matches", Matches);
+app.use("/api/games", Games);
 app.use("/api/champions", Champions);
 app.use("/api/players", Players);
 app.use("/api/teams", Teams);
@@ -84,6 +88,15 @@ app.get("/matches/:matchId", (req: Request, res: Response) => {
   const { matchId } = req.params;
 
   Match.get(matchId).then((data) => {
+    res.set("Content-Type", "text/html")
+      .send(new MatchPage(data).render());
+  });
+});
+
+app.get("/games/:gameId", (req: Request, res: Response) => {
+  const { gameId } = req.params;
+
+  Match.get(gameId).then((data) => {
     res.set("Content-Type", "text/html")
       .send(new MatchPage(data).render());
   });

@@ -1,7 +1,10 @@
 import { Auth, Update } from "@calpoly/mustang";
 import { Msg } from "./messages";
 import { Model } from "./model";
-import { Champion, Team, Player, Tournament, Match, User } from "server/models";
+// import { Champion, Team, Player, Tournament, Match, User } from "server/models";
+import { Champion, Team, Player, Match, User } from "server/models";
+
+import { formatDate } from "../src/utils/dates";
 
 export default function update(message: Msg, apply: Update.ApplyMap<Model>, user: Auth.User) {
     switch (message[0]) {
@@ -26,9 +29,21 @@ export default function update(message: Msg, apply: Update.ApplyMap<Model>, user
             );
             break;
         case "tournament/select":
-            selectTournament(message[1]).then((tournament) =>
-                apply((model) => ({ ...model, tournament }))
-            );
+            // selectTournament(message[1]).then((tournament) =>
+            //     apply((model) => ({ ...model, tournament }))
+            // );
+            selectTournamentWithMatches({ tournamentId: message[1].tournamentId }).then((data) => {
+                if (data) {
+                    const { tournament, matches } = data;
+                    apply((model) => ({
+                        ...model,
+                        tournament, // Add or update tournament data in the model
+                        matches,    // Add or update matches data in the model
+                    }));
+                } else {
+                    console.error("Failed to fetch tournament or matches.");
+                }
+            });
             break;
         case "match/select":
             selectMatch(message[1]).then((match) =>
@@ -41,7 +56,7 @@ export default function update(message: Msg, apply: Update.ApplyMap<Model>, user
     }
 }
 
-function selectChampion(msg: {championName: string}) {
+function selectChampion(msg: { championName: string }) {
     return fetch(`/api/champions/${msg.championName}`)
         .then((response: Response) => {
             if (response.status === 200) {
@@ -57,7 +72,7 @@ function selectChampion(msg: {championName: string}) {
         });
 }
 
-function selectTeam(msg: {teamId: string}) {
+function selectTeam(msg: { teamId: string }) {
     return fetch(`/api/teams/${msg.teamId}`)
         .then((response: Response) => {
             if (response.status === 200) {
@@ -73,7 +88,7 @@ function selectTeam(msg: {teamId: string}) {
         });
 }
 
-function selectPlayer(msg: {playerName: string}) {
+function selectPlayer(msg: { playerName: string }) {
     return fetch(`/api/players/${msg.playerName}`)
         .then((response: Response) => {
             if (response.status === 200) {
@@ -89,24 +104,72 @@ function selectPlayer(msg: {playerName: string}) {
         });
 }
 
-function selectTournament(msg: {tournamentId: string}) {
-    console.log(`/api/tournaments/${msg.tournamentId}`)
+// function selectTournament(msg: { tournamentId: string }) {
+//     // console.log(`/api/tournaments/${msg.tournamentId}`)
+//     return fetch(`/api/tournaments/${msg.tournamentId}`)
+//         .then((response: Response) => {
+//             if (response.status === 200) {
+//                 return response.json();
+//             }
+//             return undefined;
+//         })
+//         .then((json: unknown) => {
+//             if (json) {
+//                 console.log("Profile:", json);
+//                 return json as Tournament;
+//             }
+//         });
+// }
+
+// function selectTournamentMatches(msg: { tournamentName: string }) {
+//     return fetch(`/api/matches?tournamentName=${msg}`)
+//         .then((response: Response) => {
+//             if (response.status === 200) {
+//                 return response.json();
+//             }
+//             return undefined;
+//         })
+//         .then((json: unknown) => {
+//             if (json) {
+//                 console.log("Profile:", json);
+//                 return json as Array<Match>;
+//             }
+//         });
+// }
+
+function selectTournamentWithMatches(msg: { tournamentId: string }) {
     return fetch(`/api/tournaments/${msg.tournamentId}`)
-        .then((response: Response) => {
-            if (response.status === 200) {
-                return response.json();
+        .then((tournamentResponse) => {
+            if (tournamentResponse.status === 200) {
+                return tournamentResponse.json();
             }
-            return undefined;
+            throw new Error("Failed to fetch tournament data");
         })
-        .then((json: unknown) => {
-            if (json) {
-                console.log("Profile:", json);
-                return json as Tournament;
-            }
+        .then((tournament) => {
+            console.log("Tournament:", tournament);
+
+            const { league, split, year } = tournament;
+            const tournamentName = split === "N/A" ? `${league} ${year}` : `${league} ${year} ${split}`;
+
+            return fetch(`/api/matches?tournamentName=${encodeURIComponent(tournamentName)}`)
+                .then((matchesResponse) => {
+                    if (matchesResponse.status === 200) {
+                        return matchesResponse.json();
+                    }
+                    throw new Error("Failed to fetch matches data");
+                })
+                .then((matches) => {
+                    console.log("Matches:", matches);
+                    return { tournament, matches };
+                });
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+            return undefined;
         });
 }
 
-function selectMatch(msg: {matchId: string}) {
+function selectMatch(msg: { matchId: string }) {
     return fetch(`/api/matches/${msg.matchId}`)
         .then((response: Response) => {
             if (response.status === 200) {
@@ -119,6 +182,38 @@ function selectMatch(msg: {matchId: string}) {
                 console.log("Profile:", json);
                 return json as Match;
             }
+        });
+}
+
+function selectMatchWithGames(msg: { matchId: string }) {
+    return fetch(`/api/matches/${msg.matchId}`)
+        .then((matchResponse) => {
+            if (matchResponse.status === 200) {
+                return matchResponse.json();
+            }
+            throw new Error("Failed to fetch tournament data");
+        })
+        .then((match) => {
+            console.log("Match:", match);
+
+            const { teamOne, teamTwo, date } = match;
+            const matchIndex = `${teamOne} vs ${teamTwo} - ${formatDate(date)}`;
+
+            return fetch(`/api/matches?tournamentName=${encodeURIComponent(matchIndex)}`)
+                .then((gamesResponse) => {
+                    if (gamesResponse.status === 200) {
+                        return gamesResponse.json();
+                    }
+                    throw new Error("Failed to fetch matches data");
+                })
+                .then((games) => {
+                    console.log("Games:", games);
+                    return { match, games };
+                });
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+            return undefined;
         });
 }
 

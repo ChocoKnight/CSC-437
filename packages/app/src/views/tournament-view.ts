@@ -2,23 +2,25 @@ import { Auth, Observer, View } from "@calpoly/mustang";
 // import { css, html, LitElement } from "lit";
 import { css, html } from "lit";
 import { property, state } from "lit/decorators.js";
-import { Tournament } from "server/models";
+import { Tournament, Match } from "server/models";
 import { Msg } from "../messages";
 import { Model } from "../model";
 import reset from "../styles/reset.css";
 
-// import { formatDate } from "../utils/dates";
+import { formatDate } from "../utils/dates";
 
 export class TournamentView extends View<Model, Msg> {
     @property({ attribute: "tournament-id", reflect: true })
     tournamentId = "";
 
-    // @state()
-    // tournamentIndex = new Array<Tournament>();
-
     @state()
     get tournament(): Tournament | undefined {
         return this.model.tournament;
+    }
+
+    @state()
+    get match(): Match[] | undefined {
+        return this.model.matches;
     }
 
     _authObserver = new Observer<Auth.Model>(
@@ -34,61 +36,108 @@ export class TournamentView extends View<Model, Msg> {
 
     attributeChangedCallback(name: string, old: string | null, value: string | null) {
         super.attributeChangedCallback(name, old, value);
-        if (name === "tournament-id" && old !== value && value)
+        if (name === "tournament-id" && old !== value && value) {
             this.dispatchMessage(["tournament/select", { tournamentId: value }]);
+
+            // const { league, split, year } = this.tournament || {};
+            // if (split === "N/A") {
+            //     this.tournamentName = `${league} ${year}`;
+            // } else {
+            //     this.tournamentName = `${league} ${year} ${split}`;
+            // }
+
+            // this.dispatchMessage(["tournament/match/select", { tournamentName: this.tournamentName }])
+        }
     }
 
     render() {
         const { league, split, year } = this.tournament || {};
+
+        var matchList = undefined;
+        var numMatches = 0
+        if (this.match === undefined) {
+            matchList = [].map(this.renderItem);
+        } else {
+            this.match.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+            matchList = this.match.map(this.renderItem);
+
+            numMatches = this.match.length
+        }
+
+        var tournamentName: string = "";
+        if (split === "N/A") {
+            tournamentName = `${league} ${year}`;
+        } else {
+            tournamentName = `${league} ${year} ${split}`;
+        }
+
         return html`
         <main class="page">
             <header>
-                <h2>Tournaments</h2>
+                <h2>${tournamentName}</h2>
+            </header>
+            <dl>
+                <div class="row">
+                    <dt>
+                        <h3>Number of Matches</h3>
+                    </dt>
+                    <dd>
+                        ${numMatches}
+                    </dd>
+                </div>
+            </dl>
+            <header>
+                <h2>Match List</h2>
             </header>
             <dl>
                 <div class="row_header">
                     <dt>
                         <h3>
-                            ${this.tournamentId}
+                            Match
                         </h3>
                     </dt>
                     <dd>
                         <h3>
-                            ${league}
+                            Games Played
                         </h3>
                     </dd> 
                     <dd>
                         <h3>
-                            ${split}
+                            Date
                         </h3>
                     </dd> 
                     <dd>
                         <h3>
-                            ${year}
+                            Patch
                         </h3>
                     </dd> 
                 </div>
+                ${matchList}
             </dl>
         </main>  
       `;
     }
 
-    renderItem(tournament: Tournament) {
-        const { league, year, split } = tournament;
-        // const { _id } = match as unknown as { _id: string };
+    renderItem(match: Match) {
+        const { date, teamOne, teamTwo, games, patch } = match;
 
         return html`
             <div class="row">
                 <dt>
-                    ${league} ${split} ${year}
-                </dt>
-                <!-- <dd>
-                    ${split} 
+                    ${teamOne} 
                     vs
-                    ${split}
-                </dd> -->
+                    ${teamTwo}
+                </dt>
                 <dd>
-                    ${year}
+                    ${games.length}
+                </dd>
+                <dd>
+                    <time>
+                        ${formatDate(date)}
+                    </time>
+                </dd>
+                <dd>
+                    ${patch}
                 </dd>
             </div>
           `;

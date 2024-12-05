@@ -388,7 +388,6 @@ const GameSchema = new import_mongoose2.Schema(
     duration: { type: Number, required: true }
   }
 );
-const GameModel = (0, import_mongoose2.model)("Game", GameSchema, "game");
 const MatchSchema = new import_mongoose2.Schema(
   {
     matchId: { type: String, required: true, trim: true },
