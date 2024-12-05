@@ -87,13 +87,13 @@ export class HomeViewElement extends LitElement {
     }
 
     renderItem(match: Match) {
-        const { tournamentName, date, teamOne, teamTwo } = match;
+        const { tournamentName, date, teamOne, teamTwo, _id } = match;
         // const { _id } = match as unknown as { _id: string };
 
         return html`
             <div class="row">
                 <dt>
-                    ${tournamentName}
+                    <a href="/app/tournaments/${_id}">${tournamentName}</a>
                 </dt>
                 <dd>
                     ${teamOne} 
