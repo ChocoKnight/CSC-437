@@ -14,18 +14,20 @@
   <link rel="stylesheet" href="/styles/reset.css" />
   <link rel="stylesheet" href="/styles/page.css" />
   <link rel="stylesheet" href="/styles/tokens.css" />
-  <script type="module" crossorigin src="/assets/index-DS0F0YQe.js"></script>
+  <script type="module" crossorigin src="/assets/index-Di55KHWe.js"></script>
 </head>
 
 <body>
-  <mu-auth provides="lol:auth" redirect="./login.html">
-    <lol-header></lol-header>
-    <main class="page">
-      <lol-app></lol-app>
-    </main>
-  </mu-auth>
+  <mu-history provides="lol:history">
+    <mu-auth provides="lol:auth" redirect="./login.html">
+      <mu-store provides="lol:model">
+        <lol-header></lol-header>
+        <main class="page">
+          <!-- <lol-app></lol-app> -->
+          <mu-switch></mu-switch>
+        </main>
+      </mu-store>
+    </mu-auth>
+  </mu-history>
 </body>
-
-
-
 </html>

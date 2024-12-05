@@ -14,7 +14,7 @@ dl {
     display: grid;
     grid-template-columns: max-content auto auto auto auto auto;
     /* align-items: start; */
-    align-items: center;
+    /* align-items: center; */
 }
 
 dt {
@@ -34,7 +34,7 @@ header {
     color: var(--color-text-important);
     background-color: var(--color-background-header);
     flex-wrap: wrap;
-    align-items: baseline;
+    /* align-items: baseline; */
     justify-content: space-between;
     /* padding: var(--size-spacing-medium); */
     display: flex;
@@ -108,7 +108,7 @@ img {
 .blue_side h4 {
     color: var(--color-blueside-dark);
     border-style: solid;
-    border-bottom: 1;
+    /* border-bottom: 1; */
     border-top: 0;
     border-left: 0;
     border-right: 0;
@@ -126,7 +126,7 @@ img {
 .red_side h4 {
     color: var(--color-redside-dark);
     border-style: solid;
-    border-bottom: 1;
+    /* border-bottom: 1; */
     border-top: 0;
     border-left: 0;
     border-right: 0;
@@ -166,7 +166,7 @@ img {
 
 .dragon {
     width: 20%;
-    align-items: bottom;
+    /* align-items: bottom; */
 }
 
 .game_overview {
