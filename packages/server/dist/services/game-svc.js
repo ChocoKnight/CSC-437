@@ -67,7 +67,7 @@ const GameSchema = new import_mongoose.Schema(
     duration: { type: Number, required: true }
   }
 );
-const GameModel = (0, import_mongoose.model)("Game", GameSchema);
+const GameModel = (0, import_mongoose.model)("Game", GameSchema, "game");
 function index() {
   return GameModel.find();
 }
@@ -79,4 +79,23 @@ function get(gameId) {
     throw `${gameId} Not Found`;
   });
 }
-var game_svc_default = { index, get };
+function create(json) {
+  const t = new GameModel(json);
+  return t.save();
+}
+function update(matchId, match) {
+  return GameModel.findOneAndUpdate({ matchId }, match, {
+    new: true
+  }).then((updated) => {
+    if (!updated) throw `${matchId} not updated`;
+    else return updated;
+  });
+}
+function remove(matchId) {
+  return GameModel.findOneAndDelete({ matchId }).then(
+    (deleted) => {
+      if (!deleted) throw `${matchId} not deleted`;
+    }
+  );
+}
+var game_svc_default = { index, get, create, update, remove };

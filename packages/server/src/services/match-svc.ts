@@ -372,7 +372,7 @@ const GameSchema = new Schema<Game>(
     }
 );
 
-const GameModel = model<Game>("Game", GameSchema, "game");
+// const GameModel = model<Game>("Game", GameSchema, "game");
 
 const MatchSchema = new Schema<Match>(
     {

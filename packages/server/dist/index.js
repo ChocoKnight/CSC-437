@@ -22,11 +22,14 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var import_express = __toESM(require("express"));
+var import_promises = __toESM(require("node:fs/promises"));
+var import_path = __toESM(require("path"));
 var import_auth = require("./pages/auth");
 var import_tournament = __toESM(require("./routes/tournament"));
 var import_match = require("./pages/match");
 var import_match_svc = __toESM(require("./services/match-svc"));
 var import_match2 = __toESM(require("./routes/match"));
+var import_game = __toESM(require("./routes/game"));
 var import_champion = __toESM(require("./routes/champion"));
 var import_team = __toESM(require("./routes/team"));
 var import_player = __toESM(require("./routes/player"));
@@ -45,6 +48,7 @@ app.use("/auth", import_auth2.default);
 app.use("/api/users", import_auth2.authenticateUser, import_user2.default);
 app.use("/api/tournaments", import_tournament.default);
 app.use("/api/matches", import_match2.default);
+app.use("/api/games", import_game.default);
 app.use("/api/champions", import_champion.default);
 app.use("/api/players", import_player.default);
 app.use("/api/teams", import_team.default);
@@ -65,11 +69,23 @@ app.get("/matches/:matchId", (req, res) => {
     res.set("Content-Type", "text/html").send(new import_match.MatchPage(data).render());
   });
 });
+app.get("/games/:gameId", (req, res) => {
+  const { gameId } = req.params;
+  import_match_svc.default.get(gameId).then((data) => {
+    res.set("Content-Type", "text/html").send(new import_match.MatchPage(data).render());
+  });
+});
 app.get("/champions/:championName", (req, res) => {
   const { matchId } = req.params;
   import_match_svc.default.get(matchId).then((data) => {
     res.set("Content-Type", "text/html").send(new import_match.MatchPage(data).render());
   });
+});
+app.use("/app", (req, res) => {
+  const indexHtml = import_path.default.resolve(staticDir, "index.html");
+  import_promises.default.readFile(indexHtml, { encoding: "utf8" }).then(
+    (html) => res.send(html)
+  );
 });
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

@@ -14,7 +14,7 @@ function index(): Promise<Team[]> {
 }
 
 function get(teamId: String): Promise<Team> {
-    return TeamModel.find({ teamId: teamId })
+    return TeamModel.find({ name: teamId })
         .then((list) => {
             // console.log("Query result:", list);
             return list[0];

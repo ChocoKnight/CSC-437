@@ -26,45 +26,45 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-var match_exports = {};
-__export(match_exports, {
-  default: () => match_default
+var game_exports = {};
+__export(game_exports, {
+  default: () => game_default
 });
-module.exports = __toCommonJS(match_exports);
+module.exports = __toCommonJS(game_exports);
 var import_express = __toESM(require("express"));
-var import_match_svc = __toESM(require("../services/match-svc"));
+var import_game_svc = __toESM(require("../services/game-svc"));
 const router = import_express.default.Router();
 router.get("/", (req, res) => {
-  const { tournamentName } = req.query;
+  const { matchId } = req.query;
   console.log("Raw Query Parameters:", req.query);
-  console.log("Tournament Name:", tournamentName);
-  import_match_svc.default.index().then((list) => {
-    const filteredMatches = tournamentName ? list.filter((match) => {
-      return match.tournamentName.trim().toLowerCase() === tournamentName.toString().trim().toLowerCase();
+  console.log("MatchId:", matchId);
+  import_game_svc.default.index().then((list) => {
+    const filteredGames = matchId ? list.filter((game) => {
+      return game.matchId.trim().toLowerCase() === matchId.toString().trim().toLowerCase();
     }) : list;
-    res.json(filteredMatches);
+    res.json(filteredGames);
   }).catch((err) => res.status(500).send(err));
 });
-router.get("/:matchId", (req, res) => {
-  const { matchId } = req.params;
-  console.log(matchId);
+router.get("/:gameId", (req, res) => {
+  const { gameId } = req.params;
+  console.log(gameId);
   console.log(req.params);
-  console.log(matchId);
-  import_match_svc.default.get(matchId).then((match) => res.json(match)).catch((err) => res.status(404).send(err));
+  console.log(gameId);
+  import_game_svc.default.get(gameId).then((game) => res.json(game)).catch((err) => res.status(404).send(err));
 });
 router.post("/", (req, res) => {
-  const newMatch = req.body;
-  import_match_svc.default.create(newMatch).then(
-    (match) => res.status(201).json(match)
+  const newGame = req.body;
+  import_game_svc.default.create(newGame).then(
+    (game) => res.status(201).json(game)
   ).catch((err) => res.status(500).send(err));
 });
-router.put("/:matchId", (req, res) => {
-  const { matchId } = req.params;
-  const newMatch = req.body;
-  import_match_svc.default.update(matchId, newMatch).then((match) => res.json(match)).catch((err) => res.status(404).end());
+router.put("/:gameId", (req, res) => {
+  const { gameId } = req.params;
+  const newGame = req.body;
+  import_game_svc.default.update(gameId, newGame).then((game) => res.json(game)).catch((err) => res.status(404).end());
 });
-router.delete("/:matchId", (req, res) => {
-  const { matchId } = req.params;
-  import_match_svc.default.remove(matchId).then(() => res.status(204).end()).catch((err) => res.status(404).send(err));
+router.delete("/:gameId", (req, res) => {
+  const { gameId } = req.params;
+  import_game_svc.default.remove(gameId).then(() => res.status(204).end()).catch((err) => res.status(404).send(err));
 });
-var match_default = router;
+var game_default = router;

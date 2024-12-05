@@ -49,7 +49,7 @@ const GameSchema = new Schema<Game>(
     }
 );
 
-const GameModel = model<Game>("Game", GameSchema);
+const GameModel = model<Game>("Game", GameSchema, "game");
 
 function index(): Promise<Game[]> {
     return GameModel.find();
@@ -66,4 +66,29 @@ function get(gameId: String): Promise<Game> {
         });
 }
 
-export default { index, get };
+function create(json: Game): Promise<Game> {
+    const t = new GameModel(json);
+    return t.save();
+}
+
+function update(
+    matchId: String,
+    match: Game
+): Promise<Game> {
+    return GameModel.findOneAndUpdate({ matchId }, match, {
+        new: true
+    }).then((updated) => {
+        if (!updated) throw `${matchId} not updated`;
+        else return updated as Game;
+    });
+}
+
+function remove(matchId: String): Promise<void> {
+    return GameModel.findOneAndDelete({ matchId }).then(
+        (deleted) => {
+            if (!deleted) throw `${matchId} not deleted`;
+        }
+    );
+}
+
+export default { index, get, create, update, remove };

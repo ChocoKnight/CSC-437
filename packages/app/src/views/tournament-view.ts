@@ -1,109 +1,137 @@
-import { Auth, Observer } from "@calpoly/mustang";
-import { css, html, LitElement } from "lit";
+import { Auth, Observer, View } from "@calpoly/mustang";
+// import { css, html, LitElement } from "lit";
+import { css, html } from "lit";
 import { property, state } from "lit/decorators.js";
-import { Tournament } from "server/models";
+import { Tournament, Match } from "server/models";
+import { Msg } from "../messages";
+import { Model } from "../model";
 import reset from "../styles/reset.css";
+import headings from "../styles/headings.css";
 
-// import { formatDate } from "../utils/dates";
+import { formatDate } from "../utils/dates";
 
-export class TournamentView extends LitElement {
+export class TournamentView extends View<Model, Msg> {
     @property({ attribute: "tournament-id", reflect: true })
     tournamentId = "";
 
     @state()
-    tournamentIndex = new Array<Tournament>();
+    get tournament(): Tournament | undefined {
+        return this.model.tournament;
+    }
+
+    @state()
+    get match(): Match[] | undefined {
+        return this.model.matches;
+    }
 
     _authObserver = new Observer<Auth.Model>(
         this,
         "lol:auth"
     );
 
-    src = `/api/tournaments/${this.tournamentId}`;
-
     _user = new Auth.User();
 
-    connectedCallback() {
-        super.connectedCallback();
-        this._authObserver.observe(({ user }) => {
-            if (user) {
-                this._user = user;
-            }
-            this.hydrate(this.src);
-        });
+    constructor() {
+        super("lol:model");
     }
 
-    hydrate(url: string) {
-        // fetch(url, {
-        //     headers: Auth.headers(this._user)
-        // })
-        fetch(url)
-            .then((res: Response) => {
-                if (res.status === 200) return res.json();
-                throw `Server responded with status ${res.status}`;
-            })
-            .catch((err) =>
-                console.log("Failed to load match data:", err)
-            )
-            .then((json: unknown) => {
-                if (json) {
-                    console.log("Tournament:", json);
-                    // const { data } = json as { data: Array<Match> };
-                    this.tournamentIndex = json as Array<Tournament>;
-                }
-            })
-            .catch((err) =>
-                console.log("Failed to convert match data:", err)
-            );
+    attributeChangedCallback(name: string, old: string | null, value: string | null) {
+        super.attributeChangedCallback(name, old, value);
+        if (name === "tournament-id" && old !== value && value) {
+            this.dispatchMessage(["tournament/select", { tournamentId: value }]);
+        }
     }
 
     render() {
-        const tournamentList = this.tournamentIndex.map(this.renderItem);
+        const { league, split, year } = this.tournament || {};
+
+        var matchList = undefined;
+        var numMatches = 0
+        if (this.match === undefined) {
+            matchList = [].map(this.renderItem);
+        } else {
+            this.match.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+            matchList = this.match.map(this.renderItem);
+
+            numMatches = this.match.length
+        }
+
+        var tournamentName: string = "";
+        if (split === "N/A") {
+            tournamentName = `${league} ${year}`;
+        } else {
+            tournamentName = `${league} ${year} ${split}`;
+        }
 
         return html`
         <main class="page">
             <header>
-                <h2>Tournaments</h2>
+                <h2>${tournamentName}</h2>
+            </header>
+            <dl>
+                <div class="row">
+                    <dt>
+                        <h3>Number of Matches</h3>
+                    </dt>
+                    <dd>
+                        ${numMatches}
+                    </dd>
+                </div>
+            </dl>
+            <header>
+                <h2>Match List</h2>
             </header>
             <dl>
                 <div class="row_header">
                     <dt>
                         <h3>
-                            ${this.tournamentId}
-                        </h3>
-                    </dt>
-                    <!-- <dd>
-                        <h3>
                             Match
                         </h3>
-                    </dd> -->
+                    </dt>
                     <dd>
                         <h3>
-                            Year
+                            Games Played
                         </h3>
-                    </dd>
+                    </dd> 
+                    <dd>
+                        <h3>
+                            Date
+                        </h3>
+                    </dd> 
+                    <dd>
+                        <h3>
+                            Patch
+                        </h3>
+                    </dd> 
                 </div>
-                <!-- ${tournamentList} -->
+                ${matchList}
             </dl>
-        </main>
+        </main>  
       `;
     }
 
-    renderItem(tournament: Tournament) {
-        const { league, year, split } = tournament;
-        // const { _id } = match as unknown as { _id: string };
+    renderItem(match: Match) {
+        const { date, teamOne, teamTwo, games, patch, _id } = match;
 
         return html`
             <div class="row">
                 <dt>
-                    ${league} ${split} ${year}
+                    <a href="/app/matches/${_id}">
+                        ${teamOne} 
+                        vs
+                        ${teamTwo}
+                    </a> 
                 </dt>
-                <!-- <dd>
-                    ${split} 
-                    vs
-                    ${split}
-                </dd> -->
                 <dd>
-                    ${year}
+                    ${games.length}
+                </dd>
+                <dd>
+                    <time>
+                        ${formatDate(date)}
+                    </time>
+                </dd>
+                <dd>
+                    ${patch}
                 </dd>
             </div>
           `;
@@ -111,6 +139,7 @@ export class TournamentView extends LitElement {
 
     static styles = [
         reset.styles,
+        headings.styles,
         css`
         :host {
             display: grid;

@@ -3,11 +3,12 @@ import { css, html, LitElement } from "lit";
 import { state } from "lit/decorators.js";
 import { Team } from "server/models";
 import reset from "../styles/reset.css";
+import headings from "../styles/headings.css";
 
 // import { formatDate } from "../utils/dates";
 
 export class TeamSearchView extends LitElement {
-    src = "/api/matches";
+    src = "/api/teams";
 
     @state()
     teamIndex = new Array<Team>();
@@ -69,7 +70,7 @@ export class TeamSearchView extends LitElement {
                     </dt>
                     <dd>
                         <h3>
-                            Date
+                            Year
                         </h3>
                     </dd>
                 </div>
@@ -86,7 +87,7 @@ export class TeamSearchView extends LitElement {
         return html`
             <div class="row">
                 <dt>
-                    ${name}
+                    <a href="/app/teams/${name}">${name}</a>
                 </dt>
                 <dd>
                     ${year} 
@@ -97,6 +98,7 @@ export class TeamSearchView extends LitElement {
 
     static styles = [
         reset.styles,
+        headings.styles,
         css`
         :host {
             display: grid;

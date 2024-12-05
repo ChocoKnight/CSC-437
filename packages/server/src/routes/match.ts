@@ -4,9 +4,29 @@ import Matches from "../services/match-svc";
 
 const router = express.Router();
 
-router.get("/", (_, res: Response) => {
+router.get("/", (req: Request, res: Response) => {
+    const { tournamentName } = req.query;
+
+    console.log("Raw Query Parameters:", req.query);
+    console.log("Tournament Name:", tournamentName);
+
     Matches.index()
-        .then((list: Match[]) => res.json(list))
+        .then((list: Match[]) => {
+            // console.log("Matches Data:", list);
+            // if (tournamentName) {
+                const filteredMatches = tournamentName
+                ? list.filter(match => {
+                    // console.log("Comparing:", `"${match.tournamentName.trim()}"`, "with", `"${tournamentName.toString().trim()}"`);
+                    // console.log( match.tournamentName.trim().toLowerCase() === tournamentName.toString().trim().toLowerCase());
+                    return match.tournamentName.trim().toLowerCase() === tournamentName.toString().trim().toLowerCase();
+                })
+                : list;
+
+                res.json(filteredMatches)
+            // } else {
+            //     res.json(list)
+            // }
+        })
         .catch((err) => res.status(500).send(err));
 });
 
