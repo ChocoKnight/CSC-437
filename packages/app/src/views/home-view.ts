@@ -3,6 +3,7 @@ import { css, html, LitElement } from "lit";
 import { state } from "lit/decorators.js";
 import { Match } from "server/models";
 import reset from "../styles/reset.css";
+import headings from "../styles/headings.css";
 
 import { formatDate } from "../utils/dates";
 
@@ -111,6 +112,7 @@ export class HomeViewElement extends LitElement {
 
     static styles = [
         reset.styles,
+        headings.styles,
         css`
         :host {
             display: grid;
