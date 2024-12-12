@@ -1,5 +1,5 @@
 import { Auth, Observer, View } from "@calpoly/mustang";
-import { css, html, LitElement } from "lit";
+import { html } from "lit";
 import { property, state } from "lit/decorators.js";
 import { User } from "server/models";
 import reset from "../styles/reset.css";
