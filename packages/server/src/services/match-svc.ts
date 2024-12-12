@@ -378,6 +378,7 @@ const MatchSchema = new Schema<Match>(
     {
         matchId: { type: String, required: true, trim: true },
         tournamentName: { type: String, required: true, trim: true },
+        patch: { type: String, required: true, trim: true },
         date: { type: Date, required: true },
         teamOne: { type: String, required: true, trim: true },
         teamTwo: { type: String, required: true, trim: true },

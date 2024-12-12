@@ -70,7 +70,22 @@ export class TeamSearchView extends LitElement {
                     </dt>
                     <dd>
                         <h3>
-                            Year
+                            Season
+                        </h3>
+                    </dd>
+                    <dd>
+                        <h3>
+                            Win Rate 
+                        </h3>
+                    </dd>
+                    <dd>
+                        <h3>
+                            Average Game Duration 
+                        </h3>
+                    </dd>
+                    <dd>
+                        <h3>
+                            Gold at 15 
                         </h3>
                     </dd>
                 </div>

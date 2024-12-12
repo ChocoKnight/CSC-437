@@ -74,17 +74,37 @@ export class PlayerSearchView extends LitElement {
                     </dd>
                     <dd>
                         <h3>
-                            Average Duration
+                            Win Rate 
                         </h3>
                     </dd>
                     <dd>
                         <h3>
-                            First Game
+                            KDA
                         </h3>
                     </dd>
                     <dd>
                         <h3>
-                            Last Game
+                            Average Kills
+                        </h3>
+                    </dd>
+                    <dd>
+                        <h3>
+                            Average Deaths
+                        </h3>
+                    </dd>
+                    <dd>
+                        <h3>
+                            Average Assists
+                        </h3>
+                    </dd>
+                    <dd>
+                        <h3>
+                            KP%
+                        </h3>
+                    </dd>
+                    <dd>
+                        <h3>
+                            Damage %
                         </h3>
                     </dd>
                 </div>

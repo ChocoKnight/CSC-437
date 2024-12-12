@@ -34,12 +34,13 @@ export class LensOfLegendsHeaderElement extends LitElement {
 
                     <menu>
                         <li class="when-signed-out">
-                            <a href="/app/login">Sign In</a>
+                            <a href="/login">Sign In</a>
                         </li>
 
                         <li class="when-signed-in">
-                            <a href="/app/users/">Profile</a>
+                            <a href="/app/users/T1_Fan">Profile</a>
                         </li>
+
                         <li class="when-signed-in">
                             <a id="signout" @click=${signOut}>Sign Out</a>
                         </li>
