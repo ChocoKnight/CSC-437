@@ -422,7 +422,7 @@ function create(json) {
   return t.save();
 }
 function update(matchId, match2) {
-  return MatchModel.findOneAndUpdate({ matchId }, match2, {
+  return MatchModel.findOneAndUpdate({ _id: matchId }, match2, {
     new: true
   }).then((updated) => {
     if (!updated) throw `${matchId} not updated`;

@@ -92,7 +92,7 @@ function saveMatch(
         match: Match;}
     ){
     return fetch(`/api/matches/${msg.matchId}`, {
-      method: "PUT",
+      method: "POST",
       body: JSON.stringify(msg.match)
     })
       .then((response: Response) => {

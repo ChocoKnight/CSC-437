@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Schema, model } from "mongoose";
+import { Schema, Types, model } from "mongoose";
 import { Match, Game, Objectives, PickBan } from "../models";
 
 const match = {
@@ -420,7 +420,7 @@ function update(
     matchId: String,
     match: Match
 ): Promise<Match> {
-    return MatchModel.findOneAndUpdate({ matchId }, match, {
+    return MatchModel.findOneAndUpdate({ _id: matchId }, match, {
         new: true
     }).then((updated) => {
         if (!updated) throw `${matchId} not updated`;
