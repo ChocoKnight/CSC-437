@@ -5,7 +5,7 @@ export interface Match {
     date: Date;
     teamOne: string;
     teamTwo: string;
-    patch: number;
+    patch: string;
     games: Array<Game>;
 }
 

@@ -70,7 +70,37 @@ export class ChampionSearchView extends LitElement {
                     </dt>
                     <dd>
                         <h3>
-                            Number of Games
+                            Picks
+                        </h3>
+                    </dd>
+                    <dd>
+                        <h3>
+                            Bans
+                        </h3>
+                    </dd>
+                    <dd>
+                        <h3>
+                            Presence
+                        </h3>
+                    </dd>
+                    <dd>
+                        <h3>
+                            Win Rate
+                        </h3>
+                    </dd>
+                    <dd>
+                        <h3>
+                            KDA
+                        </h3>
+                    </dd>
+                    <dd>
+                        <h3>
+                            Average Game Time
+                        </h3>
+                    </dd>
+                    <dd>
+                        <h3>
+                            Gold at 15
                         </h3>
                     </dd>
                 </div>

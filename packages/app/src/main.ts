@@ -11,9 +11,15 @@ import { ChampionSearchView } from "./views/champion-search-view";
 import { TeamSearchView } from "./views/team-search-view";
 // import { TeamView } from "./views/team-view";
 import { PlayerSearchView } from "./views/player-serach-view";
-import { MatchView } from "./views/match-view";
+import { MatchView, MatchEdit } from "./views/match-view";
 
 const routes = [
+    {
+        path: "/app/matches/edit/:id",
+        view: (params: Switch.Params) => html`
+        <match-edit match-id=${params.id}></match-edit>
+        `
+    },
     {
         path: "/app/matches/:id",
         view: (params: Switch.Params) => html`
@@ -133,4 +139,5 @@ define({
     // "team-view": TeamView,
     "player-search-view": PlayerSearchView,
     "match-view": MatchView,
+    "match-edit": MatchEdit,
 });

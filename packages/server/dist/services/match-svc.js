@@ -392,6 +392,7 @@ const MatchSchema = new import_mongoose2.Schema(
   {
     matchId: { type: String, required: true, trim: true },
     tournamentName: { type: String, required: true, trim: true },
+    patch: { type: String, required: true, trim: true },
     date: { type: Date, required: true },
     teamOne: { type: String, required: true, trim: true },
     teamTwo: { type: String, required: true, trim: true },
@@ -421,7 +422,7 @@ function create(json) {
   return t.save();
 }
 function update(matchId, match2) {
-  return MatchModel.findOneAndUpdate({ matchId }, match2, {
+  return MatchModel.findOneAndUpdate({ _id: matchId }, match2, {
     new: true
   }).then((updated) => {
     if (!updated) throw `${matchId} not updated`;

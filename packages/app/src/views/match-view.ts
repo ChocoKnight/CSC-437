@@ -1,5 +1,4 @@
-// import { define, View } from "@calpoly/mustang";
-import { View } from "@calpoly/mustang";
+import { define, Form, View, History } from "@calpoly/mustang";
 import { css, html } from "lit";
 import { property, state } from "lit/decorators.js";
 import { Match, Game, Objectives } from "server/models";
@@ -70,6 +69,9 @@ export class MatchView extends View<Model, Msg> {
             <div>
                 <span>${formatDate(date)}</span>
             </div>
+            <div>
+                <a href="/app/matches/edit/${this.matchId}">Edit</a>
+            </div>
             ${gameList}
         </main>  
     `;
@@ -110,7 +112,7 @@ export class MatchView extends View<Model, Msg> {
             <span>${teamOneWins} - ${gamesPlayed - teamOneWins}</span>
             `;
         } else {
-            return html`0 - 0`; 
+            return html`0 - 0`;
         }
     }
 
@@ -392,8 +394,8 @@ export class MatchView extends View<Model, Msg> {
         }
 
         .grayscale {
-            filter: grayscale(50%) !important;
-            transition: filter 0.3s ease;
+            filter: grayscale(80%) !important;
+            /* transition: filter 0.3s ease; */
         }
 
         h2 {
@@ -410,4 +412,64 @@ export class MatchView extends View<Model, Msg> {
         }
         `
     ];
+}
+
+export class MatchEdit extends View<Model, Msg> {
+    static uses = define({
+        "mu-form": Form.Element,
+    });
+
+    @property({ attribute: "match-id", reflect: true })
+    matchId = "";
+
+    @state()
+    get match(): Match | undefined {
+        return this.model.match;
+    }
+
+    constructor() {
+        super("lol:model");
+    }
+
+    render() {
+        return html`
+          <main class="page">
+                <mu-form
+                    .init=${this.match}
+                    @mu-form:submit=${this._handleSubmit}>
+                    <label>
+                        <span>Team One</span>
+                        <input name="teamOne" />
+                    </label>
+                    <label>
+                        <span>Team Two</span>
+                        <input name="teamTwo" />
+                    </label>
+                    <label>
+                        <span>patch</span>
+                        <input name="patch" />
+                    </label>
+                    <label>
+                        <span>date</span>
+                        <input name="date" />
+                    </label>
+                </mu-form>
+          </main>`;
+    }
+
+    _handleSubmit(event: Form.SubmitEvent<Match>) {
+        this.dispatchMessage([
+            "match/save",
+            {
+                matchId: this.matchId,
+                match: event.detail,
+                onSuccess: () =>
+                    History.dispatch(this, "history/navigate", {
+                        href: `/app/matches/${this.matchId} `
+                    }),
+                onFailure: (error: Error) =>
+                    console.log("ERROR:", error)
+            }
+        ]);
+    }
 }

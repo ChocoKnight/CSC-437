@@ -61,7 +61,10 @@ router.post("/", (req, res) => {
 router.put("/:matchId", (req, res) => {
   const { matchId } = req.params;
   const newMatch = req.body;
-  import_match_svc.default.update(matchId, newMatch).then((match) => res.json(match)).catch((err) => res.status(404).end());
+  import_match_svc.default.update(matchId, newMatch).then((match) => res.json(match)).catch((err) => {
+    console.log(err);
+    res.status(404).end();
+  });
 });
 router.delete("/:matchId", (req, res) => {
   const { matchId } = req.params;

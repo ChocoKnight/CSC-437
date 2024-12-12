@@ -97,9 +97,9 @@ export class HomeViewElement extends LitElement {
                     <a href="/app/tournaments/${_id}">${tournamentName}</a>
                 </dt>
                 <dd>
-                    ${teamOne} 
+                    <a href="/app/teams/${_id}">${teamOne} </a>
                     vs
-                    ${teamTwo}
+                    <a href="/app/teams/${_id}">${teamTwo} </a>
                 </dd>
                 <dd>
                 <time>

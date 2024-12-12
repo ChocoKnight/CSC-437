@@ -66,11 +66,49 @@ export default function update(message: Msg, apply: Update.ApplyMap<Model>, user
                 }
             });
             break;
+        case "match/save":
+                saveMatch({ matchId: message[1].matchId, match: message[1].match })
+                  .then((match) =>
+                    apply((model) => ({ ...model, match }))
+                  )
+                  .then(() => {
+                    const { onSuccess } = message[1];
+                    if (onSuccess) onSuccess();
+                  })
+                  .catch((error: Error) => {
+                    const { onFailure } = message[1];
+                    if (onFailure) onFailure(error);
+                  });
+                break;
         default:
             const unhandled: string = message[0];
             throw new Error(`Unhandled Auth message "${unhandled}"`);
     }
 }
+
+function saveMatch(
+    msg: {
+        matchId: string; 
+        match: Match;}
+    ){
+    return fetch(`/api/matches/${msg.matchId}`, {
+      method: "PUT",
+      body: JSON.stringify(msg.match)
+    })
+      .then((response: Response) => {
+        console.log(JSON.stringify(msg.match))
+        console.log(response)
+        if (response.status === 200) return response.json();
+        else
+          throw new Error(
+            `Failed to save match for ${msg.matchId}`
+          );
+      })
+      .then((json: unknown) => {
+        if (json) return json as Match;
+        return undefined;
+      });
+  }
 
 function selectChampion(msg: { championName: string }) {
     return fetch(`/api/champions/${msg.championName}`)
