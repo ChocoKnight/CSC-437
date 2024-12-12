@@ -68,8 +68,8 @@ export default function update(message: Msg, apply: Update.ApplyMap<Model>, user
             break;
         case "match/save":
                 saveMatch({ matchId: message[1].matchId, match: message[1].match })
-                  .then((profile) =>
-                    apply((model) => ({ ...model, profile }))
+                  .then((match) =>
+                    apply((model) => ({ ...model, match }))
                   )
                   .then(() => {
                     const { onSuccess } = message[1];
@@ -92,11 +92,12 @@ function saveMatch(
         match: Match;}
     ){
     return fetch(`/api/matches/${msg.matchId}`, {
-      method: "POST",
+      method: "PUT",
       body: JSON.stringify(msg.match)
     })
       .then((response: Response) => {
         console.log(JSON.stringify(msg.match))
+        console.log(response)
         if (response.status === 200) return response.json();
         else
           throw new Error(

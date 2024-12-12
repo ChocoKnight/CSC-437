@@ -1,4 +1,4 @@
-import { define, Form, InputArray, View, History } from "@calpoly/mustang";
+import { define, Form, View, History } from "@calpoly/mustang";
 import { css, html } from "lit";
 import { property, state } from "lit/decorators.js";
 import { Match, Game, Objectives } from "server/models";
@@ -417,7 +417,6 @@ export class MatchView extends View<Model, Msg> {
 export class MatchEdit extends View<Model, Msg> {
     static uses = define({
         "mu-form": Form.Element,
-        "input-array": InputArray.Element
     });
 
     @property({ attribute: "match-id", reflect: true })
@@ -466,7 +465,7 @@ export class MatchEdit extends View<Model, Msg> {
                 match: event.detail,
                 onSuccess: () =>
                     History.dispatch(this, "history/navigate", {
-                        href: `/ app / match / ${this.matchId} `
+                        href: `/app/matches/${this.matchId} `
                     }),
                 onFailure: (error: Error) =>
                     console.log("ERROR:", error)

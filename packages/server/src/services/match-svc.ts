@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Schema, Types, model } from "mongoose";
+import { Schema, model } from "mongoose";
 import { Match, Game, Objectives, PickBan } from "../models";
 
 const match = {
